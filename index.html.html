@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌴 Recife 2027 — Planejamento</title>
+  <!-- Font Awesome (ícones) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f2f5f9;
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+      color: #1e2b3c;
+      padding: 24px 16px 60px;
+      line-height: 1.5;
+    }
+
+    .page {
+      max-width: 1024px;
+      margin: 0 auto;
+    }
+
+    /* ===== Cabeçalho aprimorado ===== */
+    .hero {
+      background: linear-gradient(145deg, #0f6f8f, #094c63);
+      color: white;
+      border-radius: 28px;
+      padding: 32px 28px;
+      box-shadow: 0 12px 24px -8px rgba(9, 76, 99, 0.25);
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::after {
+      content: "✈️";
+      position: absolute;
+      right: 16px;
+      bottom: 8px;
+      font-size: 72px;
+      opacity: 0.10;
+      pointer-events: none;
+    }
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .hero h1 i {
+      font-size: 2rem;
+      color: #ffd966;
+    }
+    .hero p {
+      margin-top: 6px;
+      opacity: 0.85;
+      font-size: 1.05rem;
+      font-weight: 400;
+    }
+    .hero .datas {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 18px;
+      background: rgba(255, 255, 255, 0.16);
+      backdrop-filter: blur(4px);
+      padding: 8px 22px 8px 18px;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .hero .datas i {
+      font-size: 1.1rem;
+    }
+
+    /* ===== Abas ===== */
+    .nav-abas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      background: white;
+      border-radius: 60px;
+      padding: 8px 10px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+      margin-bottom: 28px;
+      position: sticky;
+      top: 12px;
+      z-index: 30;
+      backdrop-filter: blur(6px);
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+    .aba-btn {
+      flex: 1 1 auto;
+      min-width: 100px;
+      border: none;
+      background: transparent;
+      color: #1e3b4f;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 12px 14px;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+    .aba-btn i {
+      font-size: 1.1rem;
+    }
+    .aba-btn:hover {
+      background: #e5eef5;
+      color: #094c63;
+    }
+    .aba-btn.ativa {
+      background: #0f6f8f;
+      color: white;
+      box-shadow: 0 4px 10px rgba(15, 111, 143, 0.25);
+    }
+    .aba-btn:focus-visible {
+      outline: 3px solid #094c63;
+      outline-offset: 2px;
+    }
+
+    /* ===== Painéis ===== */
+    .painel {
+      display: none;
+      animation: fadeUp 0.3s ease;
+    }
+    .painel.ativo {
+      display: block;
+    }
+    @keyframes fadeUp {
+      0% { opacity: 0; transform: translateY(10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .card {
+      background: white;
+      border-radius: 24px;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.04);
+      overflow: hidden;
+      margin-bottom: 24px;
+      border: 1px solid #e7edf2;
+      transition: box-shadow 0.2s;
+    }
+    .card-topo {
+      background: #0f6f8f;
+      color: white;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .card-topo h2 {
+      margin: 0;
+      font-size: 1.3rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .card-topo h2 i {
+      font-size: 1.5rem;
+    }
+    .card-topo p {
+      margin: 0 0 0 auto;
+      font-size: 0.9rem;
+      opacity: 0.8;
+      font-weight: 400;
+    }
+    .card-corpo {
+      padding: 24px 26px;
+    }
+
+    h3.secao {
+      color: #094c63;
+      border-bottom: 3px solid #d7e6ef;
+      padding-bottom: 8px;
+      margin: 0 0 18px 0;
+      font-size: 1.1rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    h3.secao i {
+      color: #0f6f8f;
+      font-size: 1.2rem;
+      width: 28px;
+    }
+
+    /* ===== Tabelas ===== */
+    .table-wrap {
+      overflow-x: auto;
+      margin-bottom: 6px;
+      border-radius: 14px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+    th {
+      text-align: left;
+      padding: 14px 12px;
+      background: #eef4f8;
+      color: #1e3b4f;
+      font-weight: 600;
+    }
+    td {
+      padding: 12px 12px;
+      border-bottom: 1px solid #ecf1f5;
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+    .valor {
+      text-align: right;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    .subtotal td {
+      background: #dcecf5;
+      font-weight: 700;
+      color: #094c63;
+      border-bottom: 2px solid #b5cedc;
+    }
+    .subtotal td:last-child {
+      font-size: 1.05rem;
+    }
+
+    /* ===== Resumo ===== */
+    .resumo-box {
+      background: linear-gradient(135deg, #0f6f8f, #094c63);
+      color: white;
+      padding: 20px 24px;
+      border-radius: 18px;
+      margin-top: 24px;
+    }
+    .resumo-box h3 {
+      margin-top: 0;
+      border: none;
+      color: white;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.2rem;
+    }
+    .resumo-box table td {
+      background: transparent !important;
+      color: white;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .resumo-box table tr:last-child td {
+      border-bottom: none;
+    }
+    .resumo-box .total-linha td {
+      font-size: 1.6rem;
+      font-weight: 700;
+      padding-top: 16px;
+      border-top: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .nota {
+      margin-top: 18px;
+      font-size: 0.85rem;
+      color: #4f6379;
+      background: #f4f8fb;
+      padding: 12px 16px;
+      border-radius: 12px;
+    }
+
+    /* ===== Toggle custos ===== */
+    .toggle-custos {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 28px;
+      background: #f0f5f9;
+      padding: 6px;
+      border-radius: 60px;
+    }
+    .toggle-btn {
+      flex: 1;
+      padding: 12px 10px;
+      border: none;
+      background: transparent;
+      border-radius: 40px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: 0.2s ease;
+      color: #1e3b4f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .toggle-btn i {
+      font-size: 1.1rem;
+    }
+    .toggle-btn.selecionado {
+      background: #0f6f8f;
+      color: white;
+      box-shadow: 0 4px 12px rgba(15, 111, 143, 0.2);
+    }
+    .bloco-custo {
+      display: none;
+    }
+    .bloco-custo.visivel {
+      display: block;
+    }
+
+    /* ===== Checklist ===== */
+    .item-check {
+      background: #f8fbfd;
+      border-left: 6px solid #0f6f8f;
+      border-radius: 16px;
+      padding: 16px 20px 16px 18px;
+      margin-bottom: 14px;
+      cursor: pointer;
+      transition: 0.2s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    }
+    .item-check:hover {
+      background: #eef6fb;
+      transform: scale(1.005);
+    }
+    .item-check.concluido {
+      opacity: 0.6;
+      border-left-color: #7ba9c2;
+    }
+    .item-check.concluido .item-titulo {
+      text-decoration: line-through;
+    }
+    .item-titulo {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #094c63;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .caixa {
+      width: 24px;
+      height: 24px;
+      border: 2px solid #0f6f8f;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: white;
+      flex-shrink: 0;
+      transition: 0.15s;
+    }
+    .item-check.concluido .caixa {
+      background: #0f6f8f;
+      border-color: #0f6f8f;
+    }
+    .item-desc {
+      margin: 10px 0 0 38px;
+      color: #2f4358;
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .progresso-wrap {
+      background: #e2ecf3;
+      border-radius: 40px;
+      height: 10px;
+      overflow: hidden;
+      margin: 16px 0 24px;
+    }
+    .progresso-barra {
+      background: #0f6f8f;
+      height: 100%;
+      width: 0%;
+      border-radius: 40px;
+      transition: width 0.4s ease;
+    }
+    .progresso-texto {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #1e3b4f;
+      margin-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .objetivo-box {
+      background: linear-gradient(145deg, #0f6f8f, #094c63);
+      color: white;
+      padding: 20px 24px;
+      border-radius: 18px;
+      margin-top: 24px;
+    }
+    .objetivo-box h3 {
+      margin: 0 0 8px 0;
+      border: none;
+      color: white;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .objetivo-box p {
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    /* ===== Informações ===== */
+    .info-box {
+      background: #e9f2f8;
+      border-left: 6px solid #0f6f8f;
+      border-radius: 16px;
+      padding: 20px 22px;
+      margin-bottom: 20px;
+    }
+    .info-box h3 {
+      margin: 0 0 10px 0;
+      border: none;
+      padding: 0;
+      color: #094c63;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .info-box p {
+      margin: 0;
+      line-height: 1.7;
+    }
+
+    .aviso {
+      background: #fef7e9;
+      border-left: 6px solid #f5b342;
+      border-radius: 16px;
+      padding: 20px 22px;
+      margin-top: 8px;
+    }
+    .aviso h3 {
+      margin: 0 0 12px 0;
+      color: #b87a1a;
+      border: none;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .aviso p {
+      margin: 0 0 10px 0;
+      line-height: 1.7;
+    }
+    .aviso p:last-child { margin-bottom: 0; }
+
+    /* ===== Responsivo ===== */
+    @media (max-width: 720px) {
+      body { padding: 16px 12px 40px; }
+      .hero { padding: 24px 20px; }
+      .hero h1 { font-size: 1.6rem; }
+      .hero::after { font-size: 48px; right: 8px; bottom: 4px; }
+      .hero .datas { font-size: 0.8rem; padding: 6px 14px; }
+      .nav-abas {
+        border-radius: 40px;
+        padding: 6px 8px;
+        gap: 4px;
+        background: rgba(255, 255, 255, 0.92);
+      }
+      .aba-btn {
+        min-width: 60px;
+        font-size: 0.75rem;
+        padding: 10px 8px;
+        gap: 4px;
+      }
+      .aba-btn i { font-size: 0.9rem; }
+      .card-topo { padding: 16px 18px; flex-direction: column; align-items: flex-start; }
+      .card-topo p { margin-left: 0; }
+      .card-corpo { padding: 18px 16px; }
+      table { font-size: 0.85rem; }
+      th, td { padding: 10px 8px; }
+      .resumo-box .total-linha td { font-size: 1.3rem; }
+      .toggle-btn { font-size: 0.8rem; padding: 10px 6px; }
+      .item-titulo { font-size: 0.95rem; }
+      .item-desc { margin-left: 32px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 1.3rem; }
+      .aba-btn { font-size: 0.7rem; padding: 8px 4px; min-width: 44px; }
+      .card-topo h2 { font-size: 1rem; }
+      .card-corpo { padding: 14px 12px; }
+      .resumo-box { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- Cabeçalho -->
+  <header class="hero">
+    <h1><i class="fas fa-map-pin"></i> Recife 2027</h1>
+    <p>Planejamento completo · 12 dias especiais</p>
+    <div class="datas">
+      <i class="fas fa-calendar-alt"></i> 16/01/2027 – 27/01/2027
+      <span style="opacity:0.6; margin:0 4px;">|</span>
+      <i class="fas fa-clock"></i> 11 noites
+    </div>
+  </header>
+
+  <!-- Navegação -->
+  <nav class="nav-abas" aria-label="Planejamento">
+    <button class="aba-btn ativa" data-alvo="cronograma"><i class="fas fa-calendar-check"></i> Cronograma</button>
+    <button class="aba-btn" data-alvo="custos"><i class="fas fa-coins"></i> Custos</button>
+    <button class="aba-btn" data-alvo="checklist"><i class="fas fa-clipboard-list"></i> Checklist</button>
+    <button class="aba-btn" data-alvo="info"><i class="fas fa-circle-info"></i> Info</button>
+  </nav>
+
+  <!-- ========= CRONOGRAMA ========= -->
+  <section id="cronograma" class="painel ativo">
+    <div class="card">
+      <div class="card-topo">
+        <h2><i class="fas fa-calendar-day"></i> Cronograma</h2>
+        <p>Período e voos</p>
+      </div>
+      <div class="card-corpo">
+        <h3 class="secao"><i class="fas fa-route"></i> Etapas da viagem</h3>
+        <div class="table-wrap">
+          <table>
+            <tr><th>Etapa</th><th class="valor">Período</th></tr>
+            <tr><td><i class="fas fa-users" style="margin-right:8px;color:#0f6f8f;"></i> Atividades principais</td><td class="valor"><strong>16/01 – 24/01/2027</strong></td></tr>
+            <tr><td><i class="fas fa-ship" style="margin-right:8px;color:#0f6f8f;"></i> Passeio pós-atividades</td><td class="valor"><strong>25/01 – 27/01/2027</strong></td></tr>
+          </table>
+        </div>
+
+        <h3 class="secao" style="margin-top:26px;"><i class="fas fa-plane-departure"></i> Voos</h3>
+        <div class="table-wrap">
+          <table>
+            <tr><th>Trecho</th><th class="valor">Data</th></tr>
+            <tr><td><i class="fas fa-arrow-right" style="margin-right:6px;color:#0f6f8f;"></i> Ida (Vitória → Recife)</td><td class="valor"><strong>16/01/2027</strong></td></tr>
+            <tr><td><i class="fas fa-arrow-left" style="margin-right:6px;color:#0f6f8f;"></i> Volta (Recife → Vitória)</td><td class="valor"><strong>27/01/2027</strong></td></tr>
+          </table>
+        </div>
+
+        <div class="resumo-box">
+          <h3><i class="fas fa-hourglass-half"></i> Resumo</h3>
+          <table>
+            <tr><td>Período completo</td><td class="valor"><strong>16/01 – 27/01/2027</strong></td></tr>
+            <tr><td>Duração total</td><td class="valor"><strong>12 dias · 11 noites</strong></td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========= CUSTOS ========= -->
+  <section id="custos" class="painel">
+    <div class="card">
+      <div class="card-topo">
+        <h2><i class="fas fa-wallet"></i> Previsão de custos</h2>
+        <p>Recife · 16 a 27/01/2027</p>
+      </div>
+      <div class="card-corpo">
+
+        <div class="toggle-custos">
+          <button class="toggle-btn selecionado" data-custo="individual"><i class="fas fa-user"></i> Por pessoa</button>
+          <button class="toggle-btn" data-custo="casal"><i class="fas fa-user-friends"></i> Casal</button>
+        </div>
+
+        <!-- Individual -->
+        <div class="bloco-custo visivel" id="custo-individual">
+          <h3 class="secao"><i class="fas fa-plane"></i> Passagem aérea</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Trecho</th><th class="valor">Valor</th></tr>
+              <tr><td>Vitória ⇄ Recife (ida/volta)</td><td class="valor"><strong>R$ 1.500,00</strong></td></tr>
+            </table>
+          </div>
+
+          <h3 class="secao" style="margin-top:24px;"><i class="fas fa-hotel"></i> Hospedagem & alimentação</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Item</th><th class="valor">Valor</th></tr>
+              <tr><td>Hotel (11 diárias)</td><td class="valor">R$ 2.200,00</td></tr>
+              <tr><td>Almoço (12 dias)</td><td class="valor">R$ 840,00</td></tr>
+              <tr><td>Jantar (12 dias)</td><td class="valor">R$ 1.200,00</td></tr>
+              <tr><td>Lanches</td><td class="valor">R$ 540,00</td></tr>
+              <tr><td>Passeios</td><td class="valor">R$ 1.000,00</td></tr>
+              <tr><td>Compras</td><td class="valor">R$ 500,00</td></tr>
+              <tr><td>Reserva imprevistos</td><td class="valor">R$ 1.000,00</td></tr>
+              <tr class="subtotal"><td>Subtotal</td><td class="valor">R$ 7.280,00</td></tr>
+            </table>
+          </div>
+
+          <h3 class="secao" style="margin-top:24px;"><i class="fas fa-car"></i> Aluguel de carro</h3>
+          <p style="font-size:0.9rem; color:#3b5a72; margin:-6px 0 12px 0;"><i class="fas fa-users"></i> Dividido entre 4 pessoas</p>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Item</th><th class="valor">Valor</th></tr>
+              <tr><td>Aluguel do carro</td><td class="valor">R$ 540,00</td></tr>
+              <tr><td>Combustível</td><td class="valor">R$ 150,00</td></tr>
+              <tr><td>Pedágios</td><td class="valor">R$ 20,00</td></tr>
+              <tr><td>Estacionamentos</td><td class="valor">R$ 7,50</td></tr>
+              <tr class="subtotal"><td>Subtotal</td><td class="valor">R$ 717,50</td></tr>
+            </table>
+          </div>
+
+          <div class="resumo-box">
+            <h3><i class="fas fa-calculator"></i> Total por pessoa</h3>
+            <table>
+              <tr><td>Passagem aérea</td><td class="valor">R$ 1.500,00</td></tr>
+              <tr><td>Hospedagem + alimentação</td><td class="valor">R$ 7.280,00</td></tr>
+              <tr><td>Aluguel de carro</td><td class="valor">R$ 717,50</td></tr>
+              <tr class="total-linha"><td><strong>TOTAL</strong></td><td class="valor"><strong>R$ 9.497,50</strong></td></tr>
+            </table>
+          </div>
+          <p class="nota"><i class="fas fa-info-circle" style="margin-right:6px;"></i> Valores aproximados. Aluguel do carro dividido entre 4 ocupantes.</p>
+        </div>
+
+        <!-- Casal -->
+        <div class="bloco-custo" id="custo-casal">
+          <h3 class="secao"><i class="fas fa-plane"></i> Passagem aérea (2 pessoas)</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Trecho</th><th class="valor">Valor</th></tr>
+              <tr><td>Vitória ⇄ Recife (2 passagens)</td><td class="valor"><strong>R$ 3.000,00</strong></td></tr>
+            </table>
+          </div>
+
+          <h3 class="secao" style="margin-top:24px;"><i class="fas fa-hotel"></i> Hospedagem & alimentação</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Item</th><th class="valor">Valor</th></tr>
+              <tr><td>Hotel (11 diárias)</td><td class="valor">R$ 2.200,00</td></tr>
+              <tr><td>Almoços (12 dias)</td><td class="valor">R$ 1.680,00</td></tr>
+              <tr><td>Jantares (12 dias)</td><td class="valor">R$ 2.400,00</td></tr>
+              <tr><td>Lanches</td><td class="valor">R$ 1.080,00</td></tr>
+              <tr><td>Passeios</td><td class="valor">R$ 2.000,00</td></tr>
+              <tr><td>Compras</td><td class="valor">R$ 500,00</td></tr>
+              <tr><td>Reserva imprevistos</td><td class="valor">R$ 500,00</td></tr>
+              <tr class="subtotal"><td>Subtotal</td><td class="valor">R$ 10.360,00</td></tr>
+            </table>
+          </div>
+
+          <h3 class="secao" style="margin-top:24px;"><i class="fas fa-car"></i> Aluguel de carro</h3>
+          <p style="font-size:0.9rem; color:#3b5a72; margin:-6px 0 12px 0;"><i class="fas fa-users"></i> Dividido entre 4 pessoas</p>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Item</th><th class="valor">Valor</th></tr>
+              <tr><td>Aluguel do carro</td><td class="valor">R$ 1.080,00</td></tr>
+              <tr><td>Combustível</td><td class="valor">R$ 300,00</td></tr>
+              <tr><td>Pedágios</td><td class="valor">R$ 40,00</td></tr>
+              <tr><td>Estacionamentos</td><td class="valor">R$ 180,00</td></tr>
+              <tr class="subtotal"><td>Subtotal</td><td class="valor">R$ 1.600,00</td></tr>
+            </table>
+          </div>
+
+          <div class="resumo-box">
+            <h3><i class="fas fa-calculator"></i> Total para o casal</h3>
+            <table>
+              <tr><td>Passagem aérea</td><td class="valor">R$ 3.000,00</td></tr>
+              <tr><td>Hospedagem + alimentação</td><td class="valor">R$ 10.360,00</td></tr>
+              <tr><td>Aluguel de carro</td><td class="valor">R$ 1.600,00</td></tr>
+              <tr class="total-linha"><td><strong>TOTAL</strong></td><td class="valor"><strong>R$ 14.960,00</strong></td></tr>
+            </table>
+          </div>
+          <p class="nota"><i class="fas fa-info-circle" style="margin-right:6px;"></i> Valores estimados para duas pessoas. Veículo dividido entre 4 ocupantes.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========= CHECKLIST ========= -->
+  <section id="checklist" class="painel">
+    <div class="card">
+      <div class="card-topo">
+        <h2><i class="fas fa-clipboard-check"></i> Checklist</h2>
+        <p>Preparativos · 6 meses de antecedência</p>
+      </div>
+      <div class="card-corpo">
+
+        <div class="progresso-texto">
+          <span><i class="fas fa-spinner"></i> <span id="progresso-label">0 de 4 concluídos</span></span>
+          <span id="pct-label">0%</span>
+        </div>
+        <div class="progresso-wrap">
+          <div class="progresso-barra" id="barra-progresso"></div>
+        </div>
+
+        <div class="item-check" data-item>
+          <div class="item-titulo"><span class="caixa"><i class="fas fa-check"></i></span> <i class="fas fa-piggy-bank" style="color:#0f6f8f;"></i> Guardar dinheiro</div>
+          <p class="item-desc">Temos <strong>6 meses</strong> para acumular e reduzir ao máximo o uso do cartão de crédito durante a viagem.</p>
+        </div>
+
+        <div class="item-check" data-item>
+          <div class="item-titulo"><span class="caixa"><i class="fas fa-check"></i></span> <i class="fas fa-search-dollar" style="color:#0f6f8f;"></i> Pesquisa de voos</div>
+          <p class="item-desc">Monitorar preços regularmente e aproveitar promoções para comprar as passagens pelo menor valor possível.</p>
+        </div>
+
+        <div class="item-check" data-item>
+          <div class="item-titulo"><span class="caixa"><i class="fas fa-check"></i></span> <i class="fas fa-car-side" style="color:#0f6f8f;"></i> Aluguel de carro</div>
+          <p class="item-desc">Pesquisar descontos de cartões de crédito, bancos, programas de fidelidade e promoções das locadoras.</p>
+        </div>
+
+        <div class="item-check" data-item>
+          <div class="item-titulo"><span class="caixa"><i class="fas fa-check"></i></span> <i class="fas fa-hotel" style="color:#0f6f8f;"></i> Pesquisar hotéis</div>
+          <p class="item-desc">Assim que o território for definido, buscar hotéis com boa localização, ótimas avaliações e melhor custo-benefício.</p>
+        </div>
+
+        <div class="objetivo-box">
+          <h3><i class="fas fa-bullseye"></i> Objetivo</h3>
+          <p>Planejar com antecedência, aproveitar promoções, reduzir gastos e chegar ao período da viagem com tudo organizado.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========= INFORMAÇÕES ========= -->
+  <section id="info" class="painel">
+    <div class="card">
+      <div class="card-topo">
+        <h2><i class="fas fa-circle-info"></i> Informações</h2>
+        <p>Dicas e alertas</p>
+      </div>
+      <div class="card-corpo">
+
+        <div class="info-box">
+          <h3><i class="fas fa-calendar-alt"></i> Período</h3>
+          <p>A viagem está prevista para <strong>16/01/2027 (sábado)</strong> a <strong>27/01/2027 (quarta-feira)</strong>, totalizando <strong>12 dias</strong> e <strong>11 noites</strong> em Recife, com saída e retorno por <strong>Vitória/ES</strong>.</p>
+        </div>
+
+        <div class="aviso">
+          <h3><i class="fas fa-triangle-exclamation"></i> Alta temporada</h3>
+          <p>Janeiro é <strong>alta temporada</strong> devido às férias escolares e ao verão no Nordeste. Passagens, hospedagens e aluguel de carros costumam ter preços elevados.</p>
+          <p><strong>Recomendação:</strong> reserve e compre com <strong>antecedência</strong> para garantir melhores preços e disponibilidade.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  (function() {
+    // Abas
+    const abas = document.querySelectorAll('.aba-btn');
+    const paineis = document.querySelectorAll('.painel');
+
+    abas.forEach(btn => {
+      btn.addEventListener('click', function() {
+        abas.forEach(b => b.classList.remove('ativa'));
+        paineis.forEach(p => p.classList.remove('ativo'));
+        this.classList.add('ativa');
+        const target = document.getElementById(this.getAttribute('data-alvo'));
+        if (target) target.classList.add('ativo');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    // Toggle individual/casal
+    const toggleBtns = document.querySelectorAll('.toggle-btn');
+    const blocos = {
+      individual: document.getElementById('custo-individual'),
+      casal: document.getElementById('custo-casal')
+    };
+
+    toggleBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        toggleBtns.forEach(b => b.classList.remove('selecionado'));
+        this.classList.add('selecionado');
+        const tipo = this.getAttribute('data-custo');
+        Object.keys(blocos).forEach(key => {
+          if (blocos[key]) {
+            blocos[key].classList.toggle('visivel', key === tipo);
+          }
+        });
+      });
+    });
+
+    // Checklist interativo
+    const itens = document.querySelectorAll('[data-item]');
+    const barra = document.getElementById('barra-progresso');
+    const label = document.getElementById('progresso-label');
+    const pctLabel = document.getElementById('pct-label');
+
+    function atualizarProgresso() {
+      const total = itens.length;
+      const feitos = document.querySelectorAll('[data-item].concluido').length;
+      const pct = total ? Math.round((feitos / total) * 100) : 0;
+      barra.style.width = pct + '%';
+      label.textContent = feitos + ' de ' + total + ' concluídos';
+      if (pctLabel) pctLabel.textContent = pct + '%';
+    }
+
+    itens.forEach(item => {
+      item.addEventListener('click', function(e) {
+        this.classList.toggle('concluido');
+        atualizarProgresso();
+      });
+    });
+
+    atualizarProgresso();
+  })();
+</script>
+
+</body>
+</html>
