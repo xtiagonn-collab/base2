@@ -856,9 +856,19 @@
               <div class="unidade-wrap"><span>R$</span><input type="number" id="calc-compras" min="0" step="0.01" value="500"></div>
             </div>
 
-            <div class="campo largura-total">
+            <div class="campo">
               <label for="calc-imprevistos">Reserva para imprevistos (por pessoa)</label>
               <div class="unidade-wrap"><span>R$</span><input type="number" id="calc-imprevistos" min="0" step="0.01" value="1000"></div>
+            </div>
+
+            <div class="campo">
+              <label for="calc-imprevisto2">Imprevisto (por pessoa)</label>
+              <div class="unidade-wrap"><span>R$</span><input type="number" id="calc-imprevisto2" min="0" step="0.01" value="0"></div>
+            </div>
+
+            <div class="campo largura-total">
+              <label for="calc-outros">Outros (por pessoa)</label>
+              <div class="unidade-wrap"><span>R$</span><input type="number" id="calc-outros" min="0" step="0.01" value="0"></div>
             </div>
 
           </div>
@@ -1038,7 +1048,7 @@
   atualizarProgresso();
 
   // Calculadora de custos
-  var camposCalc = ['calc-passagem','calc-hotel','calc-alimentacao','calc-carro','calc-passeios','calc-compras','calc-imprevistos'];
+  var camposCalc = ['calc-passagem','calc-hotel','calc-alimentacao','calc-carro','calc-passeios','calc-compras','calc-imprevistos','calc-imprevisto2','calc-outros'];
   var valoresSugeridos = {
     'calc-pessoas':1,
     'calc-passagem':1500,
@@ -1047,7 +1057,9 @@
     'calc-carro':717.50,
     'calc-passeios':1000,
     'calc-compras':500,
-    'calc-imprevistos':1000
+    'calc-imprevistos':1000,
+    'calc-imprevisto2':0,
+    'calc-outros':0
   };
 
   function formatarBRL(valor){
