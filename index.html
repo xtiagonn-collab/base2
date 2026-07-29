@@ -375,6 +375,123 @@
 
   footer.rodape{ text-align:center; padding:26px 20px 0; font-size:12px; color:var(--muted); }
 
+  /* ===================== ANEL DE PROGRESSO NO HERO ===================== */
+  .hero-progresso{
+    display:inline-flex; align-items:center; gap:12px;
+    margin-top:18px; background:rgba(255,255,255,0.12);
+    border:1px solid rgba(255,255,255,0.28); border-radius:40px;
+    padding:8px 18px 8px 8px; backdrop-filter:blur(2px);
+  }
+  .hero-progresso svg{ display:block; }
+  .hero-progresso .anel-fundo{ fill:none; stroke:rgba(255,255,255,0.25); stroke-width:4; }
+  .hero-progresso .anel-valor{
+    fill:none; stroke:var(--laranja); stroke-width:4; stroke-linecap:round;
+    transform:rotate(-90deg); transform-origin:50% 50%;
+    transition:stroke-dasharray 0.4s ease;
+  }
+  .hero-progresso .anel-texto{
+    font-family:'JetBrains Mono', monospace; font-size:11px; font-weight:700; fill:white;
+    text-anchor:middle; dominant-baseline:middle;
+  }
+  .hero-progresso .legenda{ font-size:12.5px; font-weight:600; text-align:left; line-height:1.3; }
+  .hero-progresso .legenda small{ display:block; font-weight:400; opacity:0.78; font-size:11px; }
+
+  /* ===================== BOTÃO FLUTUANTE (FAB) ===================== */
+  .fab-wrap{
+    position:fixed; right:20px; bottom:22px; z-index:60;
+    display:flex; flex-direction:column-reverse; align-items:flex-end; gap:12px;
+  }
+  .fab-principal{
+    width:58px; height:58px; border-radius:50%; border:none; cursor:pointer;
+    background:linear-gradient(135deg, var(--laranja), var(--laranja-dark));
+    color:white; font-size:24px; box-shadow:0 8px 22px rgba(242,122,26,0.45);
+    display:flex; align-items:center; justify-content:center;
+    transition:transform 0.25s cubic-bezier(.4,0,.2,1);
+    position:relative; overflow:hidden;
+  }
+  .fab-principal:focus-visible{ outline:3px solid var(--ocean-deep); outline-offset:3px; }
+  .fab-wrap.aberto .fab-principal{ transform:rotate(45deg); }
+
+  .fab-acoes{
+    display:flex; flex-direction:column; align-items:flex-end; gap:10px;
+    opacity:0; transform:translateY(12px) scale(0.9); pointer-events:none;
+    transition:opacity 0.2s ease, transform 0.2s ease;
+  }
+  .fab-wrap.aberto .fab-acoes{ opacity:1; transform:translateY(0) scale(1); pointer-events:auto; }
+
+  .fab-item{
+    display:flex; align-items:center; gap:10px;
+    background:white; color:var(--ocean-deep); border:1px solid var(--line);
+    border-radius:40px; padding:10px 18px 10px 14px; cursor:pointer;
+    font-family:'Inter', sans-serif; font-weight:700; font-size:13.5px;
+    box-shadow:0 6px 16px rgba(10,77,94,0.18);
+    transition:transform 0.15s ease, border-color 0.15s ease;
+    white-space:nowrap;
+  }
+  .fab-item:hover{ border-color:var(--ocean-mid); }
+  .fab-item:active{ transform:scale(0.96); }
+  .fab-item .fab-icone{ font-size:17px; }
+  .fab-item:focus-visible{ outline:3px solid var(--ocean-deep); outline-offset:2px; }
+
+  /* ===================== MODAL (Agenda) ===================== */
+  .modal-fundo{
+    position:fixed; inset:0; background:rgba(10,20,24,0.52);
+    display:flex; align-items:flex-end; justify-content:center;
+    opacity:0; pointer-events:none; transition:opacity 0.22s ease; z-index:70;
+    padding:0;
+  }
+  .modal-fundo.aberto{ opacity:1; pointer-events:auto; }
+  .modal-caixa{
+    background:var(--sand); width:100%; max-width:560px;
+    border-radius:20px 20px 0 0; padding:22px 22px 28px;
+    max-height:82vh; overflow-y:auto;
+    transform:translateY(24px); transition:transform 0.28s cubic-bezier(.2,.8,.2,1);
+    box-shadow:0 -10px 30px rgba(0,0,0,0.25);
+  }
+  .modal-fundo.aberto .modal-caixa{ transform:translateY(0); }
+  @media (min-width:640px){
+    .modal-fundo{ align-items:center; }
+    .modal-caixa{ border-radius:20px; }
+  }
+  .modal-topo{ display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:6px; }
+  .modal-topo h3{ margin:0; font-size:19px; color:var(--ocean-deep); font-weight:600; }
+  .modal-topo p{ margin:4px 0 0; font-size:13px; color:var(--muted); }
+  .modal-fechar{
+    width:32px; height:32px; border-radius:10px; border:none; background:var(--sand-deep);
+    color:var(--ocean-deep); font-size:16px; cursor:pointer; flex:0 0 auto;
+  }
+  .modal-fechar:hover{ background:var(--line); }
+
+  .modal-baixar-tudo{
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    width:100%; margin-top:16px; padding:13px; border:none; border-radius:12px;
+    background:var(--ocean-deep); color:white; font-weight:700; font-size:14px; cursor:pointer;
+    transition:background 0.15s ease;
+  }
+  .modal-baixar-tudo:hover{ background:var(--ocean); }
+
+  .evento-linha{
+    display:flex; align-items:center; gap:12px;
+    padding:14px 4px; border-bottom:1px solid var(--line);
+  }
+  .evento-linha:last-child{ border-bottom:none; }
+  .evento-icone{
+    width:38px; height:38px; border-radius:10px; background:var(--ocean-light);
+    display:flex; align-items:center; justify-content:center; font-size:17px; flex:0 0 auto;
+  }
+  .evento-info{ flex:1; min-width:0; }
+  .evento-info .titulo{ font-weight:700; font-size:14px; color:var(--ink); }
+  .evento-info .data{ font-size:12.5px; color:var(--muted); font-family:'JetBrains Mono', monospace; }
+  .evento-add-google{
+    flex:0 0 auto; text-decoration:none; background:var(--laranja-claro); color:var(--laranja-dark);
+    font-weight:700; font-size:12.5px; padding:8px 12px; border-radius:9px; white-space:nowrap;
+    transition:background 0.15s ease;
+  }
+  .evento-add-google:hover{ background:var(--laranja); color:white; }
+
+  /* ===================== RELATÓRIO PARA IMPRESSÃO (oculto na tela) ===================== */
+  #resumo-impressao{ display:none; }
+
   /* ===================== RESPONSIVO ===================== */
   @media (max-width:600px){
     .conteudo{ padding:6px 14px 0; }
@@ -396,12 +513,45 @@
     }
   }
 
-  /* ---- Impressão ---- */
+  /* ---- Relatório de impressão (conteúdo próprio, formatado para A4) ---- */
+  .ri-cabecalho{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    border-bottom:3px solid var(--ocean-deep); padding-bottom:14px; margin-bottom:22px;
+  }
+  .ri-cabecalho h1{ margin:0; font-size:26px; color:var(--ocean-deep); font-weight:600; }
+  .ri-cabecalho .ri-sub{ font-size:12.5px; color:var(--muted); margin-top:4px; }
+  .ri-cabecalho .ri-gerado{ font-size:11px; color:var(--muted); text-align:right; }
+  .ri-secao{ margin-bottom:22px; break-inside:avoid; }
+  .ri-secao h2{
+    font-size:15px; color:var(--ocean-deep); text-transform:uppercase; letter-spacing:0.6px;
+    border-bottom:2px solid var(--reef); padding-bottom:6px; margin:0 0 10px; font-family:'Inter',sans-serif; font-weight:700;
+  }
+  .ri-secao table{ width:100%; border-collapse:collapse; font-size:12.5px; margin-bottom:6px; }
+  .ri-secao th{ text-align:left; background:var(--ocean-light); padding:6px 9px; font-size:11.5px; color:var(--ocean-deep); }
+  .ri-secao th.valor, .ri-secao td.valor{ text-align:right; }
+  .ri-secao td{ padding:6px 9px; border-bottom:1px solid var(--line); }
+  .ri-secao tr.subtotal td{ background:var(--sand-deep); font-weight:700; }
+  .ri-secao .ri-total{
+    display:flex; justify-content:space-between; font-weight:700; font-size:14px;
+    border-top:2px solid var(--ocean-deep); padding-top:8px; margin-top:4px; color:var(--ocean-deep);
+  }
+  .ri-checklist-item{ display:flex; gap:8px; align-items:flex-start; font-size:13px; padding:4px 0; }
+  .ri-checklist-item .ri-caixa{
+    width:14px; height:14px; border:1.5px solid var(--ocean-deep); border-radius:3px; flex:0 0 auto; margin-top:1px;
+  }
+  .ri-checklist-item.feito .ri-caixa{ background:var(--reef); border-color:var(--reef); }
+  .ri-checklist-item.feito span.txt{ text-decoration:line-through; opacity:0.6; }
+  .ri-aviso{ background:#fdf3e8; border-left:4px solid var(--coral); padding:10px 14px; font-size:12.5px; margin-top:8px; }
+  .ri-rodape{ text-align:center; font-size:10.5px; color:var(--muted); margin-top:30px; border-top:1px solid var(--line); padding-top:10px; }
+
   @media print{
-    .nav-wrap, .add-item-form, .remover-item, .toast, .calc-acoes{ display:none !important; }
-    .painel{ display:block !important; }
-    .hero{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-    .card{ box-shadow:none; border:1px solid var(--line); break-inside:avoid; }
+    @page{ size:A4; margin:16mm; }
+    .page > *:not(#resumo-impressao){ display:none !important; }
+    #resumo-impressao{
+      display:block !important;
+      -webkit-print-color-adjust:exact; print-color-adjust:exact;
+    }
+    .fab-wrap, .modal-fundo, .toast{ display:none !important; }
   }
 </style>
 </head>
@@ -419,6 +569,15 @@
       <div class="unidade"><span class="num" id="ct-meses">–</span><span class="rot">meses</span></div>
       <div class="unidade"><span class="num" id="ct-dias">–</span><span class="rot">dias</span></div>
       <div class="unidade"><span class="num" id="ct-horas">–</span><span class="rot">horas</span></div>
+    </div>
+
+    <div class="hero-progresso" aria-live="polite">
+      <svg width="46" height="46" viewBox="0 0 48 48">
+        <circle class="anel-fundo" cx="24" cy="24" r="20"></circle>
+        <circle class="anel-valor" id="anel-valor" cx="24" cy="24" r="20" stroke-dasharray="0 125.7"></circle>
+        <text x="24" y="25" class="anel-texto" id="anel-texto">0%</text>
+      </svg>
+      <div class="legenda">Preparativos<small id="hero-progresso-label">0 de 4 concluídos</small></div>
     </div>
 
     <div class="onda">
@@ -812,9 +971,98 @@
 
   <footer class="rodape">Planejamento organizado para o grupo · Recife/PE 2027</footer>
 
+  <!-- ===================== RELATÓRIO PARA IMPRESSÃO (A4) ===================== -->
+  <div id="resumo-impressao">
+    <div class="ri-cabecalho">
+      <div>
+        <h1>Viagem a Recife, Pernambuco</h1>
+        <div class="ri-sub">16/01/2027 a 27/01/2027 · 12 dias · Saída e retorno por Vitória/ES</div>
+      </div>
+      <div class="ri-gerado">Resumo gerado em<br><strong id="ri-data-geracao">–</strong></div>
+    </div>
+
+    <div class="ri-secao">
+      <h2>📅 Cronograma</h2>
+      <table>
+        <tr><th>Etapa</th><th>Período</th></tr>
+        <tr><td>Voo de Ida</td><td>16/01/2027</td></tr>
+        <tr><td>Período de Pregação</td><td>16/01/2027 a 24/01/2027</td></tr>
+        <tr><td>Passeio Pós-Pregação</td><td>25/01/2027 a 27/01/2027</td></tr>
+        <tr><td>Voo de Volta</td><td>27/01/2027</td></tr>
+      </table>
+    </div>
+
+    <div class="ri-secao">
+      <h2>💰 Custos estimados — por pessoa</h2>
+      <table>
+        <tr><th>Item</th><th class="valor">Valor</th></tr>
+        <tr><td>Passagem aérea</td><td class="valor">R$ 1.500,00</td></tr>
+        <tr><td>Hospedagem (11 diárias)</td><td class="valor">R$ 2.200,00</td></tr>
+        <tr><td>Alimentação (almoço, jantar, lanches)</td><td class="valor">R$ 2.580,00</td></tr>
+        <tr><td>Passeios</td><td class="valor">R$ 1.000,00</td></tr>
+        <tr><td>Compras</td><td class="valor">R$ 500,00</td></tr>
+        <tr><td>Reserva para imprevistos</td><td class="valor">R$ 1.000,00</td></tr>
+        <tr><td>Aluguel de carro (rateado entre 4 pessoas)</td><td class="valor">R$ 717,50</td></tr>
+      </table>
+      <div class="ri-total"><span>Total por pessoa</span><span>R$ 9.497,50</span></div>
+    </div>
+
+    <div class="ri-secao">
+      <h2>🧮 Simulação atual da calculadora</h2>
+      <table id="ri-tabela-calc">
+        <tr><th>Item</th><th class="valor">Valor por pessoa</th></tr>
+      </table>
+      <div class="ri-total"><span>Total por pessoa</span><span id="ri-calc-pessoa">R$ 0,00</span></div>
+      <div class="ri-total"><span id="ri-calc-pessoas-label">Total geral</span><span id="ri-calc-geral">R$ 0,00</span></div>
+    </div>
+
+    <div class="ri-secao">
+      <h2>📝 Checklist de preparação</h2>
+      <div id="ri-checklist"></div>
+    </div>
+
+    <div class="ri-secao">
+      <h2>ℹ️ Avisos importantes</h2>
+      <div class="ri-aviso">
+        <strong>Alta temporada:</strong> janeiro tem preços mais elevados para passagens, hospedagem e aluguel de veículos — reservar com antecedência.
+      </div>
+      <div class="ri-aviso" style="margin-top:8px;">
+        <strong>Sujeito a ajustes:</strong> valores dependem da região de Recife designada por Betel para a pregação; caso a hospedagem fique próxima ao território, o carro pode não ser necessário.
+      </div>
+    </div>
+
+    <div class="ri-rodape">Planejamento organizado para o grupo · Recife/PE 2027</div>
+  </div>
+
 </div>
 
 <div class="toast" id="toast"></div>
+
+<!-- ===================== BOTÃO FLUTUANTE (FAB) ===================== -->
+<div class="fab-wrap" id="fab-wrap">
+  <button class="fab-principal" id="fab-principal" type="button" aria-label="Abrir ações rápidas" aria-expanded="false">✚</button>
+  <div class="fab-acoes">
+    <button class="fab-item" id="btn-abrir-agenda" type="button"><span class="fab-icone">📆</span> Adicionar à agenda</button>
+    <button class="fab-item" id="btn-imprimir-resumo" type="button"><span class="fab-icone">🖨️</span> Imprimir resumo (A4)</button>
+  </div>
+</div>
+
+<!-- ===================== MODAL AGENDA ===================== -->
+<div class="modal-fundo" id="modal-agenda" role="dialog" aria-modal="true" aria-labelledby="modal-agenda-titulo">
+  <div class="modal-caixa">
+    <div class="modal-topo">
+      <div>
+        <h3 id="modal-agenda-titulo">Adicionar à agenda</h3>
+        <p>Envie as datas da viagem direto para o seu calendário</p>
+      </div>
+      <button class="modal-fechar" id="fechar-modal-agenda" type="button" aria-label="Fechar">✕</button>
+    </div>
+
+    <div id="lista-eventos-agenda"></div>
+
+    <button class="modal-baixar-tudo" id="btn-baixar-ics" type="button">⬇️ Baixar todos os eventos (.ics — Apple, Outlook, Google)</button>
+  </div>
+</div>
 
 <script>
   /* ---------- Utilidades ---------- */
@@ -903,6 +1151,8 @@
     return 'rbe_check_' + (el.getAttribute('data-key') || el.getAttribute('data-custom-id'));
   }
 
+  var CIRCUNFERENCIA_ANEL = 2 * Math.PI * 20;
+
   function atualizarProgresso(){
     var itens = listaChecklist.querySelectorAll('[data-item]');
     var total = itens.length;
@@ -911,6 +1161,16 @@
     barra.style.width = pct + '%';
     label.textContent = feitos + ' de ' + total + ' concluídos';
     pctLabel.textContent = pct + '%';
+
+    var anelValor = document.getElementById('anel-valor');
+    var anelTexto = document.getElementById('anel-texto');
+    var heroLabel = document.getElementById('hero-progresso-label');
+    if (anelValor){
+      var comprimento = (pct/100) * CIRCUNFERENCIA_ANEL;
+      anelValor.setAttribute('stroke-dasharray', comprimento + ' ' + CIRCUNFERENCIA_ANEL);
+      anelTexto.textContent = pct + '%';
+      heroLabel.textContent = feitos + ' de ' + total + ' concluídos';
+    }
   }
 
   function ativarItem(item){
@@ -1116,6 +1376,186 @@
   });
 
   calcularTotais();
+
+  /* ---------- Botão flutuante (FAB) ---------- */
+  var fabWrap = document.getElementById('fab-wrap');
+  var fabPrincipal = document.getElementById('fab-principal');
+
+  fabPrincipal.addEventListener('click', function(e){
+    ripple(e, fabPrincipal);
+    var aberto = fabWrap.classList.toggle('aberto');
+    fabPrincipal.setAttribute('aria-expanded', aberto ? 'true' : 'false');
+  });
+
+  document.addEventListener('click', function(e){
+    if (fabWrap.classList.contains('aberto') && !fabWrap.contains(e.target)){
+      fabWrap.classList.remove('aberto');
+      fabPrincipal.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  /* ---------- Eventos da viagem (para agenda) ---------- */
+  function pad2(n){ return String(n).padStart(2,'0'); }
+  function formatarDataICS(d){ return d.getFullYear() + pad2(d.getMonth()+1) + pad2(d.getDate()); }
+  function somarDias(d, n){ var novo = new Date(d); novo.setDate(novo.getDate()+n); return novo; }
+  function formatarDataBR(d){ return pad2(d.getDate()) + '/' + pad2(d.getMonth()+1) + '/' + d.getFullYear(); }
+
+  var eventosViagem = [
+    {
+      titulo:'✈️ Voo de Ida — Vitória → Recife',
+      inicio: new Date(2027,0,16), fimInclusive: new Date(2027,0,16),
+      local:'Aeroporto de Vitória, ES',
+      descricao:'Embarque para Recife/PE — início da viagem.',
+      icone:'✈️'
+    },
+    {
+      titulo:'📖 Período de Pregação em Recife',
+      inicio: new Date(2027,0,16), fimInclusive: new Date(2027,0,24),
+      local:'Recife, PE',
+      descricao:'Atividade de pregação no território designado por Betel.',
+      icone:'📖'
+    },
+    {
+      titulo:'🏖️ Passeio Pós-Pregação',
+      inicio: new Date(2027,0,25), fimInclusive: new Date(2027,0,27),
+      local:'Recife, PE',
+      descricao:'Passeios turísticos após o período de pregação.',
+      icone:'🏖️'
+    },
+    {
+      titulo:'✈️ Voo de Volta — Recife → Vitória',
+      inicio: new Date(2027,0,27), fimInclusive: new Date(2027,0,27),
+      local:'Aeroporto do Recife, PE',
+      descricao:'Retorno para Vitória/ES — fim da viagem.',
+      icone:'✈️'
+    }
+  ];
+
+  function linkGoogleCalendar(evento){
+    var inicioStr = formatarDataICS(evento.inicio);
+    var fimStr = formatarDataICS(somarDias(evento.fimInclusive, 1));
+    var params = new URLSearchParams({
+      action:'TEMPLATE',
+      text:evento.titulo.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu,'').trim(),
+      dates:inicioStr + '/' + fimStr,
+      details:evento.descricao,
+      location:evento.local
+    });
+    return 'https://calendar.google.com/calendar/render?' + params.toString();
+  }
+
+  function montarICS(){
+    var linhas = [
+      'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Planejamento Recife 2027//PT-BR','CALSCALE:GREGORIAN'
+    ];
+    eventosViagem.forEach(function(evento, i){
+      linhas.push('BEGIN:VEVENT');
+      linhas.push('UID:recife2027-' + i + '@planejamento-viagem');
+      linhas.push('DTSTAMP:' + formatarDataICS(new Date()) + 'T000000Z');
+      linhas.push('DTSTART;VALUE=DATE:' + formatarDataICS(evento.inicio));
+      linhas.push('DTEND;VALUE=DATE:' + formatarDataICS(somarDias(evento.fimInclusive, 1)));
+      linhas.push('SUMMARY:' + evento.titulo);
+      linhas.push('LOCATION:' + evento.local);
+      linhas.push('DESCRIPTION:' + evento.descricao);
+      linhas.push('END:VEVENT');
+    });
+    linhas.push('END:VCALENDAR');
+    return linhas.join('\r\n');
+  }
+
+  /* ---------- Modal Agenda ---------- */
+  var modalAgenda = document.getElementById('modal-agenda');
+  var listaEventosAgenda = document.getElementById('lista-eventos-agenda');
+
+  function montarListaEventos(){
+    listaEventosAgenda.innerHTML = '';
+    eventosViagem.forEach(function(evento){
+      var linha = document.createElement('div');
+      linha.className = 'evento-linha';
+      var textoData = formatarDataBR(evento.inicio) === formatarDataBR(evento.fimInclusive)
+        ? formatarDataBR(evento.inicio)
+        : formatarDataBR(evento.inicio) + ' a ' + formatarDataBR(evento.fimInclusive);
+      linha.innerHTML =
+        '<div class="evento-icone">' + evento.icone + '</div>' +
+        '<div class="evento-info">' +
+          '<div class="titulo">' + evento.titulo.replace(evento.icone,'').trim() + '</div>' +
+          '<div class="data">' + textoData + '</div>' +
+        '</div>' +
+        '<a class="evento-add-google" target="_blank" rel="noopener" href="' + linkGoogleCalendar(evento) + '">+ Google</a>';
+      listaEventosAgenda.appendChild(linha);
+    });
+  }
+
+  function abrirModalAgenda(){
+    montarListaEventos();
+    modalAgenda.classList.add('aberto');
+    fabWrap.classList.remove('aberto');
+  }
+  function fecharModalAgenda(){ modalAgenda.classList.remove('aberto'); }
+
+  document.getElementById('btn-abrir-agenda').addEventListener('click', abrirModalAgenda);
+  document.getElementById('fechar-modal-agenda').addEventListener('click', fecharModalAgenda);
+  modalAgenda.addEventListener('click', function(e){ if (e.target === modalAgenda) fecharModalAgenda(); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') fecharModalAgenda(); });
+
+  document.getElementById('btn-baixar-ics').addEventListener('click', function(){
+    var blob = new Blob([montarICS()], {type:'text/calendar;charset=utf-8'});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'viagem-recife-2027.ics';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 2000);
+    mostrarToast('Arquivo .ics baixado — importe no seu app de calendário');
+  });
+
+  /* ---------- Resumo para impressão (A4) ---------- */
+  function prepararResumoImpressao(){
+    // Data de geração
+    var agora = new Date();
+    document.getElementById('ri-data-geracao').textContent =
+      formatarDataBR(agora) + ' às ' + pad2(agora.getHours()) + ':' + pad2(agora.getMinutes());
+
+    // Checklist (itens fixos + personalizados, na ordem exibida)
+    var riChecklist = document.getElementById('ri-checklist');
+    riChecklist.innerHTML = '';
+    listaChecklist.querySelectorAll('[data-item]').forEach(function(item){
+      var concluido = item.classList.contains('concluido');
+      var textoEl = item.querySelector('.item-titulo');
+      var texto = textoEl ? textoEl.textContent.replace('✓','').trim() : (item.dataset.texto || '');
+      var linha = document.createElement('div');
+      linha.className = 'ri-checklist-item' + (concluido ? ' feito' : '');
+      linha.innerHTML = '<span class="ri-caixa"></span><span class="txt">' + texto + '</span>';
+      riChecklist.appendChild(linha);
+    });
+
+    // Calculadora — tabela detalhada + totais
+    var tabela = document.getElementById('ri-tabela-calc');
+    while (tabela.rows.length > 1) tabela.deleteRow(1);
+    camposCalc.forEach(function(id){
+      var v = parseFloat(document.getElementById(id).value) || 0;
+      if (v <= 0) return;
+      var linha = tabela.insertRow();
+      linha.insertCell(0).textContent = rotulosCalc[id];
+      var celValor = linha.insertCell(1);
+      celValor.className = 'valor';
+      celValor.textContent = formatarBRL(v);
+    });
+    var pessoas = parseFloat(document.getElementById('calc-pessoas').value) || 0;
+    document.getElementById('ri-calc-pessoa').textContent = document.getElementById('calc-total-pessoa').textContent;
+    document.getElementById('ri-calc-geral').textContent = document.getElementById('calc-total-geral').textContent;
+    document.getElementById('ri-calc-pessoas-label').textContent = 'Total geral (' + pessoas + (pessoas === 1 ? ' pessoa' : ' pessoas') + ')';
+  }
+
+  document.getElementById('btn-imprimir-resumo').addEventListener('click', function(){
+    prepararResumoImpressao();
+    fabWrap.classList.remove('aberto');
+    setTimeout(function(){ window.print(); }, 60);
+  });
+
+  window.addEventListener('beforeprint', prepararResumoImpressao);
 </script>
 
 </body>
