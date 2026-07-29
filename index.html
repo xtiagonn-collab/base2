@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
 <title>Planejamento da Viagem — Recife 2027</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,7 +28,6 @@
     --radius:16px;
     --bg-body:var(--sand);
     --bg-card:#ffffff;
-    --bg-card-topo:transparent;
     --text-primary:var(--ink);
     --text-secondary:var(--muted);
     --border-color:var(--line);
@@ -80,12 +79,13 @@
     padding:0;
     -webkit-font-smoothing:antialiased;
     transition:background 0.3s ease, color 0.3s ease;
+    -webkit-tap-highlight-color:transparent;
   }
 
   h1,h2,h3{ font-family:'Fraunces', Georgia, serif; }
   .mono{ font-family:'JetBrains Mono', monospace; }
 
-  .page{ max-width:820px; margin:0 auto; padding:0 0 70px; }
+  .page{ max-width:820px; margin:0 auto; padding:0 0 100px; }
 
   /* ===================== HERO ===================== */
   .hero{
@@ -94,111 +94,136 @@
       radial-gradient(circle at 15% 20%, rgba(255,255,255,0.10), transparent 45%),
       linear-gradient(150deg, var(--hero-bg-start), var(--hero-bg-end) 65%, var(--ocean-mid));
     color:var(--hero-text);
-    padding:clamp(32px,7vw,52px) clamp(20px,6vw,44px) 56px;
+    padding:clamp(28px,6vw,44px) clamp(16px,5vw,40px) 50px;
     text-align:center;
     overflow:hidden;
     transition:background 0.3s ease;
   }
   .hero .eyebrow{
     display:inline-flex; align-items:center; gap:8px;
-    font-size:12.5px; letter-spacing:2.5px; text-transform:uppercase;
-    font-weight:600; opacity:0.85; margin-bottom:14px;
+    font-size:12px; letter-spacing:2px; text-transform:uppercase;
+    font-weight:600; opacity:0.85; margin-bottom:10px;
   }
   .hero h1{
-    margin:0; font-size:clamp(28px,6vw,42px); font-weight:600;
+    margin:0; font-size:clamp(24px,5.5vw,38px); font-weight:600;
     line-height:1.15; letter-spacing:-0.5px;
   }
   .hero p.sub{
-    margin:12px auto 0; max-width:440px; font-size:clamp(14px,3vw,16px);
+    margin:10px auto 0; max-width:400px; font-size:clamp(13px,2.8vw,15px);
     opacity:0.88; line-height:1.5;
   }
   .hero .pill-data{
-    display:inline-block; margin-top:20px;
+    display:inline-block; margin-top:16px;
     background:rgba(255,255,255,0.14); border:1px solid rgba(255,255,255,0.35);
-    padding:9px 20px; border-radius:40px; font-size:13.5px; font-weight:600;
+    padding:8px 18px; border-radius:40px; font-size:12.5px; font-weight:600;
     letter-spacing:0.3px; backdrop-filter:blur(2px);
   }
 
   .contador{
-    display:flex; justify-content:center; gap:10px;
-    margin-top:24px; flex-wrap:wrap;
+    display:flex; justify-content:center; gap:8px;
+    margin-top:20px; flex-wrap:wrap;
   }
   .contador .unidade{
     background:rgba(255,255,255,0.12);
     border:1px solid rgba(255,255,255,0.28);
-    border-radius:12px;
-    padding:10px 14px;
-    min-width:64px;
+    border-radius:10px;
+    padding:8px 12px;
+    min-width:54px;
     backdrop-filter:blur(2px);
   }
   .contador .unidade .num{
     display:block;
     font-family:'JetBrains Mono', monospace;
-    font-size:clamp(20px,5vw,26px);
+    font-size:clamp(18px,4vw,22px);
     font-weight:700;
     line-height:1;
   }
   .contador .unidade .rot{
     display:block;
-    font-size:10.5px;
-    letter-spacing:1px;
+    font-size:9.5px;
+    letter-spacing:0.8px;
     text-transform:uppercase;
     opacity:0.78;
-    margin-top:4px;
+    margin-top:3px;
   }
   .contador.encerrado{ display:none; }
 
   .onda{ position:absolute; left:0; right:0; bottom:-1px; line-height:0; }
   .onda svg{ width:100%; height:auto; display:block; }
 
-  /* ===================== HEADER ACTIONS (botões no hero) ===================== */
+  /* ===================== ATALHOS RÁPIDOS ===================== */
+  .atalhos-rapidos {
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    padding:12px 16px 8px;
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+    background:var(--bg-body);
+  }
+  .atalhos-rapidos::-webkit-scrollbar{ display:none; }
+  .atalho-btn {
+    flex:0 0 auto;
+    padding:8px 16px;
+    border-radius:20px;
+    border:1.5px solid var(--border-color);
+    background:var(--bg-card);
+    color:var(--text-primary);
+    font-size:12.5px;
+    font-weight:600;
+    cursor:pointer;
+    transition:all 0.15s ease;
+    white-space:nowrap;
+    font-family:'Inter', sans-serif;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    touch-action:manipulation;
+  }
+  .atalho-btn:active { transform:scale(0.95); }
+  .atalho-btn.primario {
+    background:var(--laranja);
+    border-color:var(--laranja);
+    color:white;
+  }
+
+  /* ===================== HEADER ACTIONS ===================== */
   .hero-actions {
     display:flex;
     justify-content:center;
-    gap:10px;
+    gap:8px;
     flex-wrap:wrap;
-    margin-top:20px;
+    margin-top:16px;
   }
   .hero-actions .btn-hero {
     display:inline-flex;
     align-items:center;
-    gap:8px;
-    padding:10px 20px;
+    gap:6px;
+    padding:8px 16px;
     border-radius:40px;
     border:1px solid rgba(255,255,255,0.35);
     background:rgba(255,255,255,0.12);
     color:white;
     font-weight:600;
-    font-size:13px;
+    font-size:12px;
     cursor:pointer;
     backdrop-filter:blur(2px);
     transition:background 0.2s ease, transform 0.15s ease;
-    text-decoration:none;
     font-family:'Inter', sans-serif;
+    touch-action:manipulation;
   }
-  .hero-actions .btn-hero:hover {
-    background:rgba(255,255,255,0.25);
-    transform:translateY(-1px);
-  }
-  .hero-actions .btn-hero:active {
-    transform:scale(0.96);
-  }
+  .hero-actions .btn-hero:hover { background:rgba(255,255,255,0.25); }
+  .hero-actions .btn-hero:active { transform:scale(0.95); }
   .hero-actions .btn-hero.primario {
     background:var(--laranja);
     border-color:var(--laranja);
   }
-  .hero-actions .btn-hero.primario:hover {
-    background:var(--laranja-dark);
-    border-color:var(--laranja-dark);
-  }
+  .hero-actions .btn-hero.primario:hover { background:var(--laranja-dark); }
   .hero-actions .btn-hero.whatsapp {
     background:#25D366;
     border-color:#25D366;
   }
-  .hero-actions .btn-hero.whatsapp:hover {
-    background:#1da851;
-    border-color:#1da851;
-  }
+  .hero-actions .btn-hero.whatsapp:hover { background:#1da851; }
 
   /* ===================== NAV ===================== */
   .nav-wrap{
@@ -206,18 +231,18 @@
     top:0;
     z-index:20;
     background:var(--bg-body);
-    padding:14px 20px 10px;
+    padding:10px 12px 8px;
     transition:background 0.3s ease;
   }
   .nav-abas{
     display:flex;
-    gap:8px;
+    gap:6px;
     overflow-x:auto;
     scrollbar-width:none;
     -ms-overflow-style:none;
     background:var(--bg-card);
-    border-radius:14px;
-    padding:6px;
+    border-radius:12px;
+    padding:5px;
     box-shadow:var(--shadow);
     border:1px solid var(--border-color);
   }
@@ -227,12 +252,13 @@
     flex:0 0 auto; border:2px solid transparent;
     background:var(--laranja-claro);
     color:var(--laranja-dark);
-    font-family:'Inter', sans-serif; font-size:13.5px; font-weight:700;
-    padding:10px 16px; border-radius:10px; cursor:pointer; white-space:nowrap;
+    font-family:'Inter', sans-serif; font-size:12.5px; font-weight:700;
+    padding:8px 14px; border-radius:8px; cursor:pointer; white-space:nowrap;
     transition:background 0.18s ease, color 0.18s ease, border-color 0.18s ease, transform 0.15s ease;
+    touch-action:manipulation;
   }
   .aba-btn:hover{ border-color:var(--laranja); }
-  .aba-btn:active{ transform:scale(0.96); }
+  .aba-btn:active{ transform:scale(0.95); }
   .aba-btn.ativa{
     background:var(--laranja); color:white;
     box-shadow:0 3px 10px rgba(242,122,26,0.35);
@@ -257,12 +283,12 @@
   @keyframes ripple-anim{ to{ transform:scale(2.6); opacity:0; } }
 
   /* ===================== CONTEÚDO ===================== */
-  .conteudo{ padding:6px 20px 0; }
+  .conteudo{ padding:4px 14px 0; }
 
   .painel{ display:none; }
-  .painel.ativo{ display:block; animation:fadeIn 0.32s ease; }
+  .painel.ativo{ display:block; animation:fadeIn 0.3s ease; }
   @keyframes fadeIn{
-    from{ opacity:0; transform:translateY(8px); }
+    from{ opacity:0; transform:translateY(6px); }
     to{ opacity:1; transform:translateY(0); }
   }
 
@@ -271,75 +297,75 @@
     border-radius:var(--radius);
     overflow:hidden;
     box-shadow:var(--shadow);
-    margin-bottom:20px;
+    margin-bottom:16px;
     border:1px solid var(--border-color);
     transition:background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   }
-  .card-topo{ padding:20px 24px; border-bottom:1px solid var(--border-color); }
+  .card-topo{ padding:16px 18px; border-bottom:1px solid var(--border-color); }
   .card-topo .icone{
-    width:38px; height:38px; border-radius:10px; background:var(--ocean-light);
+    width:34px; height:34px; border-radius:8px; background:var(--ocean-light);
     display:inline-flex; align-items:center; justify-content:center;
-    font-size:19px; margin-bottom:10px;
+    font-size:17px; margin-bottom:8px;
   }
-  .card-topo h2{ margin:0; font-size:19px; font-weight:600; color:var(--ocean-deep); }
-  .card-topo p{ margin:4px 0 0; font-size:13.5px; color:var(--text-secondary); }
-  .card-corpo{ padding:22px 24px 24px; }
+  .card-topo h2{ margin:0; font-size:17px; font-weight:600; color:var(--ocean-deep); }
+  .card-topo p{ margin:3px 0 0; font-size:13px; color:var(--text-secondary); }
+  .card-corpo{ padding:18px 18px 20px; }
 
   h3.secao{
     color:var(--ocean-deep); font-family:'Inter', sans-serif;
-    font-size:12.5px; font-weight:700; letter-spacing:1px; text-transform:uppercase;
-    margin:0 0 12px; padding-bottom:8px; border-bottom:2px solid var(--reef); display:inline-block;
+    font-size:11.5px; font-weight:700; letter-spacing:0.8px; text-transform:uppercase;
+    margin:0 0 10px; padding-bottom:6px; border-bottom:2px solid var(--reef); display:inline-block;
   }
-  .bloco + .bloco{ margin-top:24px; }
+  .bloco + .bloco{ margin-top:20px; }
 
-  table{ width:100%; border-collapse:collapse; font-size:14.5px; }
+  table{ width:100%; border-collapse:collapse; font-size:13.5px; }
   thead th{
-    text-align:left; padding:10px 12px; background:var(--ocean-light);
-    color:var(--ocean-deep); font-weight:600; font-size:13px;
+    text-align:left; padding:8px 10px; background:var(--ocean-light);
+    color:var(--ocean-deep); font-weight:600; font-size:12px;
   }
-  thead th.valor, td.valor{ text-align:right; font-family:'JetBrains Mono', monospace; font-size:13.5px; }
-  tbody td{ padding:10px 12px; border-bottom:1px solid var(--border-color); }
+  thead th.valor, td.valor{ text-align:right; font-family:'JetBrains Mono', monospace; font-size:12.5px; }
+  tbody td{ padding:8px 10px; border-bottom:1px solid var(--border-color); }
   tbody tr:last-child td{ border-bottom:none; }
   tr.subtotal td{ background:var(--sand-deep); font-weight:700; color:var(--ocean-deep); }
 
   .resumo-box{
     background:linear-gradient(135deg, var(--ocean-deep), var(--ocean));
-    color:white; padding:20px 22px; border-radius:14px; margin-top:18px;
+    color:white; padding:16px 18px; border-radius:12px; margin-top:14px;
   }
   .resumo-box h3{
-    margin:0 0 12px; font-size:13px; font-weight:700; letter-spacing:1px;
+    margin:0 0 10px; font-size:12px; font-weight:700; letter-spacing:0.8px;
     text-transform:uppercase; color:white; border:none; padding:0; display:block; opacity:0.9;
   }
-  .resumo-linha{ display:flex; justify-content:space-between; padding:7px 0; font-size:14.5px; }
+  .resumo-linha{ display:flex; justify-content:space-between; padding:5px 0; font-size:13.5px; }
   .resumo-linha span:last-child{ font-family:'JetBrains Mono', monospace; }
   .resumo-linha.total{
-    border-top:1px solid rgba(255,255,255,0.3); margin-top:8px; padding-top:14px;
-    font-size:clamp(20px,5vw,24px); font-weight:700; font-family:'Fraunces', serif;
+    border-top:1px solid rgba(255,255,255,0.3); margin-top:6px; padding-top:12px;
+    font-size:clamp(18px,4.5vw,22px); font-weight:700; font-family:'Fraunces', serif;
   }
   .resumo-linha.total span:last-child{ font-family:'Fraunces', serif; }
 
-  .nota{ margin-top:16px; font-size:12.5px; color:var(--text-secondary); line-height:1.5; }
-  .subnota{ font-size:13px; color:var(--text-secondary); margin:0 0 12px; }
+  .nota{ margin-top:12px; font-size:12px; color:var(--text-secondary); line-height:1.5; }
+  .subnota{ font-size:12.5px; color:var(--text-secondary); margin:0 0 10px; }
 
-  .info-box, .aviso{ border-radius:12px; padding:18px 20px; }
-  .info-box{ background:var(--ocean-light); border-left:5px solid var(--ocean-mid); }
-  .aviso{ background:#fdf3e8; border-left:5px solid var(--coral); margin-top:16px; }
+  .info-box, .aviso{ border-radius:10px; padding:14px 16px; }
+  .info-box{ background:var(--ocean-light); border-left:4px solid var(--ocean-mid); }
+  .aviso{ background:#fdf3e8; border-left:4px solid var(--coral); margin-top:12px; }
   [data-theme="dark"] .aviso{ background:#2a1a10; border-left-color:var(--coral); }
   .info-box h3, .aviso h3{
-    margin:0 0 10px; font-size:15px; font-weight:600; font-family:'Fraunces', serif;
+    margin:0 0 8px; font-size:14px; font-weight:600; font-family:'Fraunces', serif;
     border:none; padding:0; display:block; text-transform:none; letter-spacing:0;
   }
   .aviso h3{ color:var(--coral-dark); }
   .info-box h3{ color:var(--ocean-deep); }
-  .info-box p, .aviso p{ margin:0 0 8px; line-height:1.65; font-size:14px; color:var(--text-primary); }
+  .info-box p, .aviso p{ margin:0 0 6px; line-height:1.6; font-size:13.5px; color:var(--text-primary); }
   .info-box p:last-child, .aviso p:last-child{ margin-bottom:0; }
 
   /* ---- Checklist ---- */
-  .progresso-topo{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px; }
-  .progresso-texto{ font-size:13px; color:var(--text-secondary); font-weight:600; }
-  .progresso-pct{ font-family:'JetBrains Mono', monospace; font-size:13px; font-weight:700; color:var(--reef); }
+  .progresso-topo{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:4px; }
+  .progresso-texto{ font-size:12.5px; color:var(--text-secondary); font-weight:600; }
+  .progresso-pct{ font-family:'JetBrains Mono', monospace; font-size:12px; font-weight:700; color:var(--reef); }
   .progresso-wrap{
-    background:var(--sand-deep); border-radius:20px; height:8px; overflow:hidden; margin-bottom:22px;
+    background:var(--sand-deep); border-radius:20px; height:6px; overflow:hidden; margin-bottom:16px;
   }
   .progresso-barra{
     background:var(--reef); height:100%; width:0%;
@@ -347,200 +373,200 @@
   }
 
   .item-check{
-    position:relative; background:var(--sand); border:1px solid var(--border-color); border-radius:12px;
-    padding:16px 44px 16px 18px; margin-bottom:12px; cursor:pointer;
+    position:relative; background:var(--sand); border:1px solid var(--border-color); border-radius:10px;
+    padding:14px 40px 14px 14px; margin-bottom:10px; cursor:pointer;
     transition:background 0.15s ease, border-color 0.15s ease, transform 0.12s ease;
+    touch-action:manipulation;
   }
-  .item-check:hover{ border-color:var(--ocean-mid); }
-  .item-check:active{ transform:scale(0.995); }
+  .item-check:active{ transform:scale(0.98); }
   .item-check.concluido{ background:var(--ocean-light); border-color:var(--reef); }
   .item-titulo{
-    font-family:'Fraunces', serif; font-size:17px; font-weight:600; color:var(--ocean-deep);
-    display:flex; align-items:center; gap:12px;
+    font-family:'Fraunces', serif; font-size:15px; font-weight:600; color:var(--ocean-deep);
+    display:flex; align-items:center; gap:10px;
   }
   .item-check.concluido .item-titulo{ text-decoration:line-through; opacity:0.65; }
   .caixa{
-    width:22px; height:22px; border:2px solid var(--ocean-mid); border-radius:6px;
-    display:inline-flex; align-items:center; justify-content:center; color:white; font-size:13px;
+    width:20px; height:20px; border:2px solid var(--ocean-mid); border-radius:5px;
+    display:inline-flex; align-items:center; justify-content:center; color:white; font-size:12px;
     flex:0 0 auto; transition:background 0.15s ease, border-color 0.15s ease, transform 0.2s ease;
   }
-  .item-check.concluido .caixa{ background:var(--reef); border-color:var(--reef); transform:scale(1.06); }
-  .item-desc{ margin:8px 0 0 34px; color:var(--text-secondary); line-height:1.6; font-size:14px; }
+  .item-check.concluido .caixa{ background:var(--reef); border-color:var(--reef); transform:scale(1.05); }
+  .item-desc{ margin:6px 0 0 30px; color:var(--text-secondary); line-height:1.5; font-size:13px; }
 
   .remover-item{
-    position:absolute; top:14px; right:12px;
-    width:26px; height:26px; border-radius:8px; border:none;
-    background:transparent; color:var(--text-secondary); font-size:16px; line-height:1; cursor:pointer;
+    position:absolute; top:10px; right:10px;
+    width:24px; height:24px; border-radius:6px; border:none;
+    background:transparent; color:var(--text-secondary); font-size:14px; line-height:1; cursor:pointer;
     transition:background 0.15s ease, color 0.15s ease;
   }
   .remover-item:hover{ background:#fbe3db; color:var(--coral-dark); }
-  .remover-item:focus-visible{ outline:2px solid var(--coral-dark); outline-offset:1px; }
 
   .add-item-form{
-    display:flex; gap:8px; margin-top:14px; flex-wrap:wrap;
+    display:flex; gap:6px; margin-top:12px; flex-wrap:wrap;
   }
   .add-item-form input{
-    flex:1; min-width:180px; border:1.5px solid var(--border-color); border-radius:10px;
-    padding:11px 14px; font-size:14px; font-family:'Inter', sans-serif;
+    flex:1; min-width:150px; border:1.5px solid var(--border-color); border-radius:8px;
+    padding:10px 12px; font-size:13.5px; font-family:'Inter', sans-serif;
     background:var(--input-bg); color:var(--text-primary); transition:border-color 0.15s ease, background 0.15s ease;
   }
   .add-item-form input:focus{ outline:none; border-color:var(--ocean-mid); background:var(--bg-card); }
   .add-item-form button{
     position:relative; overflow:hidden;
-    background:var(--ocean-deep); color:white; border:none; border-radius:10px;
-    padding:11px 18px; font-weight:700; font-size:13.5px; cursor:pointer;
+    background:var(--ocean-deep); color:white; border:none; border-radius:8px;
+    padding:10px 16px; font-weight:700; font-size:13px; cursor:pointer;
     transition:background 0.15s ease;
   }
   .add-item-form button:hover{ background:var(--ocean); }
 
   .objetivo-box{
     background:linear-gradient(135deg, var(--ocean-deep), var(--ocean));
-    color:white; padding:18px 20px; border-radius:12px; margin-top:6px;
+    color:white; padding:14px 16px; border-radius:10px; margin-top:6px;
   }
-  .objetivo-box h3{ margin:0 0 8px; font-family:'Fraunces', serif; font-size:15px; border:none; padding:0; color:white; }
-  .objetivo-box p{ margin:0; line-height:1.6; font-size:14px; opacity:0.95; }
+  .objetivo-box h3{ margin:0 0 6px; font-family:'Fraunces', serif; font-size:14px; border:none; padding:0; color:white; }
+  .objetivo-box p{ margin:0; line-height:1.5; font-size:13.5px; opacity:0.95; }
 
   /* ---- Alternador Individual / Casal ---- */
   .toggle-custos{
-    display:flex; gap:4px; background:var(--toggle-bg); padding:4px; border-radius:12px; margin-bottom:20px;
+    display:flex; gap:4px; background:var(--toggle-bg); padding:4px; border-radius:10px; margin-bottom:16px;
     border:1px solid var(--border-color);
   }
   .toggle-btn{
     position:relative; overflow:hidden;
-    flex:1; padding:10px; border:none; background:transparent; color:var(--text-primary);
-    border-radius:9px; font-weight:600; font-family:'Inter', sans-serif; cursor:pointer; font-size:13.5px;
+    flex:1; padding:8px; border:none; background:transparent; color:var(--text-primary);
+    border-radius:7px; font-weight:600; font-family:'Inter', sans-serif; cursor:pointer; font-size:12.5px;
     transition:background 0.15s ease, color 0.15s ease;
+    touch-action:manipulation;
   }
   .toggle-btn.selecionado{ background:var(--bg-card); color:var(--coral-dark); box-shadow:0 2px 6px rgba(10,77,94,0.12); }
-  .toggle-btn:focus-visible{ outline:2px solid var(--ocean-mid); outline-offset:2px; }
   .bloco-custo{ display:none; }
   .bloco-custo.visivel{ display:block; animation:fadeIn 0.25s ease; }
 
   /* ---- Calculadora ---- */
-  .calc-intro{ font-size:13.5px; color:var(--text-secondary); line-height:1.55; margin:0 0 20px; }
-  .calc-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px 16px; }
-  .campo{ display:flex; flex-direction:column; gap:6px; }
+  .calc-intro{ font-size:13px; color:var(--text-secondary); line-height:1.5; margin:0 0 16px; }
+  .calc-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px 12px; }
+  .campo{ display:flex; flex-direction:column; gap:4px; }
   .campo.largura-total{ grid-column:1 / -1; }
-  .campo label{ font-size:12.5px; font-weight:600; color:var(--ocean-deep); }
+  .campo label{ font-size:11.5px; font-weight:600; color:var(--ocean-deep); }
   .campo .unidade-wrap{ position:relative; }
   .campo .unidade-wrap span{
-    position:absolute; left:12px; top:50%; transform:translateY(-50%);
-    font-size:13.5px; color:var(--text-secondary); pointer-events:none;
+    position:absolute; left:10px; top:50%; transform:translateY(-50%);
+    font-size:12.5px; color:var(--text-secondary); pointer-events:none;
   }
   .campo input{
-    width:100%; border:1.5px solid var(--border-color); border-radius:9px;
-    padding:10px 12px 10px 34px; font-size:14.5px; font-family:'JetBrains Mono', monospace;
+    width:100%; border:1.5px solid var(--border-color); border-radius:8px;
+    padding:8px 10px 8px 30px; font-size:13.5px; font-family:'JetBrains Mono', monospace;
     color:var(--text-primary); background:var(--input-bg); transition:border-color 0.15s ease, background 0.15s ease;
   }
   .campo input:focus{ outline:none; border-color:var(--laranja); background:var(--bg-card); }
-  .campo.sem-prefixo input{ padding-left:12px; }
+  .campo.sem-prefixo input{ padding-left:10px; }
 
-  .calc-acoes{ display:flex; gap:10px; margin-top:20px; flex-wrap:wrap; }
+  .calc-acoes{ display:flex; gap:8px; margin-top:16px; flex-wrap:wrap; }
   .btn-laranja, .btn-secundario{
     position:relative; overflow:hidden;
-    flex:1; min-width:150px; padding:12px 16px; border-radius:10px; font-weight:700;
-    font-size:14px; font-family:'Inter', sans-serif; cursor:pointer; border:2px solid transparent;
+    flex:1; min-width:120px; padding:10px 14px; border-radius:8px; font-weight:700;
+    font-size:13px; font-family:'Inter', sans-serif; cursor:pointer; border:2px solid transparent;
     transition:background 0.15s ease, border-color 0.15s ease, transform 0.12s ease;
+    touch-action:manipulation;
   }
-  .btn-laranja:active, .btn-secundario:active{ transform:scale(0.97); }
+  .btn-laranja:active, .btn-secundario:active{ transform:scale(0.96); }
   .btn-laranja{ background:var(--laranja); color:white; }
   .btn-laranja:hover{ background:var(--laranja-dark); }
   .btn-secundario{ background:var(--bg-card); color:var(--text-primary); border-color:var(--border-color); }
   .btn-secundario:hover{ border-color:var(--ocean-mid); }
-  .btn-secundario:focus-visible, .btn-laranja:focus-visible{ outline:3px solid var(--ocean-deep); outline-offset:2px; }
 
   .calc-resultado{
-    margin-top:24px; background:linear-gradient(135deg, var(--laranja-dark), var(--laranja));
-    color:white; border-radius:14px; padding:20px 22px;
+    margin-top:18px; background:linear-gradient(135deg, var(--laranja-dark), var(--laranja));
+    color:white; border-radius:12px; padding:16px 18px;
   }
-  .calc-resultado h3{ margin:0 0 14px; font-size:13px; font-weight:700; letter-spacing:1px; text-transform:uppercase; opacity:0.9; }
+  .calc-resultado h3{ margin:0 0 10px; font-size:12px; font-weight:700; letter-spacing:0.8px; text-transform:uppercase; opacity:0.9; }
   .calc-linha{
-    display:flex; justify-content:space-between; padding:6px 0; font-size:14px;
+    display:flex; justify-content:space-between; padding:5px 0; font-size:13px;
     border-bottom:1px solid rgba(255,255,255,0.2); font-family:'JetBrains Mono', monospace;
   }
   .calc-linha:last-of-type{ border-bottom:none; }
   .calc-linha.destaque{
-    margin-top:8px; padding-top:14px; border-top:1px solid rgba(255,255,255,0.35); border-bottom:none;
-    font-family:'Fraunces', serif; font-size:clamp(19px,5vw,23px); font-weight:700;
+    margin-top:6px; padding-top:12px; border-top:1px solid rgba(255,255,255,0.35); border-bottom:none;
+    font-family:'Fraunces', serif; font-size:clamp(18px,4.5vw,22px); font-weight:700;
   }
-  .calc-linha.destaque span:last-child{ font-size:clamp(19px,5vw,23px); font-family:'Fraunces', serif; }
+  .calc-linha.destaque span:last-child{ font-size:clamp(18px,4.5vw,22px); font-family:'Fraunces', serif; }
 
   .calc-barra-composicao{
-    display:flex; height:10px; border-radius:6px; overflow:hidden;
-    margin:16px 0 4px; background:rgba(255,255,255,0.18);
+    display:flex; height:8px; border-radius:4px; overflow:hidden;
+    margin:12px 0 4px; background:rgba(255,255,255,0.18);
   }
   .calc-barra-composicao span{ height:100%; transition:width 0.35s ease; }
   .calc-legenda{
-    display:flex; flex-wrap:wrap; gap:8px 14px; margin-top:10px; font-size:11.5px; opacity:0.92;
+    display:flex; flex-wrap:wrap; gap:6px 10px; margin-top:8px; font-size:10.5px; opacity:0.92;
   }
-  .calc-legenda .item{ display:flex; align-items:center; gap:5px; }
-  .calc-legenda .ponto{ width:8px; height:8px; border-radius:50%; display:inline-block; }
+  .calc-legenda .item{ display:flex; align-items:center; gap:4px; }
+  .calc-legenda .ponto{ width:7px; height:7px; border-radius:50%; display:inline-block; }
 
-  @media (max-width:600px){ .calc-grid{ grid-template-columns:1fr; } }
+  @media (max-width:500px){ .calc-grid{ grid-template-columns:1fr; } }
 
   /* ---- Toast ---- */
   .toast{
-    position:fixed; left:50%; bottom:24px; transform:translate(-50%, 12px);
-    background:var(--ocean-deep); color:white; padding:12px 20px; border-radius:12px;
-    font-size:13.5px; font-weight:600; box-shadow:0 8px 24px rgba(10,77,94,0.35);
+    position:fixed; left:50%; bottom:20px; transform:translate(-50%, 12px);
+    background:var(--ocean-deep); color:white; padding:10px 18px; border-radius:10px;
+    font-size:13px; font-weight:600; box-shadow:0 8px 24px rgba(10,77,94,0.35);
     opacity:0; pointer-events:none; transition:opacity 0.25s ease, transform 0.25s ease; z-index:50;
+    max-width:90%;
   }
   .toast.mostrar{ opacity:1; transform:translate(-50%, 0); pointer-events:auto; }
 
-  footer.rodape{ text-align:center; padding:26px 20px 0; font-size:12px; color:var(--text-secondary); }
+  footer.rodape{ text-align:center; padding:20px 16px 0; font-size:11.5px; color:var(--text-secondary); }
 
   /* ===================== LEMBRETES ===================== */
   .lembrete-item {
     display:flex;
     align-items:center;
-    gap:12px;
-    padding:10px 14px;
+    gap:10px;
+    padding:8px 12px;
     background:var(--sand);
-    border-radius:10px;
+    border-radius:8px;
     border-left:4px solid var(--laranja);
-    margin-bottom:8px;
+    margin-bottom:6px;
   }
   .lembrete-item .lembrete-data {
     font-family:'JetBrains Mono', monospace;
-    font-size:12px;
+    font-size:11px;
     color:var(--text-secondary);
     white-space:nowrap;
   }
   .lembrete-item .lembrete-texto {
     flex:1;
-    font-size:14px;
+    font-size:13.5px;
   }
   .lembrete-item .lembrete-remover {
     background:none;
     border:none;
     color:var(--text-secondary);
     cursor:pointer;
-    font-size:16px;
+    font-size:14px;
     padding:0 4px;
   }
   .lembrete-item .lembrete-remover:hover { color:var(--coral-dark); }
 
   .add-lembrete-form {
     display:flex;
-    gap:8px;
-    margin-top:12px;
+    gap:6px;
+    margin-top:10px;
     flex-wrap:wrap;
   }
   .add-lembrete-form input[type="text"] {
     flex:1;
-    min-width:140px;
+    min-width:120px;
     border:1.5px solid var(--border-color);
-    border-radius:10px;
-    padding:10px 14px;
-    font-size:14px;
+    border-radius:8px;
+    padding:9px 12px;
+    font-size:13px;
     background:var(--input-bg);
     color:var(--text-primary);
   }
   .add-lembrete-form input[type="date"] {
     border:1.5px solid var(--border-color);
-    border-radius:10px;
-    padding:9px 12px;
-    font-size:14px;
+    border-radius:8px;
+    padding:8px 10px;
+    font-size:13px;
     background:var(--input-bg);
     color:var(--text-primary);
   }
@@ -552,42 +578,170 @@
     background:var(--ocean-deep);
     color:white;
     border:none;
-    border-radius:10px;
-    padding:10px 18px;
+    border-radius:8px;
+    padding:9px 16px;
     font-weight:700;
     cursor:pointer;
-    font-size:13.5px;
+    font-size:13px;
   }
 
   /* ===================== DICAS DO DIA ===================== */
   .dica-dia {
     background:linear-gradient(135deg, var(--ocean-light), var(--sand-deep));
-    border-radius:12px;
-    padding:16px 20px;
-    border-left:5px solid var(--reef);
-    margin-top:16px;
+    border-radius:10px;
+    padding:14px 16px;
+    border-left:4px solid var(--reef);
+    margin-top:12px;
   }
   [data-theme="dark"] .dica-dia {
     background:linear-gradient(135deg, #1a2a30, #25252b);
   }
   .dica-dia h3 {
-    margin:0 0 6px;
+    margin:0 0 4px;
     font-family:'Fraunces', serif;
-    font-size:15px;
+    font-size:14px;
     color:var(--ocean-deep);
   }
   .dica-dia p {
     margin:0;
-    font-size:14px;
+    font-size:13.5px;
     color:var(--text-secondary);
-    line-height:1.6;
+    line-height:1.5;
   }
 
-  /* ===================== IMPRESSÃO A4 ===================== */
+  /* ===================== CALENDÁRIO ===================== */
+  .calendario-grid {
+    display:grid;
+    grid-template-columns:repeat(7, 1fr);
+    gap:3px;
+    text-align:center;
+    margin-top:8px;
+  }
+  .calendario-grid .cabecalho {
+    font-weight:700;
+    font-size:10.5px;
+    color:var(--text-secondary);
+    padding:4px 0;
+  }
+  .calendario-grid .dia {
+    padding:6px 2px;
+    border-radius:6px;
+    font-size:13px;
+    font-weight:500;
+    background:var(--sand);
+    transition:background 0.15s ease;
+  }
+  .calendario-grid .dia.outro-mes { opacity:0.3; }
+  .calendario-grid .dia.hoje { background:var(--laranja); color:white; font-weight:700; }
+  .calendario-grid .dia.viagem { background:var(--reef); color:white; font-weight:700; }
+  .calendario-grid .dia.fim-semana { color:var(--coral); }
+  [data-theme="dark"] .calendario-grid .dia { background:#2a2a30; }
+  [data-theme="dark"] .calendario-grid .dia.hoje { background:var(--laranja); color:white; }
+  [data-theme="dark"] .calendario-grid .dia.viagem { background:var(--reef); color:white; }
+
+  .calendario-nav {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:8px;
+  }
+  .calendario-nav button {
+    background:none;
+    border:none;
+    font-size:18px;
+    cursor:pointer;
+    color:var(--text-primary);
+    padding:4px 10px;
+    border-radius:6px;
+    touch-action:manipulation;
+  }
+  .calendario-nav button:active { background:var(--sand-deep); }
+  .calendario-nav .mes-ano {
+    font-weight:700;
+    font-size:15px;
+    font-family:'Fraunces', serif;
+  }
+
+  /* ===================== LINKS RÁPIDOS ===================== */
+  .links-rapidos {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-top:10px;
+  }
+  .link-rapido {
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 12px;
+    background:var(--sand);
+    border-radius:8px;
+    border:1px solid var(--border-color);
+    text-decoration:none;
+    color:var(--text-primary);
+    font-weight:600;
+    font-size:12.5px;
+    transition:all 0.15s ease;
+    touch-action:manipulation;
+  }
+  .link-rapido:active { transform:scale(0.96); }
+  .link-rapido .link-icon { font-size:18px; }
+
+  /* ===================== FAB MENU ===================== */
+  .fab-container {
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    z-index:45;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    gap:8px;
+  }
+  .fab-container .fab-btn {
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    border:none;
+    background:var(--laranja);
+    color:white;
+    font-size:22px;
+    cursor:pointer;
+    box-shadow:0 4px 16px rgba(242,122,26,0.4);
+    transition:transform 0.2s ease, background 0.2s ease;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    touch-action:manipulation;
+  }
+  .fab-container .fab-btn:active { transform:scale(0.92); }
+  .fab-container .fab-btn.secundario {
+    background:var(--bg-card);
+    color:var(--text-primary);
+    box-shadow:var(--card-shadow);
+    font-size:16px;
+    width:44px;
+    height:44px;
+    transform:scale(0.8);
+    opacity:0;
+    pointer-events:none;
+    transition:all 0.2s cubic-bezier(.4,0,.2,1);
+  }
+  .fab-container.aberto .fab-btn.secundario {
+    transform:scale(1);
+    opacity:1;
+    pointer-events:auto;
+  }
+  .fab-container .fab-btn.whatsapp-fab { background:#25D366; }
+  .fab-container .fab-btn.print-fab { background:var(--ocean-deep); }
+  .fab-container .fab-btn.calendar-fab { background:var(--reef); }
+
+  /* ===================== IMPRESSÃO ===================== */
   @media print{
     .nav-wrap, .add-item-form, .remover-item, .toast, .calc-acoes,
     .hero-actions, .toggle-custos, .add-lembrete-form,
-    .dica-dia { display:none !important; }
+    .dica-dia, .atalhos-rapidos, .fab-container, .links-rapidos,
+    .calendario-grid, .calendario-nav { display:none !important; }
     .painel{ display:block !important; }
     .hero{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
     .card{ box-shadow:none; border:1px solid #ccc; break-inside:avoid; }
@@ -618,49 +772,59 @@
 
   /* ===================== RESPONSIVO ===================== */
   @media (max-width:600px){
-    .conteudo{ padding:6px 14px 0; }
-    .nav-wrap{ padding:12px 14px 8px; }
-    .card-corpo{ padding:18px 16px 20px; }
-    .card-topo{ padding:16px 18px; }
-    .hero-actions .btn-hero{ padding:8px 14px; font-size:12px; }
+    .conteudo{ padding:4px 10px 0; }
+    .nav-wrap{ padding:8px 10px 6px; }
+    .card-corpo{ padding:14px 14px 16px; }
+    .card-topo{ padding:14px 14px; }
+    .hero-actions .btn-hero{ padding:6px 12px; font-size:11px; }
+    .atalho-btn{ font-size:11px; padding:6px 12px; }
+    .links-rapidos{ grid-template-columns:1fr; }
 
     table.tabela-flex, table.tabela-flex thead, table.tabela-flex tbody,
     table.tabela-flex th, table.tabela-flex td, table.tabela-flex tr{ display:block; width:100%; }
     table.tabela-flex thead{ display:none; }
-    table.tabela-flex tr{ border:1px solid var(--border-color); border-radius:10px; margin-bottom:8px; padding:4px 0; }
+    table.tabela-flex tr{ border:1px solid var(--border-color); border-radius:8px; margin-bottom:6px; padding:4px 0; }
     table.tabela-flex tr.subtotal{ border-color:var(--reef); }
     table.tabela-flex td{
-      display:flex; justify-content:space-between; align-items:center; gap:12px;
-      padding:9px 14px; border-bottom:none;
+      display:flex; justify-content:space-between; align-items:center; gap:10px;
+      padding:6px 10px; border-bottom:none;
     }
     table.tabela-flex td::before{
-      content:attr(data-label); font-weight:600; color:var(--text-secondary); font-size:12.5px;
+      content:attr(data-label); font-weight:600; color:var(--text-secondary); font-size:11.5px;
     }
+  }
+
+  @media (max-width:400px){
+    .hero h1{ font-size:22px; }
+    .contador .unidade{ padding:6px 8px; min-width:44px; }
+    .contador .unidade .num{ font-size:16px; }
+    .contador .unidade .rot{ font-size:8px; }
+    .aba-btn{ font-size:11px; padding:6px 10px; }
   }
 
   /* ===================== TOGGLE TEMA ===================== */
   .theme-toggle-wrap {
     position:fixed;
-    bottom:20px;
+    bottom:80px;
     right:20px;
     z-index:40;
   }
   .theme-toggle {
-    width:48px;
-    height:48px;
+    width:44px;
+    height:44px;
     border-radius:50%;
     border:2px solid var(--border-color);
     background:var(--bg-card);
     color:var(--text-primary);
-    font-size:22px;
+    font-size:20px;
     cursor:pointer;
     box-shadow:var(--card-shadow);
     transition:transform 0.2s ease, background 0.2s ease;
     display:flex;
     align-items:center;
     justify-content:center;
+    touch-action:manipulation;
   }
-  .theme-toggle:hover { transform:scale(1.05); }
   .theme-toggle:active { transform:scale(0.92); }
 </style>
 </head>
@@ -680,11 +844,9 @@
       <div class="unidade"><span class="num" id="ct-horas">–</span><span class="rot">horas</span></div>
     </div>
 
-    <!-- BOTÕES DE AÇÃO NO HERO -->
     <div class="hero-actions">
-      <button class="btn-hero primario" id="btn-imprimir-resumo" type="button">🖨️ Imprimir Resumo</button>
-      <button class="btn-hero" id="btn-agenda-google" type="button">📅 + Agenda Google</button>
-      <button class="btn-hero" id="btn-compartilhar" type="button">📤 Compartilhar</button>
+      <button class="btn-hero primario" id="btn-imprimir-resumo" type="button">🖨️ Imprimir</button>
+      <button class="btn-hero" id="btn-agenda-google" type="button">📅 + Agenda</button>
       <button class="btn-hero whatsapp" id="btn-whatsapp" type="button">💬 WhatsApp</button>
     </div>
 
@@ -695,14 +857,23 @@
     </div>
   </div>
 
+  <!-- ATALHOS RÁPIDOS -->
+  <div class="atalhos-rapidos">
+    <button class="atalho-btn" data-alvo="cronograma" data-scroll="calendario">📅 Calendário</button>
+    <button class="atalho-btn" data-alvo="custos" data-scroll="voos">✈️ Voos</button>
+    <button class="atalho-btn" data-alvo="custos" data-scroll="hoteis">🏨 Hotéis</button>
+    <button class="atalho-btn" data-alvo="custos" data-scroll="passeios">🏖️ Passeios</button>
+    <button class="atalho-btn primario" data-alvo="checklist">📝 Checklist</button>
+  </div>
+
   <div class="nav-wrap">
-    <nav class="nav-abas" aria-label="Navegação do planejamento" role="tablist">
+    <nav class="nav-abas" aria-label="Navegação do planejamento" role="tablist" id="nav-abas">
       <button class="aba-btn ativa" data-alvo="cronograma" role="tab" aria-selected="true" id="tab-cronograma" aria-controls="cronograma">📅 Cronograma</button>
       <button class="aba-btn" data-alvo="custos" role="tab" aria-selected="false" id="tab-custos" aria-controls="custos">💰 Custos</button>
       <button class="aba-btn" data-alvo="calculadora" role="tab" aria-selected="false" id="tab-calculadora" aria-controls="calculadora">🧮 Calculadora</button>
       <button class="aba-btn" data-alvo="checklist" role="tab" aria-selected="false" id="tab-checklist" aria-controls="checklist">📝 Check</button>
-      <button class="aba-btn" data-alvo="info" role="tab" aria-selected="false" id="tab-info" aria-controls="info">ℹ️ Info</button>
       <button class="aba-btn" data-alvo="lembretes" role="tab" aria-selected="false" id="tab-lembretes" aria-controls="lembretes">🔔 Lembretes</button>
+      <button class="aba-btn" data-alvo="info" role="tab" aria-selected="false" id="tab-info" aria-controls="info">ℹ️ Info</button>
     </nav>
   </div>
 
@@ -746,7 +917,21 @@
             <div class="resumo-linha total"><span>Total da viagem</span><span>12 dias</span></div>
           </div>
 
-          <!-- Dica do dia -->
+          <!-- CALENDÁRIO INTERATIVO -->
+          <div class="bloco" id="calendario">
+            <h3 class="secao">📅 Calendário da Viagem</h3>
+            <div class="calendario-nav">
+              <button id="cal-mes-ant" type="button">◀</button>
+              <span class="mes-ano" id="cal-titulo">Janeiro 2027</span>
+              <button id="cal-mes-prox" type="button">▶</button>
+            </div>
+            <div class="calendario-grid" id="cal-grid"></div>
+            <p style="font-size:11px; color:var(--text-secondary); margin-top:6px;">
+              <span style="display:inline-block; width:12px; height:12px; background:var(--reef); border-radius:4px; vertical-align:middle;"></span> Dias da viagem
+              <span style="display:inline-block; width:12px; height:12px; background:var(--laranja); border-radius:4px; vertical-align:middle; margin-left:12px;"></span> Hoje
+            </p>
+          </div>
+
           <div class="dica-dia" id="dica-dia">
             <h3>💡 Dica do dia</h3>
             <p id="dica-texto">Carregando dica...</p>
@@ -771,9 +956,8 @@
             <button class="toggle-btn" data-custo="casal" aria-pressed="false">👫 Para o Casal</button>
           </div>
 
-          <!-- ---- INDIVIDUAL ---- -->
+          <!-- INDIVIDUAL -->
           <div class="bloco-custo visivel" id="custo-individual">
-
             <div class="bloco">
               <h3 class="secao">Passagem Aérea</h3>
               <table class="tabela-flex">
@@ -783,7 +967,6 @@
                 </tbody>
               </table>
             </div>
-
             <div class="bloco">
               <h3 class="secao">Hospedagem e Alimentação</h3>
               <table class="tabela-flex">
@@ -800,7 +983,6 @@
                 </tbody>
               </table>
             </div>
-
             <div class="bloco">
               <h3 class="secao">Aluguel de Carro</h3>
               <p class="subnota">Custos considerando <strong>4 pessoas</strong> dividindo o veículo.</p>
@@ -815,7 +997,6 @@
                 </tbody>
               </table>
             </div>
-
             <div class="resumo-box">
               <h3>Total estimado por pessoa</h3>
               <div class="resumo-linha"><span>Passagem aérea</span><span>R$ 1.500,00</span></div>
@@ -823,23 +1004,20 @@
               <div class="resumo-linha"><span>Aluguel de carro</span><span>R$ 717,50</span></div>
               <div class="resumo-linha total"><span>TOTAL</span><span>R$ 9.497,50</span></div>
             </div>
-
             <p class="nota">* Valores aproximados e sujeitos a alterações. O aluguel do veículo considera a divisão das despesas entre quatro pessoas.</p>
           </div>
 
-          <!-- ---- CASAL ---- -->
+          <!-- CASAL -->
           <div class="bloco-custo" id="custo-casal">
-
             <div class="bloco">
               <h3 class="secao">Passagem Aérea</h3>
               <table class="tabela-flex">
                 <thead><tr><th>Descrição</th><th class="valor">Valor</th></tr></thead>
                 <tbody>
-                  <tr><td data-label="Descrição">Vitória ⇄ Recife (2 passagens - ida e volta)</td><td data-label="Valor" class="valor"><strong>R$ 3.000,00</strong></td></tr>
+                  <tr><td data-label="Descrição">Vitória ⇄ Recife (2 passagens)</td><td data-label="Valor" class="valor"><strong>R$ 3.000,00</strong></td></tr>
                 </tbody>
               </table>
             </div>
-
             <div class="bloco">
               <h3 class="secao">Hospedagem e Alimentação</h3>
               <table class="tabela-flex">
@@ -849,14 +1027,13 @@
                   <tr><td data-label="Item">Almoços (12 dias)</td><td data-label="Valor" class="valor">R$ 1.680,00</td></tr>
                   <tr><td data-label="Item">Jantares (12 dias)</td><td data-label="Valor" class="valor">R$ 2.400,00</td></tr>
                   <tr><td data-label="Item">Lanches</td><td data-label="Valor" class="valor">R$ 1.080,00</td></tr>
-                  <tr><td data-label="Item">Passeios (catamarã, museus, praias e bate-volta)</td><td data-label="Valor" class="valor">R$ 2.000,00</td></tr>
-                  <tr><td data-label="Item">Compras (artesanato e lembranças)</td><td data-label="Valor" class="valor">R$ 500,00</td></tr>
+                  <tr><td data-label="Item">Passeios</td><td data-label="Valor" class="valor">R$ 2.000,00</td></tr>
+                  <tr><td data-label="Item">Compras</td><td data-label="Valor" class="valor">R$ 500,00</td></tr>
                   <tr><td data-label="Item">Reserva para imprevistos</td><td data-label="Valor" class="valor">R$ 500,00</td></tr>
                   <tr class="subtotal"><td data-label="Subtotal">Subtotal</td><td data-label="Subtotal" class="valor">R$ 10.360,00</td></tr>
                 </tbody>
               </table>
             </div>
-
             <div class="bloco">
               <h3 class="secao">Aluguel de Carro</h3>
               <p class="subnota">Custos do veículo considerando <strong>4 pessoas</strong> dividindo o carro.</p>
@@ -871,7 +1048,6 @@
                 </tbody>
               </table>
             </div>
-
             <div class="resumo-box">
               <h3>Total estimado para o casal</h3>
               <div class="resumo-linha"><span>Passagem aérea</span><span>R$ 3.000,00</span></div>
@@ -879,8 +1055,39 @@
               <div class="resumo-linha"><span>Aluguel de carro</span><span>R$ 1.600,00</span></div>
               <div class="resumo-linha total"><span>TOTAL</span><span>R$ 14.960,00</span></div>
             </div>
-
             <p class="nota">* Valores estimados para duas pessoas, sujeitos a alterações conforme disponibilidade e época da viagem. Os custos do veículo consideram a divisão entre quatro ocupantes.</p>
+          </div>
+
+          <!-- LINKS RÁPIDOS PARA PESQUISA -->
+          <div class="bloco" id="voos">
+            <h3 class="secao">🔗 Links para Pesquisa</h3>
+            <div class="links-rapidos">
+              <a href="https://www.google.com/travel/flights/search?tfs=CBwQAhooEgoyMDI3LTAxLTE2agcIARIDVklYcgcIARIDUkVDcAGCAQsI____________AUABSAGYAQI" target="_blank" class="link-rapido" rel="noopener">
+                <span class="link-icon">✈️</span> Google Flights
+              </a>
+              <a href="https://www.booking.com/searchresults.html?ss=Recife%2C+Pernambuco%2C+Brasil&checkin=2027-01-16&checkout=2027-01-27&group_adults=2&no_rooms=1" target="_blank" class="link-rapido" rel="noopener">
+                <span class="link-icon">🏨</span> Booking.com
+              </a>
+              <a href="https://www.airbnb.com.br/s/Recife--Pernambuco--Brasil/homes?checkin=2027-01-16&checkout=2027-01-27&adults=2" target="_blank" class="link-rapido" rel="noopener">
+                <span class="link-icon">🏠</span> Airbnb
+              </a>
+              <a href="https://www.localiza.com/recife" target="_blank" class="link-rapido" rel="noopener">
+                <span class="link-icon">🚗</span> Aluguel de Carro
+              </a>
+            </div>
+          </div>
+
+          <div class="bloco" id="passeios">
+            <h3 class="secao">🏖️ Sugestões de Passeios</h3>
+            <div style="display:flex; flex-wrap:wrap; gap:6px;">
+              <span style="background:var(--sand); padding:6px 12px; border-radius:20px; font-size:12px; border:1px solid var(--border-color);">🌊 Praia de Boa Viagem</span>
+              <span style="background:var(--sand); padding:6px 12px; border-radius:20px; font-size:12px; border:1px solid var(--border-color);">🏛️ Centro Histórico</span>
+              <span style="background:var(--sand); padding:6px 12px; border-radius:20px; font-size:12px; border:1px solid var(--border-color);">🎨 Instituto Brennand</span>
+              <span style="background:var(--sand); padding:6px 12px; border-radius:20px; font-size:12px; border:1px solid var(--border-color);">⛪ Olinda</span>
+              <span style="background:var(--sand); padding:6px 12px; border-radius:20px; font-size:12px; border:1px solid var(--border-color);">🏝️ Porto de Galinhas</span>
+              <span style="background:var(--sand); padding:6px 12px; border-radius:20px; font-size:12px; border:1px solid var(--border-color);">🌅 Marco Zero</span>
+              <span style="background:var(--sand); padding:6px 12px; border-radius:20px; font-size:12px; border:1px solid var(--border-color);">🛶 Catamarã no Capibaribe</span>
+            </div>
           </div>
 
         </div>
@@ -899,76 +1106,59 @@
 
           <p class="calc-intro">
             Os campos já vêm preenchidos com os valores estimados na aba Custos (por pessoa).
-            Altere o que quiser para simular o seu cenário — o total é recalculado automaticamente
-            e fica salvo neste navegador, mesmo que você feche a página.
+            Altere o que quiser para simular o seu cenário.
           </p>
 
           <div class="calc-grid">
-
             <div class="campo largura-total sem-prefixo">
               <label for="calc-pessoas">Número de pessoas</label>
               <input type="number" id="calc-pessoas" min="1" step="1" value="1" inputmode="numeric">
             </div>
-
             <div class="campo">
               <label for="calc-passagem">Passagem aérea (por pessoa)</label>
               <div class="unidade-wrap"><span>R$</span><input type="number" id="calc-passagem" min="0" step="0.01" value="1500" inputmode="decimal"></div>
             </div>
-
             <div class="campo">
               <label for="calc-hotel">Hospedagem (por pessoa)</label>
               <div class="unidade-wrap"><span>R$</span><input type="number" id="calc-hotel" min="0" step="0.01" value="2200" inputmode="decimal"></div>
             </div>
-
             <div class="campo">
               <label for="calc-alimentacao">Alimentação (por pessoa)</label>
               <div class="unidade-wrap"><span>R$</span><input type="number" id="calc-alimentacao" min="0" step="0.01" value="2580" inputmode="decimal"></div>
             </div>
-
             <div class="campo">
               <label for="calc-carro">Aluguel de carro (por pessoa)</label>
               <div class="unidade-wrap"><span>R$</span><input type="number" id="calc-carro" min="0" step="0.01" value="717.50" inputmode="decimal"></div>
             </div>
-
             <div class="campo">
               <label for="calc-passeios">Passeios (por pessoa)</label>
               <div class="unidade-wrap"><span>R$</span><input type="number" id="calc-passeios" min="0" step="0.01" value="1000" inputmode="decimal"></div>
             </div>
-
             <div class="campo">
               <label for="calc-compras">Compras (por pessoa)</label>
               <div class="unidade-wrap"><span>R$</span><input type="number" id="calc-compras" min="0" step="0.01" value="500" inputmode="decimal"></div>
             </div>
-
             <div class="campo">
-              <label for="calc-imprevistos">Reserva para imprevistos (por pessoa)</label>
+              <label for="calc-imprevistos">Reserva para imprevistos</label>
               <div class="unidade-wrap"><span>R$</span><input type="number" id="calc-imprevistos" min="0" step="0.01" value="1000" inputmode="decimal"></div>
             </div>
-
-            <div class="campo">
-              <label for="calc-imprevisto2">Imprevisto (por pessoa)</label>
-              <div class="unidade-wrap"><span>R$</span><input type="number" id="calc-imprevisto2" min="0" step="0.01" value="0" inputmode="decimal"></div>
-            </div>
-
             <div class="campo largura-total">
               <label for="calc-outros">Outros (por pessoa)</label>
               <div class="unidade-wrap"><span>R$</span><input type="number" id="calc-outros" min="0" step="0.01" value="0" inputmode="decimal"></div>
             </div>
-
           </div>
 
           <div class="calc-acoes">
-            <button class="btn-secundario" id="calc-limpar" type="button">Limpar campos</button>
-            <button class="btn-secundario" id="calc-restaurar" type="button">Restaurar valores sugeridos</button>
-            <button class="btn-laranja" id="calc-copiar" type="button">📋 Copiar resumo</button>
+            <button class="btn-secundario" id="calc-limpar" type="button">Limpar</button>
+            <button class="btn-secundario" id="calc-restaurar" type="button">Restaurar</button>
+            <button class="btn-laranja" id="calc-copiar" type="button">📋 Copiar</button>
           </div>
 
           <div class="calc-resultado">
             <h3>Resultado da simulação</h3>
             <div class="calc-linha"><span>Total por pessoa</span><span id="calc-total-pessoa">R$ 0,00</span></div>
             <div class="calc-linha destaque"><span>Total geral (grupo)</span><span id="calc-total-geral">R$ 0,00</span></div>
-
-            <div class="calc-barra-composicao" id="calc-barra" title="Composição do total por pessoa"></div>
+            <div class="calc-barra-composicao" id="calc-barra"></div>
             <div class="calc-legenda" id="calc-legenda"></div>
           </div>
 
@@ -982,7 +1172,7 @@
         <div class="card-topo">
           <div class="icone">📝</div>
           <h2>Checklist de Preparação</h2>
-          <p>Acompanhe o andamento dos preparativos — o progresso fica salvo neste navegador</p>
+          <p>Acompanhe o andamento dos preparativos</p>
         </div>
         <div class="card-corpo">
 
@@ -995,27 +1185,24 @@
           <div id="lista-checklist">
             <div class="item-check" data-item data-key="dinheiro">
               <div class="item-titulo"><span class="caixa">✓</span> 💰 Guardar dinheiro</div>
-              <p class="item-desc">Temos <strong>6 meses</strong> para guardar dinheiro e reduzir ao máximo o uso do cartão de crédito durante a viagem.</p>
+              <p class="item-desc">Temos <strong>6 meses</strong> para guardar dinheiro e reduzir ao máximo o uso do cartão de crédito.</p>
             </div>
-
             <div class="item-check" data-item data-key="voos">
               <div class="item-titulo"><span class="caixa">✓</span> ✈️ Pesquisa de voos</div>
-              <p class="item-desc">Monitorar os preços regularmente e aproveitar promoções para comprar as passagens pelo menor valor possível.</p>
+              <p class="item-desc">Monitorar os preços regularmente e aproveitar promoções.</p>
             </div>
-
             <div class="item-check" data-item data-key="carro">
               <div class="item-titulo"><span class="caixa">✓</span> 🚗 Aluguel de carro</div>
-              <p class="item-desc">Pesquisar descontos oferecidos por cartões de crédito, bancos, programas de fidelidade e promoções das locadoras.</p>
+              <p class="item-desc">Pesquisar descontos oferecidos por cartões de crédito e promoções das locadoras.</p>
             </div>
-
             <div class="item-check" data-item data-key="hoteis">
               <div class="item-titulo"><span class="caixa">✓</span> 🏨 Pesquisar hotéis</div>
-              <p class="item-desc">Assim que Betel designar o território, pesquisar hotéis com boa localização, ótima avaliação e melhor custo-benefício.</p>
+              <p class="item-desc">Assim que Betel designar o território, pesquisar hotéis com bom custo-benefício.</p>
             </div>
           </div>
 
           <form class="add-item-form" id="form-novo-item">
-            <input type="text" id="novo-item-texto" placeholder="Adicionar novo item (ex: comprar protetor solar)" maxlength="80">
+            <input type="text" id="novo-item-texto" placeholder="Adicionar novo item..." maxlength="80">
             <button type="submit">+ Adicionar</button>
           </form>
 
@@ -1038,17 +1225,15 @@
         </div>
         <div class="card-corpo">
 
-          <div id="lista-lembretes">
-            <!-- lembretes serão inseridos aqui via JS -->
-          </div>
+          <div id="lista-lembretes"></div>
 
           <form class="add-lembrete-form" id="form-lembrete">
-            <input type="text" id="lembrete-texto" placeholder="O que lembrar? (ex: Comprar passagens)" maxlength="100">
+            <input type="text" id="lembrete-texto" placeholder="O que lembrar?" maxlength="100">
             <input type="date" id="lembrete-data">
-            <button type="submit">+ Adicionar</button>
+            <button type="submit">+</button>
           </form>
 
-          <p class="nota" style="margin-top:12px;">Os lembretes são salvos no seu navegador.</p>
+          <p class="nota" style="margin-top:10px;">Os lembretes são salvos no seu navegador.</p>
 
         </div>
       </div>
@@ -1066,42 +1251,19 @@
 
           <div class="info-box">
             <h3>📅 Período da Viagem</h3>
-            <p>
-              A viagem está prevista para o período de <strong>16/01/2027 (sábado)</strong> a
-              <strong>27/01/2027 (quarta-feira)</strong>, totalizando <strong>12 dias</strong> e
-              <strong>11 noites</strong> em Recife, com saída e retorno por <strong>Vitória/ES</strong>.
-            </p>
+            <p>A viagem está prevista para o período de <strong>16/01/2027</strong> a <strong>27/01/2027</strong>, totalizando <strong>12 dias</strong> e <strong>11 noites</strong> em Recife.</p>
           </div>
 
           <div class="aviso">
             <h3>⚠️ Alta Temporada</h3>
-            <p>
-              Janeiro é considerado um período de <strong>alta temporada</strong>, devido às férias
-              escolares e ao verão no Nordeste. Por esse motivo, passagens aéreas, hospedagens e
-              aluguel de veículos costumam apresentar preços mais elevados.
-            </p>
-            <p>
-              <strong>Recomendação:</strong> realizar reservas e compras com antecedência para aumentar
-              as chances de encontrar melhores preços e maior disponibilidade.
-            </p>
+            <p>Janeiro é considerado um período de <strong>alta temporada</strong>, devido às férias escolares e ao verão no Nordeste.</p>
+            <p><strong>Recomendação:</strong> realizar reservas e compras com antecedência.</p>
           </div>
 
-          <div class="info-box" style="margin-top:16px;">
+          <div class="info-box" style="margin-top:12px;">
             <h3>📌 Estimativas Sujeitas a Ajustes</h3>
-            <p>
-              Os valores e informações apresentados são apenas uma <strong>estimativa</strong> para
-              auxiliar no planejamento da viagem.
-            </p>
-            <p>
-              Alguns detalhes ainda dependem das orientações de <strong>Betel</strong>, especialmente
-              a definição da região de Recife onde realizaremos a pregação. Essa informação pode
-              impactar alguns custos. Por exemplo, caso a hospedagem fique próxima ao território
-              designado, talvez nem seja necessário alugar um carro.
-            </p>
-            <p>
-              À medida que novas informações forem sendo confirmadas, este conteúdo será atualizado
-              para refletir o planejamento mais preciso possível.
-            </p>
+            <p>Os valores e informações apresentados são apenas uma <strong>estimativa</strong> para auxiliar no planejamento.</p>
+            <p>Alguns detalhes ainda dependem das orientações de <strong>Betel</strong>.</p>
           </div>
 
         </div>
@@ -1117,28 +1279,33 @@
 <!-- Toast -->
 <div class="toast" id="toast"></div>
 
-<!-- Toggle de tema (Dark Mode) -->
+<!-- FAB Menu -->
+<div class="fab-container" id="fab-container">
+  <button class="fab-btn secundario print-fab" id="fab-print" type="button" title="Imprimir">🖨️</button>
+  <button class="fab-btn secundario whatsapp-fab" id="fab-whatsapp" type="button" title="WhatsApp">💬</button>
+  <button class="fab-btn secundario calendar-fab" id="fab-calendar" type="button" title="Agenda">📅</button>
+  <button class="fab-btn" id="fab-toggle" type="button" title="Menu rápido">⚡</button>
+</div>
+
+<!-- Toggle de tema -->
 <div class="theme-toggle-wrap">
-  <button class="theme-toggle" id="theme-toggle" aria-label="Alternar tema" title="Alternar tema (claro/escuro)">🌙</button>
+  <button class="theme-toggle" id="theme-toggle" aria-label="Alternar tema">🌙</button>
 </div>
 
 <script>
-  /* ---------- Utilidades ---------- */
+  /* ---------- UTILIDADES ---------- */
   function salvar(chave, valor){
-    try{ localStorage.setItem(chave, JSON.stringify(valor)); }catch(e){ /* armazenamento indisponível */ }
+    try{ localStorage.setItem(chave, JSON.stringify(valor)); }catch(e){}
   }
   function carregar(chave, padrao){
-    try{
-      var v = localStorage.getItem(chave);
-      return v === null ? padrao : JSON.parse(v);
-    }catch(e){ return padrao; }
+    try{ var v = localStorage.getItem(chave); return v === null ? padrao : JSON.parse(v); }catch(e){ return padrao; }
   }
   function mostrarToast(msg){
     var t = document.getElementById('toast');
     t.textContent = msg;
     t.classList.add('mostrar');
     clearTimeout(mostrarToast._h);
-    mostrarToast._h = setTimeout(function(){ t.classList.remove('mostrar'); }, 2200);
+    mostrarToast._h = setTimeout(function(){ t.classList.remove('mostrar'); }, 2000);
   }
   function ripple(e, el){
     var r = document.createElement('span');
@@ -1151,11 +1318,11 @@
     el.appendChild(r);
     setTimeout(function(){ r.remove(); }, 600);
   }
-  document.querySelectorAll('.aba-btn, .toggle-btn, .btn-laranja, .btn-secundario, .add-item-form button, .add-lembrete-form button, .theme-toggle').forEach(function(el){
+  document.querySelectorAll('.aba-btn, .toggle-btn, .btn-laranja, .btn-secundario, .add-item-form button, .add-lembrete-form button, .theme-toggle, .fab-btn, .atalho-btn').forEach(function(el){
     el.addEventListener('click', function(e){ ripple(e, el); });
   });
 
-  /* ---------- Tema (Dark Mode) ---------- */
+  /* ---------- TEMA ---------- */
   (function(){
     var toggle = document.getElementById('theme-toggle');
     var atual = carregar('rbe_tema', 'claro');
@@ -1163,11 +1330,9 @@
       if (tema === 'escuro') {
         document.documentElement.setAttribute('data-theme', 'dark');
         toggle.textContent = '☀️';
-        toggle.setAttribute('aria-label', 'Mudar para tema claro');
       } else {
         document.documentElement.removeAttribute('data-theme');
         toggle.textContent = '🌙';
-        toggle.setAttribute('aria-label', 'Mudar para tema escuro');
       }
       salvar('rbe_tema', tema);
     }
@@ -1178,24 +1343,39 @@
     });
   })();
 
-  /* ---------- Navegação entre abas ---------- */
+  /* ---------- FAB ---------- */
+  (function(){
+    var container = document.getElementById('fab-container');
+    var toggleBtn = document.getElementById('fab-toggle');
+    toggleBtn.addEventListener('click', function(){
+      container.classList.toggle('aberto');
+    });
+    document.addEventListener('click', function(e){
+      if (!container.contains(e.target)) {
+        container.classList.remove('aberto');
+      }
+    });
+    document.getElementById('fab-print').addEventListener('click', function(){ window.print(); });
+    document.getElementById('fab-whatsapp').addEventListener('click', function(){
+      document.getElementById('btn-whatsapp').click();
+    });
+    document.getElementById('fab-calendar').addEventListener('click', function(){
+      document.getElementById('btn-agenda-google').click();
+    });
+  })();
+
+  /* ---------- NAVEGAÇÃO DAS ABAS ---------- */
   var abas = document.querySelectorAll('.aba-btn');
   var paineis = document.querySelectorAll('.painel');
 
   function irParaAba(btn){
     abas.forEach(function(b){ b.classList.remove('ativa'); b.setAttribute('aria-selected','false'); });
     paineis.forEach(function(p){ p.classList.remove('ativo'); });
-
     btn.classList.add('ativa');
     btn.setAttribute('aria-selected','true');
     document.getElementById(btn.getAttribute('data-alvo')).classList.add('ativo');
-    btn.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
-
-    var navTopo = document.querySelector('.nav-wrap').getBoundingClientRect().top + window.pageYOffset;
-    if (window.pageYOffset > navTopo) {
-      window.scrollTo({top:navTopo, behavior:'smooth'});
-    }
     salvar('rbe_aba_ativa', btn.getAttribute('data-alvo'));
+    document.getElementById('fab-container').classList.remove('aberto');
   }
 
   abas.forEach(function(btn){
@@ -1208,20 +1388,47 @@
     if (alvoBtn) irParaAba(alvoBtn);
   }
 
-  /* ---------- Alternância Individual / Casal ---------- */
+  /* ---------- ATALHOS RÁPIDOS (CORRIGIDO) ---------- */
+  document.querySelectorAll('.atalho-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var alvo = this.getAttribute('data-alvo');
+      var scrollId = this.getAttribute('data-scroll');
+      
+      // Primeiro, encontra e ativa a aba correta
+      var aba = document.querySelector('.aba-btn[data-alvo="'+alvo+'"]');
+      if (aba) {
+        irParaAba(aba);
+      }
+      
+      // Depois, se tiver um scrollId, rola até o elemento
+      if (scrollId) {
+        setTimeout(function(){
+          var el = document.getElementById(scrollId);
+          if (el) {
+            var topOffset = el.getBoundingClientRect().top + window.pageYOffset - 80;
+            window.scrollTo({top: topOffset, behavior: 'smooth'});
+          }
+        }, 350); // Pequeno delay para a aba carregar
+      } else {
+        // Se não tiver scrollId, só rola para o topo
+        window.scrollTo({top: 0, behavior: 'smooth'});
+      }
+    });
+  });
+
+  /* ---------- ALTERNÂNCIA CUSTOS ---------- */
   var toggleBtns = document.querySelectorAll('.toggle-btn');
   toggleBtns.forEach(function(btn){
     btn.addEventListener('click', function(){
       toggleBtns.forEach(function(b){ b.classList.remove('selecionado'); b.setAttribute('aria-pressed','false'); });
       document.querySelectorAll('.bloco-custo').forEach(function(b){ b.classList.remove('visivel'); });
-
       btn.classList.add('selecionado');
       btn.setAttribute('aria-pressed','true');
       document.getElementById('custo-' + btn.getAttribute('data-custo')).classList.add('visivel');
     });
   });
 
-  /* ---------- Checklist interativo com persistência ---------- */
+  /* ---------- CHECKLIST ---------- */
   var listaChecklist = document.getElementById('lista-checklist');
   var barra = document.getElementById('barra-progresso');
   var label = document.getElementById('progresso-label');
@@ -1274,11 +1481,9 @@
       '<div class="item-titulo"><span class="caixa">✓</span> ' + texto + '</div>' +
       '<button class="remover-item" type="button" aria-label="Remover item">✕</button>';
     listaChecklist.appendChild(div);
-
     var estado = carregar(chaveItem(div), false);
     if (estado) div.classList.add('concluido');
     ativarItem(div);
-
     div.querySelector('.remover-item').addEventListener('click', function(){
       div.remove();
       salvarListaPersonalizada();
@@ -1305,16 +1510,13 @@
     input.focus();
   });
 
-  /* ---------- Lembretes ---------- */
+  /* ---------- LEMBRETES ---------- */
   var listaLembretes = document.getElementById('lista-lembretes');
 
   function salvarLembretes(){
     var items = [];
     listaLembretes.querySelectorAll('.lembrete-item').forEach(function(el){
-      items.push({
-        texto: el.dataset.texto,
-        data: el.dataset.data
-      });
+      items.push({ texto: el.dataset.texto, data: el.dataset.data });
     });
     salvar('rbe_lembretes', items);
   }
@@ -1327,9 +1529,8 @@
     div.innerHTML =
       '<span class="lembrete-data">' + (data || 'Sem data') + '</span>' +
       '<span class="lembrete-texto">' + texto + '</span>' +
-      '<button class="lembrete-remover" type="button" aria-label="Remover lembrete">✕</button>';
+      '<button class="lembrete-remover" type="button">✕</button>';
     listaLembretes.appendChild(div);
-
     div.querySelector('.lembrete-remover').addEventListener('click', function(){
       div.remove();
       salvarLembretes();
@@ -1353,7 +1554,7 @@
     mostrarToast('Lembrete adicionado!');
   });
 
-  /* ---------- Contador regressivo ---------- */
+  /* ---------- CONTADOR ---------- */
   (function(){
     var dataViagem = new Date('2027-01-16T00:00:00-03:00').getTime();
     function atualizarContador(){
@@ -1376,30 +1577,22 @@
     setInterval(atualizarContador, 60000);
   })();
 
-  /* ---------- Calculadora de custos ---------- */
-  var camposCalc = ['calc-passagem','calc-hotel','calc-alimentacao','calc-carro','calc-passeios','calc-compras','calc-imprevistos','calc-imprevisto2','calc-outros'];
+  /* ---------- CALCULADORA ---------- */
+  var camposCalc = ['calc-passagem','calc-hotel','calc-alimentacao','calc-carro','calc-passeios','calc-compras','calc-imprevistos','calc-outros'];
   var rotulosCalc = {
     'calc-passagem':'Passagem', 'calc-hotel':'Hospedagem', 'calc-alimentacao':'Alimentação',
     'calc-carro':'Carro', 'calc-passeios':'Passeios', 'calc-compras':'Compras',
-    'calc-imprevistos':'Imprevistos', 'calc-imprevisto2':'Imprevisto extra', 'calc-outros':'Outros'
+    'calc-imprevistos':'Imprevistos', 'calc-outros':'Outros'
   };
-  var coresCalc = ['#ffffff','#ffe4d1','#ffd4b3','#ffc79a','#f7b384','#eda06f','#dd8c5c','#c97a4c','#b56a40'];
+  var coresCalc = ['#ffffff','#ffe4d1','#ffd4b3','#ffc79a','#f7b384','#eda06f','#dd8c5c','#b56a40'];
   var valoresSugeridos = {
     'calc-pessoas':1, 'calc-passagem':1500, 'calc-hotel':2200, 'calc-alimentacao':2580,
     'calc-carro':717.50, 'calc-passeios':1000, 'calc-compras':500,
-    'calc-imprevistos':1000, 'calc-imprevisto2':0, 'calc-outros':0
+    'calc-imprevistos':1000, 'calc-outros':0
   };
 
   function formatarBRL(valor){
     return 'R$ ' + valor.toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2});
-  }
-
-  function salvarCalc(){
-    var estado = {};
-    Object.keys(valoresSugeridos).forEach(function(id){
-      estado[id] = document.getElementById(id).value;
-    });
-    salvar('rbe_calculadora', estado);
   }
 
   function calcularTotais(){
@@ -1425,19 +1618,24 @@
       if (v <= 0 || totalPorPessoa <= 0) return;
       var pct = (v / totalPorPessoa) * 100;
       var cor = coresCalc[i % coresCalc.length];
-
       var seg = document.createElement('span');
       seg.style.width = pct + '%';
       seg.style.background = cor;
       barraEl.appendChild(seg);
-
       var leg = document.createElement('span');
       leg.className = 'item';
       leg.innerHTML = '<span class="ponto" style="background:'+cor+'"></span>' + rotulosCalc[id] + ' (' + Math.round(pct) + '%)';
       legendaEl.appendChild(leg);
     });
-
     salvarCalc();
+  }
+
+  function salvarCalc(){
+    var estado = {};
+    Object.keys(valoresSugeridos).forEach(function(id){
+      estado[id] = document.getElementById(id).value;
+    });
+    salvar('rbe_calculadora', estado);
   }
 
   (function(){
@@ -1464,170 +1662,175 @@
       document.getElementById(id).value = valoresSugeridos[id];
     });
     calcularTotais();
-    mostrarToast('Valores sugeridos restaurados');
+    mostrarToast('Valores restaurados');
   });
 
   document.getElementById('calc-copiar').addEventListener('click', function(){
     var pessoas = document.getElementById('calc-pessoas').value;
     var totalPessoa = document.getElementById('calc-total-pessoa').textContent;
     var totalGeral = document.getElementById('calc-total-geral').textContent;
-    var texto = 'Viagem Recife 2027 — Simulação de custos\n' +
-      'Pessoas: ' + pessoas + '\n' +
-      'Total por pessoa: ' + totalPessoa + '\n' +
-      'Total geral: ' + totalGeral;
-
+    var texto = 'Viagem Recife 2027 — Simulação de custos\nPessoas: ' + pessoas + '\nTotal por pessoa: ' + totalPessoa + '\nTotal geral: ' + totalGeral;
     if (navigator.clipboard && navigator.clipboard.writeText){
       navigator.clipboard.writeText(texto).then(function(){
         mostrarToast('Resumo copiado!');
       }).catch(function(){
-        mostrarToast('Não foi possível copiar automaticamente');
+        mostrarToast('Não foi possível copiar');
       });
     } else {
-      mostrarToast('Cópia não suportada neste navegador');
+      mostrarToast('Cópia não suportada');
     }
   });
 
   calcularTotais();
 
-  /* ---------- Dicas do dia ---------- */
+  /* ---------- CALENDÁRIO (JANEIRO 2027) ---------- */
+  (function(){
+    // Define o mês inicial como Janeiro de 2027
+    var mesAtual = 0; // 0 = Janeiro
+    var anoAtual = 2027;
+    var dataInicioViagem = new Date(2027, 0, 16);
+    var dataFimViagem = new Date(2027, 0, 27);
+
+    function gerarCalendario(mes, ano){
+      var grid = document.getElementById('cal-grid');
+      var titulo = document.getElementById('cal-titulo');
+      var meses = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+      titulo.textContent = meses[mes] + ' ' + ano;
+
+      var primeiroDia = new Date(ano, mes, 1).getDay();
+      var diasNoMes = new Date(ano, mes + 1, 0).getDate();
+      var diasNoMesAnterior = new Date(ano, mes, 0).getDate();
+
+      grid.innerHTML = '';
+      var cabecalhos = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+      cabecalhos.forEach(function(d){
+        var el = document.createElement('div');
+        el.className = 'cabecalho';
+        el.textContent = d.substring(0,3);
+        grid.appendChild(el);
+      });
+
+      var hoje = new Date();
+      var hojeStr = hoje.getFullYear() + '-' + String(hoje.getMonth()+1).padStart(2,'0') + '-' + String(hoje.getDate()).padStart(2,'0');
+
+      // Dias do mês anterior
+      var diasAnterior = primeiroDia;
+      for (var i = diasNoMesAnterior - diasAnterior + 1; i <= diasNoMesAnterior; i++) {
+        var el = document.createElement('div');
+        el.className = 'dia outro-mes';
+        el.textContent = i;
+        grid.appendChild(el);
+      }
+
+      // Dias do mês atual
+      for (var d = 1; d <= diasNoMes; d++) {
+        var el = document.createElement('div');
+        el.className = 'dia';
+        el.textContent = d;
+
+        var dataStr = ano + '-' + String(mes+1).padStart(2,'0') + '-' + String(d).padStart(2,'0');
+        var data = new Date(ano, mes, d);
+
+        if (dataStr === hojeStr) {
+          el.classList.add('hoje');
+        }
+
+        if (data >= dataInicioViagem && data <= dataFimViagem) {
+          el.classList.add('viagem');
+        }
+
+        if (data.getDay() === 0 || data.getDay() === 6) {
+          el.classList.add('fim-semana');
+        }
+
+        grid.appendChild(el);
+      }
+
+      var totalDias = diasAnterior + diasNoMes;
+      var diasProximo = 42 - totalDias;
+      for (var p = 1; p <= diasProximo; p++) {
+        var el = document.createElement('div');
+        el.className = 'dia outro-mes';
+        el.textContent = p;
+        grid.appendChild(el);
+      }
+    }
+
+    document.getElementById('cal-mes-ant').addEventListener('click', function(){
+      mesAtual--;
+      if (mesAtual < 0) { mesAtual = 11; anoAtual--; }
+      gerarCalendario(mesAtual, anoAtual);
+    });
+
+    document.getElementById('cal-mes-prox').addEventListener('click', function(){
+      mesAtual++;
+      if (mesAtual > 11) { mesAtual = 0; anoAtual++; }
+      gerarCalendario(mesAtual, anoAtual);
+    });
+
+    gerarCalendario(mesAtual, anoAtual);
+  })();
+
+  /* ---------- DICAS DO DIA ---------- */
   (function(){
     var dicas = [
       'Recife tem mais de 30 km de praias! Não deixe de visitar Boa Viagem, Piedade e Candeias.',
       'O Centro Histórico de Recife e Olinda são Patrimônios da Humanidade pela UNESCO.',
       'Experimente a gastronomia local: caldeirada de peixe, bolo de rolo, tapioca e o famoso "caranguejo".',
       'O frevo e o maracatu são ritmos típicos de Pernambuco — vale a pena conhecer!',
-      'O Instituto Ricardo Brennand é um dos museus mais visitados do Brasil, com acervo incrível.',
+      'O Instituto Ricardo Brennand é um dos museus mais visitados do Brasil.',
       'O Mercado de São José é ótimo para comprar artesanato e lembranças.',
       'Recife tem um dos maiores Carnavais do mundo, com o Galo da Madrugada.',
       'A Praia de Porto de Galinhas fica a cerca de 1h de Recife e é imperdível!',
       'O Parque Estadual Dois Irmãos tem zoológico e mata atlântica preservada.',
       'O pôr do sol no Marco Zero é um dos momentos mais bonitos da cidade.'
     ];
-    var hoje = new Date().getDate();
-    var idx = hoje % dicas.length;
+    var idx = new Date().getDate() % dicas.length;
     document.getElementById('dica-texto').textContent = dicas[idx];
   })();
 
-  /* ---------- Resumo para WhatsApp ---------- */
+  /* ---------- WHATSAPP ---------- */
   function gerarResumoWhatsApp() {
-    var agora = new Date();
-    var dataFormatada = agora.toLocaleDateString('pt-BR');
-    
-    // Pega dados da página
-    var dias = document.querySelector('.resumo-box .total span:last-child').textContent;
     var custoPessoa = document.querySelector('#custo-individual .resumo-box .total span:last-child').textContent;
     var custoCasal = document.querySelector('#custo-casal .resumo-box .total span:last-child').textContent;
-    
-    // Pega dados dos lembretes
-    var lembretes = [];
-    document.querySelectorAll('#lista-lembretes .lembrete-item').forEach(function(el) {
-      var texto = el.querySelector('.lembrete-texto').textContent;
-      var data = el.querySelector('.lembrete-data').textContent;
-      lembretes.push('• ' + texto + (data !== 'Sem data' ? ' (' + data + ')' : ''));
-    });
-    var textoLembretes = lembretes.length ? lembretes.join('\n') : 'Nenhum lembrete cadastrado.';
-    
-    // Pega itens do checklist
-    var checkItens = [];
-    document.querySelectorAll('#lista-checklist .item-check').forEach(function(el) {
-      var titulo = el.querySelector('.item-titulo').textContent.trim();
-      var status = el.classList.contains('concluido') ? '✅' : '⬜';
-      checkItens.push(status + ' ' + titulo);
-    });
-    var textoCheck = checkItens.length ? checkItens.join('\n') : 'Nenhum item no checklist.';
-    
-    // Dica do dia
-    var dica = document.getElementById('dica-texto') ? document.getElementById('dica-texto').textContent : 'Aproveite a viagem!';
-    
     var mensagem = 
 '🌊 *PLANEJAMENTO DA VIAGEM — RECIFE/PE 2027*\n' +
 '━━━━━━━━━━━━━━━━━━━━━━━━━━━\n' +
-'📅 *Período:* 16/01/2027 a 27/01/2027 (' + dias + ' dias)\n' +
+'📅 *Período:* 16/01 a 27/01/2027 (12 dias)\n' +
 '\n' +
 '💰 *CUSTOS ESTIMADOS*\n' +
 '👤 Por pessoa: ' + custoPessoa + '\n' +
 '👫 Por casal: ' + custoCasal + '\n' +
 '\n' +
-'📝 *CHECKLIST*\n' +
-textoCheck + '\n' +
-'\n' +
-'🔔 *LEMBRETES*\n' +
-textoLembretes + '\n' +
-'\n' +
-'💡 *Dica do dia:* ' + dica + '\n' +
-'\n' +
-'📎 *Detalhes completos:*\n' +
-window.location.href + '\n' +
+'📎 *Detalhes:* ' + window.location.href + '\n' +
 '━━━━━━━━━━━━━━━━━━━━━━━━━━━\n' +
-'✈️ Bom planejamento e boa viagem! 🏖️';
-    
+'✈️ Bom planejamento! 🏖️';
     return mensagem;
   }
 
-  /* ---------- Botão WhatsApp ---------- */
-  document.getElementById('btn-whatsapp').addEventListener('click', function() {
-    var mensagem = gerarResumoWhatsApp();
-    var textoCodificado = encodeURIComponent(mensagem);
-    
-    var urlWhatsApp = 'https://api.whatsapp.com/send?text=' + textoCodificado;
-    window.open(urlWhatsApp, '_blank');
-    
+  document.getElementById('btn-whatsapp').addEventListener('click', function(){
+    var msg = gerarResumoWhatsApp();
+    var url = 'https://api.whatsapp.com/send?text=' + encodeURIComponent(msg);
+    window.open(url, '_blank');
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(mensagem).then(function() {
-        mostrarToast('✅ Resumo copiado! Envie no WhatsApp.');
-      }).catch(function() {
-        mostrarToast('Abrindo WhatsApp...');
-      });
-    } else {
-      mostrarToast('Abrindo WhatsApp...');
-    }
-  });
-
-  /* ---------- Botão Compartilhar ---------- */
-  document.getElementById('btn-compartilhar').addEventListener('click', function() {
-    var mensagem = gerarResumoWhatsApp();
-    
-    if (navigator.share && navigator.canShare) {
-      navigator.share({
-        title: 'Planejamento da Viagem — Recife 2027',
-        text: mensagem,
+      navigator.clipboard.writeText(msg).then(function(){
+        mostrarToast('✅ Resumo copiado!');
       }).catch(function(){});
-    } else if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(mensagem).then(function(){
-        mostrarToast('✅ Resumo copiado! Compartilhe onde quiser.');
-      }).catch(function(){
-        mostrarToast('Não foi possível copiar automaticamente.');
-      });
-    } else {
-      mostrarToast('Copie o link manualmente: ' + window.location.href);
     }
   });
 
-  /* ---------- Botão Imprimir Resumo ---------- */
-  document.getElementById('btn-imprimir-resumo').addEventListener('click', function(){
-    window.print();
-  });
-
-  /* ---------- Botão Agenda Google ---------- */
+  /* ---------- AGENDA GOOGLE ---------- */
   document.getElementById('btn-agenda-google').addEventListener('click', function(){
     var titulo = encodeURIComponent('Viagem para Recife - Pregação e Passeio');
-    var descricao = encodeURIComponent(
-      'Período de pregação: 16/01/2027 a 24/01/2027\n' +
-      'Passeio: 25/01/2027 a 27/01/2027\n' +
-      'Destino: Recife, Pernambuco\n' +
-      'Organizado pelo grupo de pregação.\n\n' +
-      'Detalhes: ' + window.location.href
-    );
-    var inicio = '20270116';
-    var fim = '20270128';
-    var url = 'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-      '&text=' + titulo +
-      '&dates=' + inicio + '/' + fim +
-      '&details=' + descricao +
-      '&location=Recife, Pernambuco';
-
+    var descricao = encodeURIComponent('Período de pregação: 16/01/2027 a 24/01/2027\nPasseio: 25/01/2027 a 27/01/2027\nDestino: Recife, PE\nDetalhes: ' + window.location.href);
+    var url = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + titulo + '&dates=20270116/20270128&details=' + descricao + '&location=Recife, Pernambuco';
     window.open(url, '_blank');
     mostrarToast('Abrindo Google Agenda...');
+  });
+
+  /* ---------- IMPRIMIR ---------- */
+  document.getElementById('btn-imprimir-resumo').addEventListener('click', function(){
+    window.print();
   });
 </script>
 </body>
