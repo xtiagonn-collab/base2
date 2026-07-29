@@ -26,6 +26,42 @@
     --line:#e0e6e8;
     --card-shadow:0 4px 18px rgba(10,77,94,0.09);
     --radius:16px;
+    --bg-body:var(--sand);
+    --bg-card:#ffffff;
+    --bg-card-topo:transparent;
+    --text-primary:var(--ink);
+    --text-secondary:var(--muted);
+    --border-color:var(--line);
+    --shadow:var(--card-shadow);
+    --toggle-bg:var(--sand-deep);
+    --input-bg:var(--sand);
+    --hero-text:#fff;
+    --hero-bg-start:var(--ocean-deep);
+    --hero-bg-end:var(--ocean);
+  }
+
+  [data-theme="dark"] {
+    --ocean-deep:#0a2e3a;
+    --ocean:#0d4d5e;
+    --ocean-mid:#1a7a8f;
+    --ocean-light:#1a3a44;
+    --sand:#1a1a1e;
+    --sand-deep:#25252b;
+    --ink:#e8edee;
+    --muted:#9aa8ae;
+    --line:#3a454a;
+    --card-shadow:0 4px 18px rgba(0,0,0,0.5);
+    --bg-body:#121214;
+    --bg-card:#1e1e24;
+    --text-primary:#e8edee;
+    --text-secondary:#9aa8ae;
+    --border-color:#3a454a;
+    --shadow:0 4px 18px rgba(0,0,0,0.6);
+    --toggle-bg:#2a2a30;
+    --input-bg:#2a2a30;
+    --hero-text:#e8edee;
+    --laranja-claro:#2a1a0a;
+    --sand-deep:#25252b;
   }
 
   *{box-sizing:border-box;}
@@ -38,11 +74,12 @@
 
   body{
     font-family:'Inter', Arial, Helvetica, sans-serif;
-    background:var(--sand);
-    color:var(--ink);
+    background:var(--bg-body);
+    color:var(--text-primary);
     margin:0;
     padding:0;
     -webkit-font-smoothing:antialiased;
+    transition:background 0.3s ease, color 0.3s ease;
   }
 
   h1,h2,h3{ font-family:'Fraunces', Georgia, serif; }
@@ -55,11 +92,12 @@
     position:relative;
     background:
       radial-gradient(circle at 15% 20%, rgba(255,255,255,0.10), transparent 45%),
-      linear-gradient(150deg, var(--ocean-deep), var(--ocean) 65%, var(--ocean-mid));
-    color:white;
+      linear-gradient(150deg, var(--hero-bg-start), var(--hero-bg-end) 65%, var(--ocean-mid));
+    color:var(--hero-text);
     padding:clamp(32px,7vw,52px) clamp(20px,6vw,44px) 56px;
     text-align:center;
     overflow:hidden;
+    transition:background 0.3s ease;
   }
   .hero .eyebrow{
     display:inline-flex; align-items:center; gap:8px;
@@ -81,7 +119,6 @@
     letter-spacing:0.3px; backdrop-filter:blur(2px);
   }
 
-  /* Contador regressivo — elemento de assinatura da página */
   .contador{
     display:flex; justify-content:center; gap:10px;
     margin-top:24px; flex-wrap:wrap;
@@ -114,18 +151,82 @@
   .onda{ position:absolute; left:0; right:0; bottom:-1px; line-height:0; }
   .onda svg{ width:100%; height:auto; display:block; }
 
+  /* ===================== HEADER ACTIONS (botões no hero) ===================== */
+  .hero-actions {
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:20px;
+  }
+  .hero-actions .btn-hero {
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 20px;
+    border-radius:40px;
+    border:1px solid rgba(255,255,255,0.35);
+    background:rgba(255,255,255,0.12);
+    color:white;
+    font-weight:600;
+    font-size:13px;
+    cursor:pointer;
+    backdrop-filter:blur(2px);
+    transition:background 0.2s ease, transform 0.15s ease;
+    text-decoration:none;
+    font-family:'Inter', sans-serif;
+  }
+  .hero-actions .btn-hero:hover {
+    background:rgba(255,255,255,0.25);
+    transform:translateY(-1px);
+  }
+  .hero-actions .btn-hero:active {
+    transform:scale(0.96);
+  }
+  .hero-actions .btn-hero.primario {
+    background:var(--laranja);
+    border-color:var(--laranja);
+  }
+  .hero-actions .btn-hero.primario:hover {
+    background:var(--laranja-dark);
+    border-color:var(--laranja-dark);
+  }
+  .hero-actions .btn-hero.whatsapp {
+    background:#25D366;
+    border-color:#25D366;
+  }
+  .hero-actions .btn-hero.whatsapp:hover {
+    background:#1da851;
+    border-color:#1da851;
+  }
+
   /* ===================== NAV ===================== */
-  .nav-wrap{ position:sticky; top:0; z-index:20; background:var(--sand); padding:14px 20px 10px; }
+  .nav-wrap{
+    position:sticky;
+    top:0;
+    z-index:20;
+    background:var(--bg-body);
+    padding:14px 20px 10px;
+    transition:background 0.3s ease;
+  }
   .nav-abas{
-    display:flex; gap:8px; overflow-x:auto;
-    scrollbar-width:none; -ms-overflow-style:none;
-    background:white; border-radius:14px; padding:6px; box-shadow:var(--card-shadow);
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+    background:var(--bg-card);
+    border-radius:14px;
+    padding:6px;
+    box-shadow:var(--shadow);
+    border:1px solid var(--border-color);
   }
   .nav-abas::-webkit-scrollbar{ display:none; }
   .aba-btn{
     position:relative; overflow:hidden;
     flex:0 0 auto; border:2px solid transparent;
-    background:var(--laranja-claro); color:var(--laranja-dark);
+    background:var(--laranja-claro);
+    color:var(--laranja-dark);
     font-family:'Inter', sans-serif; font-size:13.5px; font-weight:700;
     padding:10px 16px; border-radius:10px; cursor:pointer; white-space:nowrap;
     transition:background 0.18s ease, color 0.18s ease, border-color 0.18s ease, transform 0.15s ease;
@@ -138,7 +239,15 @@
   }
   .aba-btn:focus-visible{ outline:3px solid var(--laranja-dark); outline-offset:2px; }
 
-  /* ripple de clique nos botões */
+  [data-theme="dark"] .aba-btn {
+    background:#2a2a30;
+    color:#d0d5d8;
+  }
+  [data-theme="dark"] .aba-btn.ativa {
+    background:var(--laranja);
+    color:white;
+  }
+
   .ripple{
     position:absolute; border-radius:50%;
     background:rgba(255,255,255,0.55);
@@ -158,18 +267,22 @@
   }
 
   .card{
-    background:white; border-radius:var(--radius); overflow:hidden;
-    box-shadow:var(--card-shadow); margin-bottom:20px;
-    transition:box-shadow 0.2s ease;
+    background:var(--bg-card);
+    border-radius:var(--radius);
+    overflow:hidden;
+    box-shadow:var(--shadow);
+    margin-bottom:20px;
+    border:1px solid var(--border-color);
+    transition:background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   }
-  .card-topo{ padding:20px 24px; border-bottom:1px solid var(--line); }
+  .card-topo{ padding:20px 24px; border-bottom:1px solid var(--border-color); }
   .card-topo .icone{
     width:38px; height:38px; border-radius:10px; background:var(--ocean-light);
     display:inline-flex; align-items:center; justify-content:center;
     font-size:19px; margin-bottom:10px;
   }
   .card-topo h2{ margin:0; font-size:19px; font-weight:600; color:var(--ocean-deep); }
-  .card-topo p{ margin:4px 0 0; font-size:13.5px; color:var(--muted); }
+  .card-topo p{ margin:4px 0 0; font-size:13.5px; color:var(--text-secondary); }
   .card-corpo{ padding:22px 24px 24px; }
 
   h3.secao{
@@ -185,7 +298,7 @@
     color:var(--ocean-deep); font-weight:600; font-size:13px;
   }
   thead th.valor, td.valor{ text-align:right; font-family:'JetBrains Mono', monospace; font-size:13.5px; }
-  tbody td{ padding:10px 12px; border-bottom:1px solid var(--line); }
+  tbody td{ padding:10px 12px; border-bottom:1px solid var(--border-color); }
   tbody tr:last-child td{ border-bottom:none; }
   tr.subtotal td{ background:var(--sand-deep); font-weight:700; color:var(--ocean-deep); }
 
@@ -205,24 +318,25 @@
   }
   .resumo-linha.total span:last-child{ font-family:'Fraunces', serif; }
 
-  .nota{ margin-top:16px; font-size:12.5px; color:var(--muted); line-height:1.5; }
-  .subnota{ font-size:13px; color:var(--muted); margin:0 0 12px; }
+  .nota{ margin-top:16px; font-size:12.5px; color:var(--text-secondary); line-height:1.5; }
+  .subnota{ font-size:13px; color:var(--text-secondary); margin:0 0 12px; }
 
   .info-box, .aviso{ border-radius:12px; padding:18px 20px; }
   .info-box{ background:var(--ocean-light); border-left:5px solid var(--ocean-mid); }
   .aviso{ background:#fdf3e8; border-left:5px solid var(--coral); margin-top:16px; }
+  [data-theme="dark"] .aviso{ background:#2a1a10; border-left-color:var(--coral); }
   .info-box h3, .aviso h3{
     margin:0 0 10px; font-size:15px; font-weight:600; font-family:'Fraunces', serif;
     border:none; padding:0; display:block; text-transform:none; letter-spacing:0;
   }
   .aviso h3{ color:var(--coral-dark); }
   .info-box h3{ color:var(--ocean-deep); }
-  .info-box p, .aviso p{ margin:0 0 8px; line-height:1.65; font-size:14px; color:var(--ink); }
+  .info-box p, .aviso p{ margin:0 0 8px; line-height:1.65; font-size:14px; color:var(--text-primary); }
   .info-box p:last-child, .aviso p:last-child{ margin-bottom:0; }
 
   /* ---- Checklist ---- */
   .progresso-topo{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px; }
-  .progresso-texto{ font-size:13px; color:var(--muted); font-weight:600; }
+  .progresso-texto{ font-size:13px; color:var(--text-secondary); font-weight:600; }
   .progresso-pct{ font-family:'JetBrains Mono', monospace; font-size:13px; font-weight:700; color:var(--reef); }
   .progresso-wrap{
     background:var(--sand-deep); border-radius:20px; height:8px; overflow:hidden; margin-bottom:22px;
@@ -233,7 +347,7 @@
   }
 
   .item-check{
-    position:relative; background:var(--sand); border:1px solid var(--line); border-radius:12px;
+    position:relative; background:var(--sand); border:1px solid var(--border-color); border-radius:12px;
     padding:16px 44px 16px 18px; margin-bottom:12px; cursor:pointer;
     transition:background 0.15s ease, border-color 0.15s ease, transform 0.12s ease;
   }
@@ -251,12 +365,12 @@
     flex:0 0 auto; transition:background 0.15s ease, border-color 0.15s ease, transform 0.2s ease;
   }
   .item-check.concluido .caixa{ background:var(--reef); border-color:var(--reef); transform:scale(1.06); }
-  .item-desc{ margin:8px 0 0 34px; color:var(--muted); line-height:1.6; font-size:14px; }
+  .item-desc{ margin:8px 0 0 34px; color:var(--text-secondary); line-height:1.6; font-size:14px; }
 
   .remover-item{
     position:absolute; top:14px; right:12px;
     width:26px; height:26px; border-radius:8px; border:none;
-    background:transparent; color:var(--muted); font-size:16px; line-height:1; cursor:pointer;
+    background:transparent; color:var(--text-secondary); font-size:16px; line-height:1; cursor:pointer;
     transition:background 0.15s ease, color 0.15s ease;
   }
   .remover-item:hover{ background:#fbe3db; color:var(--coral-dark); }
@@ -266,11 +380,11 @@
     display:flex; gap:8px; margin-top:14px; flex-wrap:wrap;
   }
   .add-item-form input{
-    flex:1; min-width:180px; border:1.5px solid var(--line); border-radius:10px;
+    flex:1; min-width:180px; border:1.5px solid var(--border-color); border-radius:10px;
     padding:11px 14px; font-size:14px; font-family:'Inter', sans-serif;
-    background:var(--sand); color:var(--ink); transition:border-color 0.15s ease, background 0.15s ease;
+    background:var(--input-bg); color:var(--text-primary); transition:border-color 0.15s ease, background 0.15s ease;
   }
-  .add-item-form input:focus{ outline:none; border-color:var(--ocean-mid); background:white; }
+  .add-item-form input:focus{ outline:none; border-color:var(--ocean-mid); background:var(--bg-card); }
   .add-item-form button{
     position:relative; overflow:hidden;
     background:var(--ocean-deep); color:white; border:none; border-radius:10px;
@@ -288,21 +402,22 @@
 
   /* ---- Alternador Individual / Casal ---- */
   .toggle-custos{
-    display:flex; gap:4px; background:var(--sand-deep); padding:4px; border-radius:12px; margin-bottom:20px;
+    display:flex; gap:4px; background:var(--toggle-bg); padding:4px; border-radius:12px; margin-bottom:20px;
+    border:1px solid var(--border-color);
   }
   .toggle-btn{
     position:relative; overflow:hidden;
-    flex:1; padding:10px; border:none; background:transparent; color:var(--ocean-deep);
+    flex:1; padding:10px; border:none; background:transparent; color:var(--text-primary);
     border-radius:9px; font-weight:600; font-family:'Inter', sans-serif; cursor:pointer; font-size:13.5px;
     transition:background 0.15s ease, color 0.15s ease;
   }
-  .toggle-btn.selecionado{ background:white; color:var(--coral-dark); box-shadow:0 2px 6px rgba(10,77,94,0.12); }
+  .toggle-btn.selecionado{ background:var(--bg-card); color:var(--coral-dark); box-shadow:0 2px 6px rgba(10,77,94,0.12); }
   .toggle-btn:focus-visible{ outline:2px solid var(--ocean-mid); outline-offset:2px; }
   .bloco-custo{ display:none; }
   .bloco-custo.visivel{ display:block; animation:fadeIn 0.25s ease; }
 
   /* ---- Calculadora ---- */
-  .calc-intro{ font-size:13.5px; color:var(--muted); line-height:1.55; margin:0 0 20px; }
+  .calc-intro{ font-size:13.5px; color:var(--text-secondary); line-height:1.55; margin:0 0 20px; }
   .calc-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px 16px; }
   .campo{ display:flex; flex-direction:column; gap:6px; }
   .campo.largura-total{ grid-column:1 / -1; }
@@ -310,14 +425,14 @@
   .campo .unidade-wrap{ position:relative; }
   .campo .unidade-wrap span{
     position:absolute; left:12px; top:50%; transform:translateY(-50%);
-    font-size:13.5px; color:var(--muted); pointer-events:none;
+    font-size:13.5px; color:var(--text-secondary); pointer-events:none;
   }
   .campo input{
-    width:100%; border:1.5px solid var(--line); border-radius:9px;
+    width:100%; border:1.5px solid var(--border-color); border-radius:9px;
     padding:10px 12px 10px 34px; font-size:14.5px; font-family:'JetBrains Mono', monospace;
-    color:var(--ink); background:var(--sand); transition:border-color 0.15s ease, background 0.15s ease;
+    color:var(--text-primary); background:var(--input-bg); transition:border-color 0.15s ease, background 0.15s ease;
   }
-  .campo input:focus{ outline:none; border-color:var(--laranja); background:white; }
+  .campo input:focus{ outline:none; border-color:var(--laranja); background:var(--bg-card); }
   .campo.sem-prefixo input{ padding-left:12px; }
 
   .calc-acoes{ display:flex; gap:10px; margin-top:20px; flex-wrap:wrap; }
@@ -330,7 +445,7 @@
   .btn-laranja:active, .btn-secundario:active{ transform:scale(0.97); }
   .btn-laranja{ background:var(--laranja); color:white; }
   .btn-laranja:hover{ background:var(--laranja-dark); }
-  .btn-secundario{ background:white; color:var(--ocean-deep); border-color:var(--line); }
+  .btn-secundario{ background:var(--bg-card); color:var(--text-primary); border-color:var(--border-color); }
   .btn-secundario:hover{ border-color:var(--ocean-mid); }
   .btn-secundario:focus-visible, .btn-laranja:focus-visible{ outline:3px solid var(--ocean-deep); outline-offset:2px; }
 
@@ -350,7 +465,6 @@
   }
   .calc-linha.destaque span:last-child{ font-size:clamp(19px,5vw,23px); font-family:'Fraunces', serif; }
 
-  /* Barra de composição visual do total */
   .calc-barra-composicao{
     display:flex; height:10px; border-radius:6px; overflow:hidden;
     margin:16px 0 4px; background:rgba(255,255,255,0.18);
@@ -373,124 +487,174 @@
   }
   .toast.mostrar{ opacity:1; transform:translate(-50%, 0); pointer-events:auto; }
 
-  footer.rodape{ text-align:center; padding:26px 20px 0; font-size:12px; color:var(--muted); }
+  footer.rodape{ text-align:center; padding:26px 20px 0; font-size:12px; color:var(--text-secondary); }
 
-  /* ===================== ANEL DE PROGRESSO NO HERO ===================== */
-  .hero-progresso{
-    display:inline-flex; align-items:center; gap:12px;
-    margin-top:18px; background:rgba(255,255,255,0.12);
-    border:1px solid rgba(255,255,255,0.28); border-radius:40px;
-    padding:8px 18px 8px 8px; backdrop-filter:blur(2px);
+  /* ===================== DASHBOARD / RESUMO EXECUTIVO ===================== */
+  .dashboard-grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));
+    gap:12px;
+    margin-bottom:20px;
   }
-  .hero-progresso svg{ display:block; }
-  .hero-progresso .anel-fundo{ fill:none; stroke:rgba(255,255,255,0.25); stroke-width:4; }
-  .hero-progresso .anel-valor{
-    fill:none; stroke:var(--laranja); stroke-width:4; stroke-linecap:round;
-    transform:rotate(-90deg); transform-origin:50% 50%;
-    transition:stroke-dasharray 0.4s ease;
+  .dash-card {
+    background:var(--bg-card);
+    border:1px solid var(--border-color);
+    border-radius:12px;
+    padding:14px 16px;
+    text-align:center;
+    box-shadow:var(--shadow);
+    transition:transform 0.2s ease;
   }
-  .hero-progresso .anel-texto{
-    font-family:'JetBrains Mono', monospace; font-size:11px; font-weight:700; fill:white;
-    text-anchor:middle; dominant-baseline:middle;
+  .dash-card:hover { transform:translateY(-2px); }
+  .dash-card .dash-num {
+    font-family:'Fraunces', serif;
+    font-size:24px;
+    font-weight:700;
+    color:var(--ocean-deep);
+    line-height:1.2;
   }
-  .hero-progresso .legenda{ font-size:12.5px; font-weight:600; text-align:left; line-height:1.3; }
-  .hero-progresso .legenda small{ display:block; font-weight:400; opacity:0.78; font-size:11px; }
+  .dash-card .dash-label {
+    font-size:11px;
+    color:var(--text-secondary);
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    font-weight:600;
+    margin-top:4px;
+  }
+  .dash-card .dash-icon {
+    font-size:20px;
+    display:block;
+    margin-bottom:2px;
+  }
 
-  /* ===================== BOTÃO FLUTUANTE (FAB) ===================== */
-  .fab-wrap{
-    position:fixed; right:20px; bottom:22px; z-index:60;
-    display:flex; flex-direction:column-reverse; align-items:flex-end; gap:12px;
+  /* ===================== LEMBRETES ===================== */
+  .lembrete-item {
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:10px 14px;
+    background:var(--sand);
+    border-radius:10px;
+    border-left:4px solid var(--laranja);
+    margin-bottom:8px;
   }
-  .fab-principal{
-    width:58px; height:58px; border-radius:50%; border:none; cursor:pointer;
-    background:linear-gradient(135deg, var(--laranja), var(--laranja-dark));
-    color:white; font-size:24px; box-shadow:0 8px 22px rgba(242,122,26,0.45);
-    display:flex; align-items:center; justify-content:center;
-    transition:transform 0.25s cubic-bezier(.4,0,.2,1);
-    position:relative; overflow:hidden;
-  }
-  .fab-principal:focus-visible{ outline:3px solid var(--ocean-deep); outline-offset:3px; }
-  .fab-wrap.aberto .fab-principal{ transform:rotate(45deg); }
-
-  .fab-acoes{
-    display:flex; flex-direction:column; align-items:flex-end; gap:10px;
-    opacity:0; transform:translateY(12px) scale(0.9); pointer-events:none;
-    transition:opacity 0.2s ease, transform 0.2s ease;
-  }
-  .fab-wrap.aberto .fab-acoes{ opacity:1; transform:translateY(0) scale(1); pointer-events:auto; }
-
-  .fab-item{
-    display:flex; align-items:center; gap:10px;
-    background:white; color:var(--ocean-deep); border:1px solid var(--line);
-    border-radius:40px; padding:10px 18px 10px 14px; cursor:pointer;
-    font-family:'Inter', sans-serif; font-weight:700; font-size:13.5px;
-    box-shadow:0 6px 16px rgba(10,77,94,0.18);
-    transition:transform 0.15s ease, border-color 0.15s ease;
+  .lembrete-item .lembrete-data {
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--text-secondary);
     white-space:nowrap;
   }
-  .fab-item:hover{ border-color:var(--ocean-mid); }
-  .fab-item:active{ transform:scale(0.96); }
-  .fab-item .fab-icone{ font-size:17px; }
-  .fab-item:focus-visible{ outline:3px solid var(--ocean-deep); outline-offset:2px; }
+  .lembrete-item .lembrete-texto {
+    flex:1;
+    font-size:14px;
+  }
+  .lembrete-item .lembrete-remover {
+    background:none;
+    border:none;
+    color:var(--text-secondary);
+    cursor:pointer;
+    font-size:16px;
+    padding:0 4px;
+  }
+  .lembrete-item .lembrete-remover:hover { color:var(--coral-dark); }
 
-  /* ===================== MODAL (Agenda) ===================== */
-  .modal-fundo{
-    position:fixed; inset:0; background:rgba(10,20,24,0.52);
-    display:flex; align-items:flex-end; justify-content:center;
-    opacity:0; pointer-events:none; transition:opacity 0.22s ease; z-index:70;
-    padding:0;
+  .add-lembrete-form {
+    display:flex;
+    gap:8px;
+    margin-top:12px;
+    flex-wrap:wrap;
   }
-  .modal-fundo.aberto{ opacity:1; pointer-events:auto; }
-  .modal-caixa{
-    background:var(--sand); width:100%; max-width:560px;
-    border-radius:20px 20px 0 0; padding:22px 22px 28px;
-    max-height:82vh; overflow-y:auto;
-    transform:translateY(24px); transition:transform 0.28s cubic-bezier(.2,.8,.2,1);
-    box-shadow:0 -10px 30px rgba(0,0,0,0.25);
+  .add-lembrete-form input[type="text"] {
+    flex:1;
+    min-width:140px;
+    border:1.5px solid var(--border-color);
+    border-radius:10px;
+    padding:10px 14px;
+    font-size:14px;
+    background:var(--input-bg);
+    color:var(--text-primary);
   }
-  .modal-fundo.aberto .modal-caixa{ transform:translateY(0); }
-  @media (min-width:640px){
-    .modal-fundo{ align-items:center; }
-    .modal-caixa{ border-radius:20px; }
+  .add-lembrete-form input[type="date"] {
+    border:1.5px solid var(--border-color);
+    border-radius:10px;
+    padding:9px 12px;
+    font-size:14px;
+    background:var(--input-bg);
+    color:var(--text-primary);
   }
-  .modal-topo{ display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:6px; }
-  .modal-topo h3{ margin:0; font-size:19px; color:var(--ocean-deep); font-weight:600; }
-  .modal-topo p{ margin:4px 0 0; font-size:13px; color:var(--muted); }
-  .modal-fechar{
-    width:32px; height:32px; border-radius:10px; border:none; background:var(--sand-deep);
-    color:var(--ocean-deep); font-size:16px; cursor:pointer; flex:0 0 auto;
+  .add-lembrete-form input:focus {
+    outline:none;
+    border-color:var(--ocean-mid);
   }
-  .modal-fechar:hover{ background:var(--line); }
+  .add-lembrete-form button {
+    background:var(--ocean-deep);
+    color:white;
+    border:none;
+    border-radius:10px;
+    padding:10px 18px;
+    font-weight:700;
+    cursor:pointer;
+    font-size:13.5px;
+  }
 
-  .modal-baixar-tudo{
-    display:flex; align-items:center; justify-content:center; gap:8px;
-    width:100%; margin-top:16px; padding:13px; border:none; border-radius:12px;
-    background:var(--ocean-deep); color:white; font-weight:700; font-size:14px; cursor:pointer;
-    transition:background 0.15s ease;
+  /* ===================== DICAS DO DIA ===================== */
+  .dica-dia {
+    background:linear-gradient(135deg, var(--ocean-light), var(--sand-deep));
+    border-radius:12px;
+    padding:16px 20px;
+    border-left:5px solid var(--reef);
+    margin-top:16px;
   }
-  .modal-baixar-tudo:hover{ background:var(--ocean); }
+  [data-theme="dark"] .dica-dia {
+    background:linear-gradient(135deg, #1a2a30, #25252b);
+  }
+  .dica-dia h3 {
+    margin:0 0 6px;
+    font-family:'Fraunces', serif;
+    font-size:15px;
+    color:var(--ocean-deep);
+  }
+  .dica-dia p {
+    margin:0;
+    font-size:14px;
+    color:var(--text-secondary);
+    line-height:1.6;
+  }
 
-  .evento-linha{
-    display:flex; align-items:center; gap:12px;
-    padding:14px 4px; border-bottom:1px solid var(--line);
+  /* ===================== IMPRESSÃO A4 ===================== */
+  @media print{
+    .nav-wrap, .add-item-form, .remover-item, .toast, .calc-acoes,
+    .hero-actions, .toggle-custos, .add-lembrete-form,
+    .dashboard-grid, .dica-dia { display:none !important; }
+    .painel{ display:block !important; }
+    .hero{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    .card{ box-shadow:none; border:1px solid #ccc; break-inside:avoid; }
+    .page{ max-width:100%; padding:0; }
+    .hero{ padding:30px 20px 40px; }
+    .conteudo{ padding:6px 12px 0; }
+    .card-corpo{ padding:16px 18px; }
+    .resumo-box{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    .calc-resultado{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    .objetivo-box{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    body{ background:white !important; color:black !important; }
+    .card{ background:white !important; border-color:#ddd !important; }
+    .item-check{ background:#f5f5f5 !important; border-color:#ddd !important; }
+    .item-check.concluido{ background:#e8f0ee !important; }
+    .info-box{ background:#f0f7fa !important; }
+    .aviso{ background:#fdf3e8 !important; }
+    .aba-btn.ativa{ background:#e0663f !important; color:white !important; }
+    .resumo-linha.total{ border-top-color:#333 !important; }
+    .calc-linha.destaque{ border-top-color:rgba(255,255,255,0.4) !important; }
+    .toggle-btn.selecionado{ background:#f0e8d8 !important; }
+    tr.subtotal td{ background:#f0e8d8 !important; }
+    .dash-card{ border:1px solid #ddd !important; background:white !important; }
+    .dash-card .dash-num{ color:#0a4d5e !important; }
+    .lembrete-item{ background:#f5f5f5 !important; }
+    .card-topo h2{ color:#0a4d5e !important; }
+    .card-topo p{ color:#555 !important; }
+    .nota{ color:#555 !important; }
+    .subnota{ color:#555 !important; }
   }
-  .evento-linha:last-child{ border-bottom:none; }
-  .evento-icone{
-    width:38px; height:38px; border-radius:10px; background:var(--ocean-light);
-    display:flex; align-items:center; justify-content:center; font-size:17px; flex:0 0 auto;
-  }
-  .evento-info{ flex:1; min-width:0; }
-  .evento-info .titulo{ font-weight:700; font-size:14px; color:var(--ink); }
-  .evento-info .data{ font-size:12.5px; color:var(--muted); font-family:'JetBrains Mono', monospace; }
-  .evento-add-google{
-    flex:0 0 auto; text-decoration:none; background:var(--laranja-claro); color:var(--laranja-dark);
-    font-weight:700; font-size:12.5px; padding:8px 12px; border-radius:9px; white-space:nowrap;
-    transition:background 0.15s ease;
-  }
-  .evento-add-google:hover{ background:var(--laranja); color:white; }
-
-  /* ===================== RELATÓRIO PARA IMPRESSÃO (oculto na tela) ===================== */
-  #resumo-impressao{ display:none; }
 
   /* ===================== RESPONSIVO ===================== */
   @media (max-width:600px){
@@ -498,61 +662,47 @@
     .nav-wrap{ padding:12px 14px 8px; }
     .card-corpo{ padding:18px 16px 20px; }
     .card-topo{ padding:16px 18px; }
+    .dashboard-grid{ grid-template-columns:1fr 1fr 1fr; }
+    .hero-actions .btn-hero{ padding:8px 14px; font-size:12px; }
 
     table.tabela-flex, table.tabela-flex thead, table.tabela-flex tbody,
     table.tabela-flex th, table.tabela-flex td, table.tabela-flex tr{ display:block; width:100%; }
     table.tabela-flex thead{ display:none; }
-    table.tabela-flex tr{ border:1px solid var(--line); border-radius:10px; margin-bottom:8px; padding:4px 0; }
+    table.tabela-flex tr{ border:1px solid var(--border-color); border-radius:10px; margin-bottom:8px; padding:4px 0; }
     table.tabela-flex tr.subtotal{ border-color:var(--reef); }
     table.tabela-flex td{
       display:flex; justify-content:space-between; align-items:center; gap:12px;
       padding:9px 14px; border-bottom:none;
     }
     table.tabela-flex td::before{
-      content:attr(data-label); font-weight:600; color:var(--muted); font-size:12.5px;
+      content:attr(data-label); font-weight:600; color:var(--text-secondary); font-size:12.5px;
     }
   }
 
-  /* ---- Relatório de impressão (conteúdo próprio, formatado para A4) ---- */
-  .ri-cabecalho{
-    display:flex; justify-content:space-between; align-items:flex-end;
-    border-bottom:3px solid var(--ocean-deep); padding-bottom:14px; margin-bottom:22px;
+  /* ===================== TOGGLE TEMA ===================== */
+  .theme-toggle-wrap {
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    z-index:40;
   }
-  .ri-cabecalho h1{ margin:0; font-size:26px; color:var(--ocean-deep); font-weight:600; }
-  .ri-cabecalho .ri-sub{ font-size:12.5px; color:var(--muted); margin-top:4px; }
-  .ri-cabecalho .ri-gerado{ font-size:11px; color:var(--muted); text-align:right; }
-  .ri-secao{ margin-bottom:22px; break-inside:avoid; }
-  .ri-secao h2{
-    font-size:15px; color:var(--ocean-deep); text-transform:uppercase; letter-spacing:0.6px;
-    border-bottom:2px solid var(--reef); padding-bottom:6px; margin:0 0 10px; font-family:'Inter',sans-serif; font-weight:700;
+  .theme-toggle {
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    border:2px solid var(--border-color);
+    background:var(--bg-card);
+    color:var(--text-primary);
+    font-size:22px;
+    cursor:pointer;
+    box-shadow:var(--card-shadow);
+    transition:transform 0.2s ease, background 0.2s ease;
+    display:flex;
+    align-items:center;
+    justify-content:center;
   }
-  .ri-secao table{ width:100%; border-collapse:collapse; font-size:12.5px; margin-bottom:6px; }
-  .ri-secao th{ text-align:left; background:var(--ocean-light); padding:6px 9px; font-size:11.5px; color:var(--ocean-deep); }
-  .ri-secao th.valor, .ri-secao td.valor{ text-align:right; }
-  .ri-secao td{ padding:6px 9px; border-bottom:1px solid var(--line); }
-  .ri-secao tr.subtotal td{ background:var(--sand-deep); font-weight:700; }
-  .ri-secao .ri-total{
-    display:flex; justify-content:space-between; font-weight:700; font-size:14px;
-    border-top:2px solid var(--ocean-deep); padding-top:8px; margin-top:4px; color:var(--ocean-deep);
-  }
-  .ri-checklist-item{ display:flex; gap:8px; align-items:flex-start; font-size:13px; padding:4px 0; }
-  .ri-checklist-item .ri-caixa{
-    width:14px; height:14px; border:1.5px solid var(--ocean-deep); border-radius:3px; flex:0 0 auto; margin-top:1px;
-  }
-  .ri-checklist-item.feito .ri-caixa{ background:var(--reef); border-color:var(--reef); }
-  .ri-checklist-item.feito span.txt{ text-decoration:line-through; opacity:0.6; }
-  .ri-aviso{ background:#fdf3e8; border-left:4px solid var(--coral); padding:10px 14px; font-size:12.5px; margin-top:8px; }
-  .ri-rodape{ text-align:center; font-size:10.5px; color:var(--muted); margin-top:30px; border-top:1px solid var(--line); padding-top:10px; }
-
-  @media print{
-    @page{ size:A4; margin:16mm; }
-    .page > *:not(#resumo-impressao){ display:none !important; }
-    #resumo-impressao{
-      display:block !important;
-      -webkit-print-color-adjust:exact; print-color-adjust:exact;
-    }
-    .fab-wrap, .modal-fundo, .toast{ display:none !important; }
-  }
+  .theme-toggle:hover { transform:scale(1.05); }
+  .theme-toggle:active { transform:scale(0.92); }
 </style>
 </head>
 <body>
@@ -571,18 +721,17 @@
       <div class="unidade"><span class="num" id="ct-horas">–</span><span class="rot">horas</span></div>
     </div>
 
-    <div class="hero-progresso" aria-live="polite">
-      <svg width="46" height="46" viewBox="0 0 48 48">
-        <circle class="anel-fundo" cx="24" cy="24" r="20"></circle>
-        <circle class="anel-valor" id="anel-valor" cx="24" cy="24" r="20" stroke-dasharray="0 125.7"></circle>
-        <text x="24" y="25" class="anel-texto" id="anel-texto">0%</text>
-      </svg>
-      <div class="legenda">Preparativos<small id="hero-progresso-label">0 de 4 concluídos</small></div>
+    <!-- BOTÕES DE AÇÃO NO HERO -->
+    <div class="hero-actions">
+      <button class="btn-hero primario" id="btn-imprimir-resumo" type="button">🖨️ Imprimir Resumo</button>
+      <button class="btn-hero" id="btn-agenda-google" type="button">📅 + Agenda Google</button>
+      <button class="btn-hero" id="btn-compartilhar" type="button">📤 Compartilhar</button>
+      <button class="btn-hero whatsapp" id="btn-whatsapp" type="button">💬 WhatsApp</button>
     </div>
 
     <div class="onda">
       <svg viewBox="0 0 1440 70" preserveAspectRatio="none">
-        <path fill="#faf6ee" d="M0,40 C240,80 480,0 720,20 C960,40 1200,90 1440,40 L1440,80 L0,80 Z"></path>
+        <path fill="var(--sand)" d="M0,40 C240,80 480,0 720,20 C960,40 1200,90 1440,40 L1440,80 L0,80 Z"></path>
       </svg>
     </div>
   </div>
@@ -594,10 +743,40 @@
       <button class="aba-btn" data-alvo="calculadora" role="tab" aria-selected="false" id="tab-calculadora" aria-controls="calculadora">🧮 Calculadora</button>
       <button class="aba-btn" data-alvo="checklist" role="tab" aria-selected="false" id="tab-checklist" aria-controls="checklist">📝 Check</button>
       <button class="aba-btn" data-alvo="info" role="tab" aria-selected="false" id="tab-info" aria-controls="info">ℹ️ Info</button>
+      <button class="aba-btn" data-alvo="lembretes" role="tab" aria-selected="false" id="tab-lembretes" aria-controls="lembretes">🔔 Lembretes</button>
     </nav>
   </div>
 
   <div class="conteudo">
+
+    <!-- ===================== DASHBOARD ===================== -->
+    <div class="dashboard-grid" id="dashboard">
+      <div class="dash-card">
+        <span class="dash-icon">📅</span>
+        <div class="dash-num" id="dash-dias">12</div>
+        <div class="dash-label">Dias de viagem</div>
+      </div>
+      <div class="dash-card">
+        <span class="dash-icon">👤</span>
+        <div class="dash-num" id="dash-custo">R$ 9.497</div>
+        <div class="dash-label">Custo por pessoa</div>
+      </div>
+      <div class="dash-card">
+        <span class="dash-icon">👫</span>
+        <div class="dash-num" id="dash-custo-casal">R$ 14.960</div>
+        <div class="dash-label">Custo por casal</div>
+      </div>
+      <div class="dash-card">
+        <span class="dash-icon">✅</span>
+        <div class="dash-num" id="dash-check">0/4</div>
+        <div class="dash-label">Checklist</div>
+      </div>
+      <div class="dash-card">
+        <span class="dash-icon">⏳</span>
+        <div class="dash-num" id="dash-faltam">—</div>
+        <div class="dash-label">Dias para viajar</div>
+      </div>
+    </div>
 
     <!-- ===================== CRONOGRAMA ===================== -->
     <section id="cronograma" class="painel ativo" role="tabpanel" aria-labelledby="tab-cronograma">
@@ -635,6 +814,12 @@
             <h3>Resumo</h3>
             <div class="resumo-linha"><span>Período completo</span><strong>16/01 a 27/01/2027</strong></div>
             <div class="resumo-linha total"><span>Total da viagem</span><span>12 dias</span></div>
+          </div>
+
+          <!-- Dica do dia -->
+          <div class="dica-dia" id="dica-dia">
+            <h3>💡 Dica do dia</h3>
+            <p id="dica-texto">Carregando dica...</p>
           </div>
 
         </div>
@@ -913,6 +1098,32 @@
       </div>
     </section>
 
+    <!-- ===================== LEMBRETES ===================== -->
+    <section id="lembretes" class="painel" role="tabpanel" aria-labelledby="tab-lembretes">
+      <div class="card">
+        <div class="card-topo">
+          <div class="icone">🔔</div>
+          <h2>Lembretes e Alertas</h2>
+          <p>Defina lembretes importantes para não esquecer nada</p>
+        </div>
+        <div class="card-corpo">
+
+          <div id="lista-lembretes">
+            <!-- lembretes serão inseridos aqui via JS -->
+          </div>
+
+          <form class="add-lembrete-form" id="form-lembrete">
+            <input type="text" id="lembrete-texto" placeholder="O que lembrar? (ex: Comprar passagens)" maxlength="100">
+            <input type="date" id="lembrete-data">
+            <button type="submit">+ Adicionar</button>
+          </form>
+
+          <p class="nota" style="margin-top:12px;">Os lembretes são salvos no seu navegador.</p>
+
+        </div>
+      </div>
+    </section>
+
     <!-- ===================== INFORMAÇÕES ===================== -->
     <section id="info" class="painel" role="tabpanel" aria-labelledby="tab-info">
       <div class="card">
@@ -971,97 +1182,14 @@
 
   <footer class="rodape">Planejamento organizado para o grupo · Recife/PE 2027</footer>
 
-  <!-- ===================== RELATÓRIO PARA IMPRESSÃO (A4) ===================== -->
-  <div id="resumo-impressao">
-    <div class="ri-cabecalho">
-      <div>
-        <h1>Viagem a Recife, Pernambuco</h1>
-        <div class="ri-sub">16/01/2027 a 27/01/2027 · 12 dias · Saída e retorno por Vitória/ES</div>
-      </div>
-      <div class="ri-gerado">Resumo gerado em<br><strong id="ri-data-geracao">–</strong></div>
-    </div>
-
-    <div class="ri-secao">
-      <h2>📅 Cronograma</h2>
-      <table>
-        <tr><th>Etapa</th><th>Período</th></tr>
-        <tr><td>Voo de Ida</td><td>16/01/2027</td></tr>
-        <tr><td>Período de Pregação</td><td>16/01/2027 a 24/01/2027</td></tr>
-        <tr><td>Passeio Pós-Pregação</td><td>25/01/2027 a 27/01/2027</td></tr>
-        <tr><td>Voo de Volta</td><td>27/01/2027</td></tr>
-      </table>
-    </div>
-
-    <div class="ri-secao">
-      <h2>💰 Custos estimados — por pessoa</h2>
-      <table>
-        <tr><th>Item</th><th class="valor">Valor</th></tr>
-        <tr><td>Passagem aérea</td><td class="valor">R$ 1.500,00</td></tr>
-        <tr><td>Hospedagem (11 diárias)</td><td class="valor">R$ 2.200,00</td></tr>
-        <tr><td>Alimentação (almoço, jantar, lanches)</td><td class="valor">R$ 2.580,00</td></tr>
-        <tr><td>Passeios</td><td class="valor">R$ 1.000,00</td></tr>
-        <tr><td>Compras</td><td class="valor">R$ 500,00</td></tr>
-        <tr><td>Reserva para imprevistos</td><td class="valor">R$ 1.000,00</td></tr>
-        <tr><td>Aluguel de carro (rateado entre 4 pessoas)</td><td class="valor">R$ 717,50</td></tr>
-      </table>
-      <div class="ri-total"><span>Total por pessoa</span><span>R$ 9.497,50</span></div>
-    </div>
-
-    <div class="ri-secao">
-      <h2>🧮 Simulação atual da calculadora</h2>
-      <table id="ri-tabela-calc">
-        <tr><th>Item</th><th class="valor">Valor por pessoa</th></tr>
-      </table>
-      <div class="ri-total"><span>Total por pessoa</span><span id="ri-calc-pessoa">R$ 0,00</span></div>
-      <div class="ri-total"><span id="ri-calc-pessoas-label">Total geral</span><span id="ri-calc-geral">R$ 0,00</span></div>
-    </div>
-
-    <div class="ri-secao">
-      <h2>📝 Checklist de preparação</h2>
-      <div id="ri-checklist"></div>
-    </div>
-
-    <div class="ri-secao">
-      <h2>ℹ️ Avisos importantes</h2>
-      <div class="ri-aviso">
-        <strong>Alta temporada:</strong> janeiro tem preços mais elevados para passagens, hospedagem e aluguel de veículos — reservar com antecedência.
-      </div>
-      <div class="ri-aviso" style="margin-top:8px;">
-        <strong>Sujeito a ajustes:</strong> valores dependem da região de Recife designada por Betel para a pregação; caso a hospedagem fique próxima ao território, o carro pode não ser necessário.
-      </div>
-    </div>
-
-    <div class="ri-rodape">Planejamento organizado para o grupo · Recife/PE 2027</div>
-  </div>
-
 </div>
 
+<!-- Toast -->
 <div class="toast" id="toast"></div>
 
-<!-- ===================== BOTÃO FLUTUANTE (FAB) ===================== -->
-<div class="fab-wrap" id="fab-wrap">
-  <button class="fab-principal" id="fab-principal" type="button" aria-label="Abrir ações rápidas" aria-expanded="false">✚</button>
-  <div class="fab-acoes">
-    <button class="fab-item" id="btn-abrir-agenda" type="button"><span class="fab-icone">📆</span> Adicionar à agenda</button>
-    <button class="fab-item" id="btn-imprimir-resumo" type="button"><span class="fab-icone">🖨️</span> Imprimir resumo (A4)</button>
-  </div>
-</div>
-
-<!-- ===================== MODAL AGENDA ===================== -->
-<div class="modal-fundo" id="modal-agenda" role="dialog" aria-modal="true" aria-labelledby="modal-agenda-titulo">
-  <div class="modal-caixa">
-    <div class="modal-topo">
-      <div>
-        <h3 id="modal-agenda-titulo">Adicionar à agenda</h3>
-        <p>Envie as datas da viagem direto para o seu calendário</p>
-      </div>
-      <button class="modal-fechar" id="fechar-modal-agenda" type="button" aria-label="Fechar">✕</button>
-    </div>
-
-    <div id="lista-eventos-agenda"></div>
-
-    <button class="modal-baixar-tudo" id="btn-baixar-ics" type="button">⬇️ Baixar todos os eventos (.ics — Apple, Outlook, Google)</button>
-  </div>
+<!-- Toggle de tema (Dark Mode) -->
+<div class="theme-toggle-wrap">
+  <button class="theme-toggle" id="theme-toggle" aria-label="Alternar tema" title="Alternar tema (claro/escuro)">🌙</button>
 </div>
 
 <script>
@@ -1093,9 +1221,32 @@
     el.appendChild(r);
     setTimeout(function(){ r.remove(); }, 600);
   }
-  document.querySelectorAll('.aba-btn, .toggle-btn, .btn-laranja, .btn-secundario, .add-item-form button').forEach(function(el){
+  document.querySelectorAll('.aba-btn, .toggle-btn, .btn-laranja, .btn-secundario, .add-item-form button, .add-lembrete-form button, .theme-toggle').forEach(function(el){
     el.addEventListener('click', function(e){ ripple(e, el); });
   });
+
+  /* ---------- Tema (Dark Mode) ---------- */
+  (function(){
+    var toggle = document.getElementById('theme-toggle');
+    var atual = carregar('rbe_tema', 'claro');
+    function aplicarTema(tema){
+      if (tema === 'escuro') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        toggle.textContent = '☀️';
+        toggle.setAttribute('aria-label', 'Mudar para tema claro');
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        toggle.textContent = '🌙';
+        toggle.setAttribute('aria-label', 'Mudar para tema escuro');
+      }
+      salvar('rbe_tema', tema);
+    }
+    aplicarTema(atual);
+    toggle.addEventListener('click', function(){
+      var novo = document.documentElement.getAttribute('data-theme') === 'dark' ? 'claro' : 'escuro';
+      aplicarTema(novo);
+    });
+  })();
 
   /* ---------- Navegação entre abas ---------- */
   var abas = document.querySelectorAll('.aba-btn');
@@ -1121,7 +1272,6 @@
     btn.addEventListener('click', function(){ irParaAba(btn); });
   });
 
-  // Restaura a última aba visitada
   var abaSalva = carregar('rbe_aba_ativa', null);
   if (abaSalva){
     var alvoBtn = document.querySelector('.aba-btn[data-alvo="'+abaSalva+'"]');
@@ -1151,8 +1301,6 @@
     return 'rbe_check_' + (el.getAttribute('data-key') || el.getAttribute('data-custom-id'));
   }
 
-  var CIRCUNFERENCIA_ANEL = 2 * Math.PI * 20;
-
   function atualizarProgresso(){
     var itens = listaChecklist.querySelectorAll('[data-item]');
     var total = itens.length;
@@ -1161,16 +1309,8 @@
     barra.style.width = pct + '%';
     label.textContent = feitos + ' de ' + total + ' concluídos';
     pctLabel.textContent = pct + '%';
-
-    var anelValor = document.getElementById('anel-valor');
-    var anelTexto = document.getElementById('anel-texto');
-    var heroLabel = document.getElementById('hero-progresso-label');
-    if (anelValor){
-      var comprimento = (pct/100) * CIRCUNFERENCIA_ANEL;
-      anelValor.setAttribute('stroke-dasharray', comprimento + ' ' + CIRCUNFERENCIA_ANEL);
-      anelTexto.textContent = pct + '%';
-      heroLabel.textContent = feitos + ' de ' + total + ' concluídos';
-    }
+    // Atualiza dashboard
+    document.getElementById('dash-check').textContent = feitos + '/' + total;
   }
 
   function ativarItem(item){
@@ -1182,7 +1322,6 @@
     });
   }
 
-  // Restaura estado salvo e ativa os itens fixos
   listaChecklist.querySelectorAll('[data-item]').forEach(function(item){
     var estado = carregar(chaveItem(item), false);
     if (estado) item.classList.add('concluido');
@@ -1219,7 +1358,6 @@
     });
   }
 
-  // Carrega lista personalizada (formato correto)
   (function(){
     var salvos = carregar('rbe_itens_personalizados_v2', []);
     salvos.forEach(function(obj){ criarItemPersonalizado(obj.texto, obj.id); });
@@ -1239,6 +1377,54 @@
     input.focus();
   });
 
+  /* ---------- Lembretes ---------- */
+  var listaLembretes = document.getElementById('lista-lembretes');
+
+  function salvarLembretes(){
+    var items = [];
+    listaLembretes.querySelectorAll('.lembrete-item').forEach(function(el){
+      items.push({
+        texto: el.dataset.texto,
+        data: el.dataset.data
+      });
+    });
+    salvar('rbe_lembretes', items);
+  }
+
+  function criarLembrete(texto, data){
+    var div = document.createElement('div');
+    div.className = 'lembrete-item';
+    div.dataset.texto = texto;
+    div.dataset.data = data || 'Sem data';
+    div.innerHTML =
+      '<span class="lembrete-data">' + (data || 'Sem data') + '</span>' +
+      '<span class="lembrete-texto">' + texto + '</span>' +
+      '<button class="lembrete-remover" type="button" aria-label="Remover lembrete">✕</button>';
+    listaLembretes.appendChild(div);
+
+    div.querySelector('.lembrete-remover').addEventListener('click', function(){
+      div.remove();
+      salvarLembretes();
+    });
+  }
+
+  (function(){
+    var salvos = carregar('rbe_lembretes', []);
+    salvos.forEach(function(item){ criarLembrete(item.texto, item.data); });
+  })();
+
+  document.getElementById('form-lembrete').addEventListener('submit', function(e){
+    e.preventDefault();
+    var texto = document.getElementById('lembrete-texto').value.trim();
+    var data = document.getElementById('lembrete-data').value;
+    if (!texto) return;
+    criarLembrete(texto, data);
+    salvarLembretes();
+    document.getElementById('lembrete-texto').value = '';
+    document.getElementById('lembrete-data').value = '';
+    mostrarToast('Lembrete adicionado!');
+  });
+
   /* ---------- Contador regressivo ---------- */
   (function(){
     var dataViagem = new Date('2027-01-16T00:00:00-03:00').getTime();
@@ -1246,8 +1432,10 @@
       var agora = new Date().getTime();
       var dif = dataViagem - agora;
       var contadorEl = document.getElementById('contador');
+      var dashFaltam = document.getElementById('dash-faltam');
       if (dif <= 0){
         contadorEl.classList.add('encerrado');
+        dashFaltam.textContent = '0';
         return;
       }
       var totalDias = Math.floor(dif / (1000*60*60*24));
@@ -1257,6 +1445,7 @@
       document.getElementById('ct-meses').textContent = meses;
       document.getElementById('ct-dias').textContent = dias;
       document.getElementById('ct-horas').textContent = horas;
+      dashFaltam.textContent = totalDias;
     }
     atualizarContador();
     setInterval(atualizarContador, 60000);
@@ -1302,7 +1491,10 @@
     document.getElementById('calc-total-pessoa').textContent = formatarBRL(totalPorPessoa);
     document.getElementById('calc-total-geral').textContent = formatarBRL(totalGeral);
 
-    // Barra de composição + legenda
+    // Atualiza dashboard com ambos os valores
+    document.getElementById('dash-custo').textContent = formatarBRL(totalPorPessoa);
+    document.getElementById('dash-custo-casal').textContent = formatarBRL(totalPorPessoa * 2);
+
     var barraEl = document.getElementById('calc-barra');
     var legendaEl = document.getElementById('calc-legenda');
     barraEl.innerHTML = '';
@@ -1327,7 +1519,6 @@
     salvarCalc();
   }
 
-  // Restaura valores salvos, ou usa os sugeridos
   (function(){
     var salvos = carregar('rbe_calculadora', null);
     Object.keys(valoresSugeridos).forEach(function(id){
@@ -1377,186 +1568,149 @@
 
   calcularTotais();
 
-  /* ---------- Botão flutuante (FAB) ---------- */
-  var fabWrap = document.getElementById('fab-wrap');
-  var fabPrincipal = document.getElementById('fab-principal');
-
-  fabPrincipal.addEventListener('click', function(e){
-    ripple(e, fabPrincipal);
-    var aberto = fabWrap.classList.toggle('aberto');
-    fabPrincipal.setAttribute('aria-expanded', aberto ? 'true' : 'false');
-  });
-
-  document.addEventListener('click', function(e){
-    if (fabWrap.classList.contains('aberto') && !fabWrap.contains(e.target)){
-      fabWrap.classList.remove('aberto');
-      fabPrincipal.setAttribute('aria-expanded', 'false');
-    }
-  });
-
-  /* ---------- Eventos da viagem (para agenda) ---------- */
-  function pad2(n){ return String(n).padStart(2,'0'); }
-  function formatarDataICS(d){ return d.getFullYear() + pad2(d.getMonth()+1) + pad2(d.getDate()); }
-  function somarDias(d, n){ var novo = new Date(d); novo.setDate(novo.getDate()+n); return novo; }
-  function formatarDataBR(d){ return pad2(d.getDate()) + '/' + pad2(d.getMonth()+1) + '/' + d.getFullYear(); }
-
-  var eventosViagem = [
-    {
-      titulo:'✈️ Voo de Ida — Vitória → Recife',
-      inicio: new Date(2027,0,16), fimInclusive: new Date(2027,0,16),
-      local:'Aeroporto de Vitória, ES',
-      descricao:'Embarque para Recife/PE — início da viagem.',
-      icone:'✈️'
-    },
-    {
-      titulo:'📖 Período de Pregação em Recife',
-      inicio: new Date(2027,0,16), fimInclusive: new Date(2027,0,24),
-      local:'Recife, PE',
-      descricao:'Atividade de pregação no território designado por Betel.',
-      icone:'📖'
-    },
-    {
-      titulo:'🏖️ Passeio Pós-Pregação',
-      inicio: new Date(2027,0,25), fimInclusive: new Date(2027,0,27),
-      local:'Recife, PE',
-      descricao:'Passeios turísticos após o período de pregação.',
-      icone:'🏖️'
-    },
-    {
-      titulo:'✈️ Voo de Volta — Recife → Vitória',
-      inicio: new Date(2027,0,27), fimInclusive: new Date(2027,0,27),
-      local:'Aeroporto do Recife, PE',
-      descricao:'Retorno para Vitória/ES — fim da viagem.',
-      icone:'✈️'
-    }
-  ];
-
-  function linkGoogleCalendar(evento){
-    var inicioStr = formatarDataICS(evento.inicio);
-    var fimStr = formatarDataICS(somarDias(evento.fimInclusive, 1));
-    var params = new URLSearchParams({
-      action:'TEMPLATE',
-      text:evento.titulo.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu,'').trim(),
-      dates:inicioStr + '/' + fimStr,
-      details:evento.descricao,
-      location:evento.local
-    });
-    return 'https://calendar.google.com/calendar/render?' + params.toString();
-  }
-
-  function montarICS(){
-    var linhas = [
-      'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Planejamento Recife 2027//PT-BR','CALSCALE:GREGORIAN'
+  /* ---------- Dicas do dia ---------- */
+  (function(){
+    var dicas = [
+      'Recife tem mais de 30 km de praias! Não deixe de visitar Boa Viagem, Piedade e Candeias.',
+      'O Centro Histórico de Recife e Olinda são Patrimônios da Humanidade pela UNESCO.',
+      'Experimente a gastronomia local: caldeirada de peixe, bolo de rolo, tapioca e o famoso "caranguejo".',
+      'O frevo e o maracatu são ritmos típicos de Pernambuco — vale a pena conhecer!',
+      'O Instituto Ricardo Brennand é um dos museus mais visitados do Brasil, com acervo incrível.',
+      'O Mercado de São José é ótimo para comprar artesanato e lembranças.',
+      'Recife tem um dos maiores Carnavais do mundo, com o Galo da Madrugada.',
+      'A Praia de Porto de Galinhas fica a cerca de 1h de Recife e é imperdível!',
+      'O Parque Estadual Dois Irmãos tem zoológico e mata atlântica preservada.',
+      'O pôr do sol no Marco Zero é um dos momentos mais bonitos da cidade.'
     ];
-    eventosViagem.forEach(function(evento, i){
-      linhas.push('BEGIN:VEVENT');
-      linhas.push('UID:recife2027-' + i + '@planejamento-viagem');
-      linhas.push('DTSTAMP:' + formatarDataICS(new Date()) + 'T000000Z');
-      linhas.push('DTSTART;VALUE=DATE:' + formatarDataICS(evento.inicio));
-      linhas.push('DTEND;VALUE=DATE:' + formatarDataICS(somarDias(evento.fimInclusive, 1)));
-      linhas.push('SUMMARY:' + evento.titulo);
-      linhas.push('LOCATION:' + evento.local);
-      linhas.push('DESCRIPTION:' + evento.descricao);
-      linhas.push('END:VEVENT');
-    });
-    linhas.push('END:VCALENDAR');
-    return linhas.join('\r\n');
-  }
+    var hoje = new Date().getDate();
+    var idx = hoje % dicas.length;
+    document.getElementById('dica-texto').textContent = dicas[idx];
+  })();
 
-  /* ---------- Modal Agenda ---------- */
-  var modalAgenda = document.getElementById('modal-agenda');
-  var listaEventosAgenda = document.getElementById('lista-eventos-agenda');
-
-  function montarListaEventos(){
-    listaEventosAgenda.innerHTML = '';
-    eventosViagem.forEach(function(evento){
-      var linha = document.createElement('div');
-      linha.className = 'evento-linha';
-      var textoData = formatarDataBR(evento.inicio) === formatarDataBR(evento.fimInclusive)
-        ? formatarDataBR(evento.inicio)
-        : formatarDataBR(evento.inicio) + ' a ' + formatarDataBR(evento.fimInclusive);
-      linha.innerHTML =
-        '<div class="evento-icone">' + evento.icone + '</div>' +
-        '<div class="evento-info">' +
-          '<div class="titulo">' + evento.titulo.replace(evento.icone,'').trim() + '</div>' +
-          '<div class="data">' + textoData + '</div>' +
-        '</div>' +
-        '<a class="evento-add-google" target="_blank" rel="noopener" href="' + linkGoogleCalendar(evento) + '">+ Google</a>';
-      listaEventosAgenda.appendChild(linha);
-    });
-  }
-
-  function abrirModalAgenda(){
-    montarListaEventos();
-    modalAgenda.classList.add('aberto');
-    fabWrap.classList.remove('aberto');
-  }
-  function fecharModalAgenda(){ modalAgenda.classList.remove('aberto'); }
-
-  document.getElementById('btn-abrir-agenda').addEventListener('click', abrirModalAgenda);
-  document.getElementById('fechar-modal-agenda').addEventListener('click', fecharModalAgenda);
-  modalAgenda.addEventListener('click', function(e){ if (e.target === modalAgenda) fecharModalAgenda(); });
-  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') fecharModalAgenda(); });
-
-  document.getElementById('btn-baixar-ics').addEventListener('click', function(){
-    var blob = new Blob([montarICS()], {type:'text/calendar;charset=utf-8'});
-    var url = URL.createObjectURL(blob);
-    var a = document.createElement('a');
-    a.href = url;
-    a.download = 'viagem-recife-2027.ics';
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    setTimeout(function(){ URL.revokeObjectURL(url); }, 2000);
-    mostrarToast('Arquivo .ics baixado — importe no seu app de calendário');
-  });
-
-  /* ---------- Resumo para impressão (A4) ---------- */
-  function prepararResumoImpressao(){
-    // Data de geração
+  /* ---------- Resumo para WhatsApp ---------- */
+  function gerarResumoWhatsApp() {
     var agora = new Date();
-    document.getElementById('ri-data-geracao').textContent =
-      formatarDataBR(agora) + ' às ' + pad2(agora.getHours()) + ':' + pad2(agora.getMinutes());
-
-    // Checklist (itens fixos + personalizados, na ordem exibida)
-    var riChecklist = document.getElementById('ri-checklist');
-    riChecklist.innerHTML = '';
-    listaChecklist.querySelectorAll('[data-item]').forEach(function(item){
-      var concluido = item.classList.contains('concluido');
-      var textoEl = item.querySelector('.item-titulo');
-      var texto = textoEl ? textoEl.textContent.replace('✓','').trim() : (item.dataset.texto || '');
-      var linha = document.createElement('div');
-      linha.className = 'ri-checklist-item' + (concluido ? ' feito' : '');
-      linha.innerHTML = '<span class="ri-caixa"></span><span class="txt">' + texto + '</span>';
-      riChecklist.appendChild(linha);
+    var dataFormatada = agora.toLocaleDateString('pt-BR');
+    
+    // Pega dados do dashboard
+    var dias = document.getElementById('dash-dias').textContent;
+    var custoPessoa = document.getElementById('dash-custo').textContent;
+    var custoCasal = document.getElementById('dash-custo-casal').textContent;
+    var check = document.getElementById('dash-check').textContent;
+    var faltam = document.getElementById('dash-faltam').textContent;
+    
+    // Pega dados dos lembretes
+    var lembretes = [];
+    document.querySelectorAll('#lista-lembretes .lembrete-item').forEach(function(el) {
+      var texto = el.querySelector('.lembrete-texto').textContent;
+      var data = el.querySelector('.lembrete-data').textContent;
+      lembretes.push('• ' + texto + (data !== 'Sem data' ? ' (' + data + ')' : ''));
     });
-
-    // Calculadora — tabela detalhada + totais
-    var tabela = document.getElementById('ri-tabela-calc');
-    while (tabela.rows.length > 1) tabela.deleteRow(1);
-    camposCalc.forEach(function(id){
-      var v = parseFloat(document.getElementById(id).value) || 0;
-      if (v <= 0) return;
-      var linha = tabela.insertRow();
-      linha.insertCell(0).textContent = rotulosCalc[id];
-      var celValor = linha.insertCell(1);
-      celValor.className = 'valor';
-      celValor.textContent = formatarBRL(v);
+    var textoLembretes = lembretes.length ? lembretes.join('\n') : 'Nenhum lembrete cadastrado.';
+    
+    // Pega itens do checklist
+    var checkItens = [];
+    document.querySelectorAll('#lista-checklist .item-check').forEach(function(el) {
+      var titulo = el.querySelector('.item-titulo').textContent.trim();
+      var status = el.classList.contains('concluido') ? '✅' : '⬜';
+      checkItens.push(status + ' ' + titulo);
     });
-    var pessoas = parseFloat(document.getElementById('calc-pessoas').value) || 0;
-    document.getElementById('ri-calc-pessoa').textContent = document.getElementById('calc-total-pessoa').textContent;
-    document.getElementById('ri-calc-geral').textContent = document.getElementById('calc-total-geral').textContent;
-    document.getElementById('ri-calc-pessoas-label').textContent = 'Total geral (' + pessoas + (pessoas === 1 ? ' pessoa' : ' pessoas') + ')';
+    var textoCheck = checkItens.length ? checkItens.join('\n') : 'Nenhum item no checklist.';
+    
+    // Dica do dia
+    var dica = document.getElementById('dica-texto') ? document.getElementById('dica-texto').textContent : 'Aproveite a viagem!';
+    
+    var mensagem = 
+'🌊 *PLANEJAMENTO DA VIAGEM — RECIFE/PE 2027*\n' +
+'━━━━━━━━━━━━━━━━━━━━━━━━━━━\n' +
+'📅 *Período:* 16/01/2027 a 27/01/2027 (' + dias + ' dias)\n' +
+'⏳ *Faltam:* ' + faltam + ' dias para viajar\n' +
+'\n' +
+'💰 *CUSTOS ESTIMADOS*\n' +
+'👤 Por pessoa: ' + custoPessoa + '\n' +
+'👫 Por casal: ' + custoCasal + '\n' +
+'\n' +
+'📝 *CHECKLIST (' + check + ' concluídos)*\n' +
+textoCheck + '\n' +
+'\n' +
+'🔔 *LEMBRETES*\n' +
+textoLembretes + '\n' +
+'\n' +
+'💡 *Dica do dia:* ' + dica + '\n' +
+'\n' +
+'📎 *Detalhes completos:*\n' +
+window.location.href + '\n' +
+'━━━━━━━━━━━━━━━━━━━━━━━━━━━\n' +
+'✈️ Bom planejamento e boa viagem! 🏖️';
+    
+    return mensagem;
   }
 
-  document.getElementById('btn-imprimir-resumo').addEventListener('click', function(){
-    prepararResumoImpressao();
-    fabWrap.classList.remove('aberto');
-    setTimeout(function(){ window.print(); }, 60);
+  /* ---------- Botão WhatsApp ---------- */
+  document.getElementById('btn-whatsapp').addEventListener('click', function() {
+    var mensagem = gerarResumoWhatsApp();
+    var textoCodificado = encodeURIComponent(mensagem);
+    
+    var urlWhatsApp = 'https://api.whatsapp.com/send?text=' + textoCodificado;
+    window.open(urlWhatsApp, '_blank');
+    
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(mensagem).then(function() {
+        mostrarToast('✅ Resumo copiado! Envie no WhatsApp.');
+      }).catch(function() {
+        mostrarToast('Abrindo WhatsApp...');
+      });
+    } else {
+      mostrarToast('Abrindo WhatsApp...');
+    }
   });
 
-  window.addEventListener('beforeprint', prepararResumoImpressao);
-</script>
+  /* ---------- Botão Compartilhar ---------- */
+  document.getElementById('btn-compartilhar').addEventListener('click', function() {
+    var mensagem = gerarResumoWhatsApp();
+    
+    if (navigator.share && navigator.canShare) {
+      navigator.share({
+        title: 'Planejamento da Viagem — Recife 2027',
+        text: mensagem,
+      }).catch(function(){});
+    } else if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(mensagem).then(function(){
+        mostrarToast('✅ Resumo copiado! Compartilhe onde quiser.');
+      }).catch(function(){
+        mostrarToast('Não foi possível copiar automaticamente.');
+      });
+    } else {
+      mostrarToast('Copie o link manualmente: ' + window.location.href);
+    }
+  });
 
+  /* ---------- Botão Imprimir Resumo ---------- */
+  document.getElementById('btn-imprimir-resumo').addEventListener('click', function(){
+    window.print();
+  });
+
+  /* ---------- Botão Agenda Google ---------- */
+  document.getElementById('btn-agenda-google').addEventListener('click', function(){
+    var titulo = encodeURIComponent('Viagem para Recife - Pregação e Passeio');
+    var descricao = encodeURIComponent(
+      'Período de pregação: 16/01/2027 a 24/01/2027\n' +
+      'Passeio: 25/01/2027 a 27/01/2027\n' +
+      'Destino: Recife, Pernambuco\n' +
+      'Organizado pelo grupo de pregação.\n\n' +
+      'Detalhes: ' + window.location.href
+    );
+    var inicio = '20270116';
+    var fim = '20270128';
+    var url = 'https://calendar.google.com/calendar/render?action=TEMPLATE' +
+      '&text=' + titulo +
+      '&dates=' + inicio + '/' + fim +
+      '&details=' + descricao +
+      '&location=Recife, Pernambuco';
+
+    window.open(url, '_blank');
+    mostrarToast('Abrindo Google Agenda...');
+  });
+</script>
 </body>
 </html>
