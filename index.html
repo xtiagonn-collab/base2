@@ -489,44 +489,6 @@
 
   footer.rodape{ text-align:center; padding:26px 20px 0; font-size:12px; color:var(--text-secondary); }
 
-  /* ===================== DASHBOARD / RESUMO EXECUTIVO ===================== */
-  .dashboard-grid {
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));
-    gap:12px;
-    margin-bottom:20px;
-  }
-  .dash-card {
-    background:var(--bg-card);
-    border:1px solid var(--border-color);
-    border-radius:12px;
-    padding:14px 16px;
-    text-align:center;
-    box-shadow:var(--shadow);
-    transition:transform 0.2s ease;
-  }
-  .dash-card:hover { transform:translateY(-2px); }
-  .dash-card .dash-num {
-    font-family:'Fraunces', serif;
-    font-size:24px;
-    font-weight:700;
-    color:var(--ocean-deep);
-    line-height:1.2;
-  }
-  .dash-card .dash-label {
-    font-size:11px;
-    color:var(--text-secondary);
-    text-transform:uppercase;
-    letter-spacing:0.5px;
-    font-weight:600;
-    margin-top:4px;
-  }
-  .dash-card .dash-icon {
-    font-size:20px;
-    display:block;
-    margin-bottom:2px;
-  }
-
   /* ===================== LEMBRETES ===================== */
   .lembrete-item {
     display:flex;
@@ -625,7 +587,7 @@
   @media print{
     .nav-wrap, .add-item-form, .remover-item, .toast, .calc-acoes,
     .hero-actions, .toggle-custos, .add-lembrete-form,
-    .dashboard-grid, .dica-dia { display:none !important; }
+    .dica-dia { display:none !important; }
     .painel{ display:block !important; }
     .hero{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
     .card{ box-shadow:none; border:1px solid #ccc; break-inside:avoid; }
@@ -647,8 +609,6 @@
     .calc-linha.destaque{ border-top-color:rgba(255,255,255,0.4) !important; }
     .toggle-btn.selecionado{ background:#f0e8d8 !important; }
     tr.subtotal td{ background:#f0e8d8 !important; }
-    .dash-card{ border:1px solid #ddd !important; background:white !important; }
-    .dash-card .dash-num{ color:#0a4d5e !important; }
     .lembrete-item{ background:#f5f5f5 !important; }
     .card-topo h2{ color:#0a4d5e !important; }
     .card-topo p{ color:#555 !important; }
@@ -662,7 +622,6 @@
     .nav-wrap{ padding:12px 14px 8px; }
     .card-corpo{ padding:18px 16px 20px; }
     .card-topo{ padding:16px 18px; }
-    .dashboard-grid{ grid-template-columns:1fr 1fr 1fr; }
     .hero-actions .btn-hero{ padding:8px 14px; font-size:12px; }
 
     table.tabela-flex, table.tabela-flex thead, table.tabela-flex tbody,
@@ -748,35 +707,6 @@
   </div>
 
   <div class="conteudo">
-
-    <!-- ===================== DASHBOARD ===================== -->
-    <div class="dashboard-grid" id="dashboard">
-      <div class="dash-card">
-        <span class="dash-icon">📅</span>
-        <div class="dash-num" id="dash-dias">12</div>
-        <div class="dash-label">Dias de viagem</div>
-      </div>
-      <div class="dash-card">
-        <span class="dash-icon">👤</span>
-        <div class="dash-num" id="dash-custo">R$ 9.497</div>
-        <div class="dash-label">Custo por pessoa</div>
-      </div>
-      <div class="dash-card">
-        <span class="dash-icon">👫</span>
-        <div class="dash-num" id="dash-custo-casal">R$ 14.960</div>
-        <div class="dash-label">Custo por casal</div>
-      </div>
-      <div class="dash-card">
-        <span class="dash-icon">✅</span>
-        <div class="dash-num" id="dash-check">0/4</div>
-        <div class="dash-label">Checklist</div>
-      </div>
-      <div class="dash-card">
-        <span class="dash-icon">⏳</span>
-        <div class="dash-num" id="dash-faltam">—</div>
-        <div class="dash-label">Dias para viajar</div>
-      </div>
-    </div>
 
     <!-- ===================== CRONOGRAMA ===================== -->
     <section id="cronograma" class="painel ativo" role="tabpanel" aria-labelledby="tab-cronograma">
@@ -1309,8 +1239,6 @@
     barra.style.width = pct + '%';
     label.textContent = feitos + ' de ' + total + ' concluídos';
     pctLabel.textContent = pct + '%';
-    // Atualiza dashboard
-    document.getElementById('dash-check').textContent = feitos + '/' + total;
   }
 
   function ativarItem(item){
@@ -1432,10 +1360,8 @@
       var agora = new Date().getTime();
       var dif = dataViagem - agora;
       var contadorEl = document.getElementById('contador');
-      var dashFaltam = document.getElementById('dash-faltam');
       if (dif <= 0){
         contadorEl.classList.add('encerrado');
-        dashFaltam.textContent = '0';
         return;
       }
       var totalDias = Math.floor(dif / (1000*60*60*24));
@@ -1445,7 +1371,6 @@
       document.getElementById('ct-meses').textContent = meses;
       document.getElementById('ct-dias').textContent = dias;
       document.getElementById('ct-horas').textContent = horas;
-      dashFaltam.textContent = totalDias;
     }
     atualizarContador();
     setInterval(atualizarContador, 60000);
@@ -1490,10 +1415,6 @@
 
     document.getElementById('calc-total-pessoa').textContent = formatarBRL(totalPorPessoa);
     document.getElementById('calc-total-geral').textContent = formatarBRL(totalGeral);
-
-    // Atualiza dashboard com ambos os valores
-    document.getElementById('dash-custo').textContent = formatarBRL(totalPorPessoa);
-    document.getElementById('dash-custo-casal').textContent = formatarBRL(totalPorPessoa * 2);
 
     var barraEl = document.getElementById('calc-barra');
     var legendaEl = document.getElementById('calc-legenda');
@@ -1592,12 +1513,10 @@
     var agora = new Date();
     var dataFormatada = agora.toLocaleDateString('pt-BR');
     
-    // Pega dados do dashboard
-    var dias = document.getElementById('dash-dias').textContent;
-    var custoPessoa = document.getElementById('dash-custo').textContent;
-    var custoCasal = document.getElementById('dash-custo-casal').textContent;
-    var check = document.getElementById('dash-check').textContent;
-    var faltam = document.getElementById('dash-faltam').textContent;
+    // Pega dados da página
+    var dias = document.querySelector('.resumo-box .total span:last-child').textContent;
+    var custoPessoa = document.querySelector('#custo-individual .resumo-box .total span:last-child').textContent;
+    var custoCasal = document.querySelector('#custo-casal .resumo-box .total span:last-child').textContent;
     
     // Pega dados dos lembretes
     var lembretes = [];
@@ -1624,13 +1543,12 @@
 '🌊 *PLANEJAMENTO DA VIAGEM — RECIFE/PE 2027*\n' +
 '━━━━━━━━━━━━━━━━━━━━━━━━━━━\n' +
 '📅 *Período:* 16/01/2027 a 27/01/2027 (' + dias + ' dias)\n' +
-'⏳ *Faltam:* ' + faltam + ' dias para viajar\n' +
 '\n' +
 '💰 *CUSTOS ESTIMADOS*\n' +
 '👤 Por pessoa: ' + custoPessoa + '\n' +
 '👫 Por casal: ' + custoCasal + '\n' +
 '\n' +
-'📝 *CHECKLIST (' + check + ' concluídos)*\n' +
+'📝 *CHECKLIST*\n' +
 textoCheck + '\n' +
 '\n' +
 '🔔 *LEMBRETES*\n' +
